@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrive Finance — Platform Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#FAFAF8; --sur:#FFF; --sur2:#F3F4F6;
+  --p:#15803D; --pd:#14532D; --pl:#DCFCE7; --p50:#F0FDF4;
+  --t:#111827; --tm:#6B7280; --tf:#9CA3AF;
+  --b:#E5E7EB; --amber:#D97706; --abg:#FFFBEB; --ab:#FDE68A;
+  --red:#DC2626; --rbg:#FEF2F2;
+  --sid:220px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;background:var(--bg);color:var(--t);display:flex;height:100vh;overflow:hidden}
+
+/* ── SIDEBAR ── */
+.sid{width:var(--sid);background:var(--sur);border-right:1px solid var(--b);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sid-logo{padding:20px 16px 16px;border-bottom:1px solid var(--b)}
+.sid-logo .wm{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--p)}
+.sid-logo .wm-sub{font-size:11px;color:var(--tm);margin-top:1px}
+.sid-section{padding:16px 0 4px}
+.sid-section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tf);padding:0 16px 6px}
+.sid-item{display:flex;align-items:center;gap:8px;padding:8px 16px;font-size:13px;font-weight:500;color:var(--tm);cursor:pointer;border-left:2px solid transparent;transition:all .12s}
+.sid-item:hover{background:var(--p50);color:var(--t)}
+.sid-item.active{background:var(--p50);color:var(--p);border-left-color:var(--p);font-weight:600}
+.sid-icon{font-size:15px;width:18px;text-align:center}
+.sid-footer{margin-top:auto;padding:16px;border-top:1px solid var(--b)}
+.sid-avatar{display:flex;align-items:center;gap:8px;font-size:13px}
+.av-circle{width:32px;height:32px;border-radius:50%;background:var(--pl);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--pd);flex-shrink:0}
+
+/* ── MAIN ── */
+.main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+.topbar{background:var(--sur);border-bottom:1px solid var(--b);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.topbar-title{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--t)}
+.topbar-sub{font-size:12px;color:var(--tm);margin-top:1px}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.btn-sm{font-size:13px;font-weight:600;padding:7px 14px;border-radius:6px;border:none;cursor:pointer;transition:background .12s}
+.btn-primary{background:var(--p);color:#fff}.btn-primary:hover{background:var(--pd)}
+.btn-ghost{background:none;border:1.5px solid var(--b);color:var(--t)}.btn-ghost:hover{border-color:var(--p);color:var(--p)}
+.content{padding:24px 28px;flex:1}
+
+/* panels */
+.panel{display:none}.panel.active{display:block}
+
+/* ── SHARED COMPONENTS ── */
+.row{display:grid;gap:16px}
+.row-2{grid-template-columns:1fr 1fr}
+.row-3{grid-template-columns:1fr 1fr 1fr}
+.row-13{grid-template-columns:1fr 2fr}
+.row-31{grid-template-columns:2fr 1fr}
+
+.card{background:var(--sur);border:1px solid var(--b);border-radius:12px;padding:20px}
+.card-sm{padding:14px 16px}
+.card-title{font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:var(--t);margin-bottom:4px}
+.card-sub{font-size:12px;color:var(--tm);margin-bottom:14px;line-height:1.5}
+.card-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tf);margin-bottom:8px}
+
+.amount{font-family:'Geist Mono',monospace;font-variant-numeric:tabular-nums}
+.amount-lg{font-size:28px;font-weight:500;color:var(--p)}
+.amount-md{font-size:20px;font-weight:500;color:var(--p)}
+.amount-sm{font-size:15px;font-weight:500;color:var(--p)}
+.amount-muted{color:var(--tm)}
+
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;padding:2px 7px;border-radius:9999px}
+.b-green{background:var(--pl);color:var(--pd)}
+.b-amber{background:var(--abg);color:var(--amber);border:1px solid var(--ab)}
+.b-gray{background:var(--sur2);color:var(--tm)}
+.b-red{background:var(--rbg);color:var(--red)}
+.b-blue{background:#EFF6FF;color:#2563EB}
+
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+
+/* progress */
+.prog-wrap{margin:8px 0}
+.prog-label{display:flex;justify-content:space-between;font-size:12px;color:var(--tm);margin-bottom:4px}
+.prog-track{height:6px;background:var(--b);border-radius:9999px;overflow:hidden}
+.prog-fill{height:100%;background:var(--p);border-radius:9999px}
+.prog-fill.amber{background:var(--amber)}
+.prog-fill.full{background:var(--p)}
+
+/* list items */
+.list-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--b)}
+.list-item:last-child{border-bottom:none}
+.li-left{display:flex;align-items:center;gap:10px}
+.li-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.li-icon-green{background:var(--p50)}
+.li-icon-blue{background:#EFF6FF}
+.li-icon-amber{background:var(--abg)}
+.li-icon-gray{background:var(--sur2)}
+.li-name{font-size:13px;font-weight:600;color:var(--t)}
+.li-sub{font-size:11px;color:var(--tm)}
+.li-right{text-align:right}
+
+/* tabs */
+.tabs{display:flex;gap:4px;background:var(--sur2);padding:4px;border-radius:8px;margin-bottom:18px;width:fit-content}
+.tab{font-size:13px;font-weight:600;padding:6px 14px;border-radius:6px;cursor:pointer;color:var(--tm);border:none;background:none;transition:all .12s}
+.tab.active{background:var(--sur);color:var(--t);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+/* input */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--tm);margin-bottom:4px}
+.field input,.field select{width:100%;height:40px;border:1.5px solid var(--b);border-radius:8px;padding:0 12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--t);background:var(--sur);outline:none;transition:border-color .12s}
+.field input:focus,.field select:focus{border-color:var(--p)}
+
+/* check items */
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--b)}
+.check-item:last-child{border-bottom:none}
+.check-circle{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:1px}
+.cc-done{background:var(--p);color:#fff}
+.cc-warn{background:var(--abg);color:var(--amber);border:1.5px solid var(--ab)}
+.cc-todo{background:var(--sur2);border:1.5px solid var(--b)}
+.check-main{font-size:13px;font-weight:600;color:var(--t)}
+.check-sub{font-size:12px;color:var(--tm);line-height:1.45;margin-top:1px}
+
+/* roadblock */
+.roadblock{background:var(--rbg);border:1px solid #FECACA;border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.rb-header{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--red);margin-bottom:4px}
+.rb-body{font-size:12px;color:var(--tm);line-height:1.5;padding-left:22px}
+.recommendation{background:var(--p50);border:1px solid #BBF7D0;border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.rec-header{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--pd);margin-bottom:4px}
+.rec-body{font-size:12px;color:var(--tm);line-height:1.5;padding-left:22px}
+
+/* execute row */
+.exec-row{background:var(--sur);border:1px solid var(--b);border-radius:10px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.exec-info{flex:1}
+.exec-action{font-size:13px;font-weight:700;color:var(--t)}
+.exec-sub{font-size:12px;color:var(--tm)}
+
+/* credit gauge */
+.gauge-wrap{text-align:center;padding:16px 0}
+.gauge-num{font-family:'Geist Mono',monospace;font-size:48px;font-weight:500;color:var(--p)}
+.gauge-label{font-size:13px;color:var(--tm);margin-top:2px}
+.gauge-bar{height:12px;border-radius:9999px;background:linear-gradient(to right,#DC2626,#D97706,#15803D);margin:12px 0 4px;position:relative}
+.gauge-marker{position:absolute;top:-3px;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--t);left:calc(62% - 9px)}
+
+/* net worth hero */
+.nw-hero{background:var(--p);border-radius:14px;padding:24px 28px;color:#fff;margin-bottom:20px}
+.nw-label{font-size:12px;font-weight:600;opacity:.75;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+.nw-amount{font-family:'Geist Mono',monospace;font-size:40px;font-weight:500;color:#fff}
+.nw-change{font-size:13px;opacity:.75;margin-top:4px}
+
+/* advisor chip */
+.advisor-chip{display:flex;align-items:center;gap:12px;background:var(--sur);border:1px solid var(--b);border-radius:10px;padding:12px 16px;margin-bottom:10px}
+.ac-av{width:40px;height:40px;border-radius:50%;background:var(--pl);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ac-name{font-size:13px;font-weight:700;color:var(--t)}
+.ac-role{font-size:11px;color:var(--tm)}
+.ac-badge{margin-left:auto;display:flex;gap:6px}
+
+.section-h{font-family:'Fraunces',serif;font-size:14px;font-weight:600;color:var(--t);margin:18px 0 10px;display:flex;align-items:center;gap:6px}
+
+.disclaimer{font-size:11px;color:var(--tf);line-height:1.5;padding:10px;background:var(--sur2);border-radius:6px;margin-top:12px}
+
+/* ── NEW: PANELS 2A / 2B / 3A ── */
+.nw-dark{background:#0F2419;border-radius:14px;padding:22px 24px;color:#fff;margin-bottom:20px}
+.nw-dark-label{font-size:11px;font-weight:600;opacity:.6;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+.nw-dark-amount{font-family:'Geist Mono',monospace;font-variant-numeric:tabular-nums;font-size:36px;font-weight:500;color:#fff;line-height:1}
+.nw-dark-meta{display:flex;gap:24px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
+.nw-dark-stat{font-size:12px;color:rgba(255,255,255,.6)}
+.nw-dark-stat strong{color:#fff;font-weight:600}
+.nw-dark-stat .up{color:#4ADE80}.nw-dark-stat .dn{color:#FCA5A5}
+.arrive-score{display:flex;align-items:center;gap:6px;background:var(--p50);border:1px solid #BBF7D0;padding:5px 12px;border-radius:9999px;font-size:13px;font-weight:700;color:var(--pd)}
+.arrive-score span{font-family:'Geist Mono',monospace}
+
+/* chart */
+.chart-wrap{background:var(--sur);border:1px solid var(--b);border-radius:12px;padding:16px 16px 8px;margin-bottom:16px}
+.chart-meta{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px;padding:0 4px}
+.chart-meta-item{font-size:12px;color:var(--tm)}
+.chart-meta-item strong{color:var(--t);font-weight:600}
+.chart-btns{display:flex;gap:8px;margin-bottom:12px}
+
+/* action center */
+.ac-cat{background:var(--sur);border:1px solid var(--b);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.ac-cat-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer}
+.ac-cat-title{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;color:var(--t)}
+.ac-cat-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.ac-cat-body{padding:0 16px 14px;border-top:1px solid var(--b)}
+.ac-action{display:flex;align-items:flex-start;gap:8px;padding:9px 0;border-bottom:1px solid var(--b);font-size:13px}
+.ac-action:last-child{border-bottom:none}
+.ac-action-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.ac-action .main{font-weight:600;color:var(--t)}
+.ac-action .sub{color:var(--tm);font-size:12px;margin-top:1px}
+
+/* modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:999}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--sur);border-radius:14px;width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 16px 48px rgba(0,0,0,.2)}
+.modal-head{padding:20px 24px 16px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+.modal-title{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--t)}
+.modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--tm);line-height:1;padding:0}
+.modal-body{padding:20px 24px}
+.modal-footer{padding:14px 24px;border-top:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+.slider-row{margin-bottom:18px}
+.slider-row label{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--t);margin-bottom:6px}
+.slider-row label span{font-family:'Geist Mono',monospace;font-size:13px;color:var(--p);font-weight:700}
+input[type=range]{width:100%;accent-color:var(--p);height:4px}
+
+/* popular goals grid */
+.pg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.pg-tile{background:var(--sur);border:1px solid var(--b);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .12s}
+.pg-tile:hover{border-color:var(--p);background:var(--p50)}
+.pg-tile-icon{font-size:22px;width:36px;text-align:center}
+.pg-tile-name{font-size:13px;font-weight:700;color:var(--t)}
+.pg-tile-sub{font-size:11px;color:var(--tm)}
+
+/* scenario cards */
+.sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sc-card{background:var(--sur2);border:1px solid var(--b);border-radius:10px;padding:14px 16px;cursor:pointer;transition:all .12s}
+.sc-card:hover{border-color:var(--p)}
+.sc-card-name{font-size:13px;font-weight:700;color:var(--t);margin-bottom:3px}
+.sc-card-sub{font-size:11px;color:var(--tm);line-height:1.45}
+
+/* score ring */
+.score-ring-wrap{text-align:center;padding:8px 0}
+.score-big{font-family:'Geist Mono',monospace;font-size:52px;font-weight:500;color:var(--p);line-height:1}
+.score-denom{font-size:18px;color:var(--tm)}
+.score-label{font-size:13px;color:var(--tm);margin-top:4px}
+</style>
+</head>
+<body>
+
+<!-- ════ SIDEBAR ════ -->
+<nav class="sid">
+  <div class="sid-logo">
+    <div class="wm">Arrive Finance</div>
+    <div class="wm-sub">Personal Finance OS · Beta</div>
+  </div>
+
+  <div class="sid-section">
+    <div class="sid-section-label">🍁 Onboarding</div>
+    <div class="sid-item active" onclick="show('p1a',this)"><span class="sid-icon">📊</span>Account Calculator</div>
+    <div class="sid-item" onclick="show('p1b',this)"><span class="sid-icon">⭐</span>Credit Score</div>
+    <div class="sid-item" onclick="show('p1c',this)"><span class="sid-icon">📍</span>Find a Professional</div>
+  </div>
+
+  <div class="sid-section">
+    <div class="sid-section-label">💼 Financial Health</div>
+    <div class="sid-item" onclick="show('p2a',this)"><span class="sid-icon">🏦</span>All My Money</div>
+    <div class="sid-item" onclick="show('p2b',this)"><span class="sid-icon">🎯</span>Goals</div>
+    <div class="sid-item" onclick="show('p2c',this)"><span class="sid-icon">✅</span>Best Practices</div>
+  </div>
+
+  <div class="sid-section">
+    <div class="sid-section-label">🤖 AI Advisor</div>
+    <div class="sid-item" onclick="show('p3a',this)"><span class="sid-icon">🔍</span>Portfolio Analysis</div>
+    <div class="sid-item" onclick="show('p3b',this)"><span class="sid-icon">👤</span>Talk to a Specialist</div>
+    <div class="sid-item" onclick="show('p3c',this)"><span class="sid-icon">⚡</span>Execute Plan</div>
+  </div>
+
+  <div class="sid-footer">
+    <div class="sid-avatar">
+      <div class="av-circle">AK</div>
+      <div><div style="font-size:13px;font-weight:600">Arjun Kumar</div><div style="font-size:11px;color:var(--tm)">Arrived Jan 2026</div></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ════ MAIN ════ -->
+<div class="main">
+
+  <!-- ─ 1A: ACCOUNT CALCULATOR ─ -->
+  <div id="p1a" class="panel active">
+    <div class="topbar">
+      <div><div class="topbar-title">RRSP / TFSA / FHSA Calculator</div><div class="topbar-sub">Onboarding · Step 1 of 3</div></div>
+      <div class="topbar-right"><span class="badge b-green">2026 arrival detected</span></div>
+    </div>
+    <div class="content">
+      <div class="row row-13" style="gap:20px">
+        <!-- Left: inputs -->
+        <div>
+          <div class="tabs">
+            <button class="tab active">TFSA</button>
+            <button class="tab">FHSA</button>
+            <button class="tab">RRSP</button>
+          </div>
+          <div class="card">
+            <div class="card-title">Tax-Free Savings Account</div>
+            <div class="card-sub">Grows and withdraws tax-free. Room starts the year you become a Canadian resident.</div>
+            <div class="field"><label>Arrival year</label><select><option>2026 (this year)</option><option>2025</option><option>2024 or earlier</option></select></div>
+            <div class="field"><label>Current TFSA balance</label><input type="text" value="$0" /></div>
+            <div class="field"><label>How much can you contribute?</label><input type="text" value="$7,000" /></div>
+            <div class="field"><label>Expected annual return (%)</label><input type="text" value="7%" /></div>
+            <div class="field"><label>Time horizon (years)</label><input type="text" value="25" /></div>
+            <button class="btn-sm btn-primary" style="width:100%">Calculate →</button>
+          </div>
+        </div>
+        <!-- Right: results -->
+        <div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="card-label">Your 2026 TFSA room</div>
+            <div class="amount amount-lg">$7,000</div>
+            <div style="font-size:12px;color:var(--tm);margin-top:4px">Resets every January 1st. Unused room carries forward permanently.</div>
+            <div class="prog-wrap" style="margin-top:12px">
+              <div class="prog-label"><span>Contributed</span><span>$0 / $7,000</span></div>
+              <div class="prog-track"><div class="prog-fill" style="width:0%"></div></div>
+            </div>
+          </div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="card-label">Projected value at 65</div>
+            <div class="amount amount-lg" style="color:var(--pd)">$86,200</div>
+            <div style="font-size:12px;color:var(--tm);margin-top:4px">If you contribute $7,000/year at 7% return for 25 years.</div>
+          </div>
+          <div class="card" style="background:var(--abg);border-color:var(--ab)">
+            <div class="card-label" style="color:#92400E">⚠ RRSP notice</div>
+            <div style="font-size:13px;color:#78350F;line-height:1.5">Your RRSP room is <strong>$0</strong> until you file your first Canadian tax return (early 2027). FHSA and TFSA first — RRSP unlocks next year.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─ 1B: CREDIT SCORE ─ -->
+  <div id="p1b" class="panel">
+    <div class="topbar">
+      <div><div class="topbar-title">Credit Score & Education</div><div class="topbar-sub">Onboarding · Step 2 of 3</div></div>
+      <div class="topbar-right"><span class="badge b-amber">Score: 680 — Fair</span><button class="btn-sm btn-ghost">Refresh score</button></div>
+    </div>
+    <div class="content">
+      <div class="row row-2" style="gap:20px">
+        <div>
+          <div class="card" style="text-align:center;margin-bottom:14px">
+            <div class="gauge-wrap">
+              <div class="gauge-num">680</div>
+              <div class="gauge-label">Fair — Good progress, room to improve</div>
+              <div class="gauge-bar"><div class="gauge-marker"></div></div>
+              <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--tf)"><span>300 Poor</span><span>580 Fair</span><span>670 Good</span><span>740 Very Good</span><span>850</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">What affects your score</div>
+            <div class="card-sub">Equifax & TransUnion use 5 factors</div>
+            <div class="list-item">
+              <div class="li-left"><div class="li-icon li-icon-green">💳</div><div><div class="li-name">Payment History</div><div class="li-sub">35% of score · All on time ✓</div></div></div>
+              <span class="badge b-green">Good</span>
+            </div>
+            <div class="list-item">
+              <div class="li-left"><div class="li-icon li-icon-amber">📊</div><div><div class="li-name">Credit Utilization</div><div class="li-sub">30% of score · Using 42% of limit</div></div></div>
+              <span class="badge b-amber">High</span>
+            </div>
+            <div class="list-item">
+              <div class="li-left"><div class="li-icon li-icon-blue">📅</div><div><div class="li-name">Credit History Length</div><div class="li-sub">15% of score · 8 months</div></div></div>
+              <span class="badge b-amber">Building</span>
+            </div>
+            <div class="list-item">
+              <div class="li-left"><div class="li-icon li-icon-green">🏦</div><div><div class="li-name">Credit Mix</div><div class="li-sub">10% · Credit card + line of credit</div></div></div>
+              <span class="badge b-green">Good</span>
+            </div>
+            <div class="list-item">
+              <div class="li-left"><div class="li-icon li-icon-gray">🔍</div><div><div class="li-name">New Inquiries</div><div class="li-sub">10% · 1 hard inquiry (3 months ago)</div></div></div>
+              <span class="badge b-green">OK</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="card-title">Your action plan to reach 740+</div>
+            <div class="card-sub">Estimated time: 8–12 months</div>
+            <div class="check-item"><div class="check-circle cc-done">✓</div><div><div class="check-main">Pay bills on time, every time</div><div class="check-sub">Set up auto-pay for credit card minimum. No missed payments in 8 months. ✓</div></div></div>
+            <div class="check-item"><div class="check-circle cc-warn">!</div><div><div class="check-main">Reduce utilization below 30%</div><div class="check-sub">You're at 42% ($2,100 of $5,000 limit). Pay down to $1,500 to cross the 30% threshold. +20–30 points.</div></div></div>
+            <div class="check-item"><div class="check-circle cc-done">✓</div><div><div class="check-main">Don't close old accounts</div><div class="check-sub">Your RBC card is your oldest — keep it open even if unused.</div></div></div>
+            <div class="check-item"><div class="check-circle cc-todo"></div><div><div class="check-main">Ask for a credit limit increase</div><div class="check-sub">After 6 months of on-time payments, call RBC and request higher limit. Lowers utilization without paying down.</div></div></div>
+            <div class="check-item"><div class="check-circle cc-todo"></div><div><div class="check-main">Avoid new credit applications</div><div class="check-sub">Each hard inquiry drops score ~5–10 pts. Wait until you're over 720 before applying for mortgage pre-approval.</div></div></div>
+          </div>
+          <div class="card" style="background:var(--p50);border-color:#BBF7D0">
+            <div class="card-label" style="color:var(--pd)">Why this matters for you</div>
+            <div style="font-size:13px;color:var(--t);line-height:1.55">A score of <strong>740+</strong> qualifies you for the best mortgage rates in Canada. At $500k purchase price, going from 680 to 740 could save you <strong style="color:var(--p)">$18,000–$24,000</strong> in interest over a 5-year term.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─ 1C: CPA/CFA DIRECTORY ─ -->
+  <div id="p1c" class="panel">
+    <div class="topbar">
+      <div><div class="topbar-title">Find a Professional</div><div class="topbar-sub">CPAs, CFAs, and CFPs near you</div></div>
+      <div class="topbar-right"><button class="btn-sm btn-ghost">Filter</button></div>
+    </div>
+    <div class="content">
+      <div class="row row-13" style="gap:20px">
+        <div>
+          <div class="card">
+            <div class="card-title">Search by location</div>
+            <div class="field" style="margin-top:10px"><label>Postal code</label><input type="text" value="M5V 2T6" /></div>
+            <div class="field"><label>Specialty</label><select><option>All specialties</option><option>Newcomer financial planning</option><option>Tax (CPA)</option><option>Investments (CFA/CFP)</option></select></div>
+            <div class="field"><label>Language</label><select><option>Any language</option><option>English</option><option>Hindi / Punjabi</option><option>Mandarin</option><option>Tagalog</option></select></div>
+            <button class="btn-sm btn-primary" style="width:100%">Search →</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;color:var(--tm);margin-bottom:12px">4 professionals within 5km of M5V 2T6</div>
+          <div class="advisor-chip">
+            <div class="ac-av">👩</div>
+            <div style="flex:1"><div class="ac-name">Priya Sharma, CPA, CA</div><div class="ac-role">Tax & newcomer planning · 0.8km · Hindi, Punjabi, English</div><div class="tag-row"><span class="badge b-green">Newcomer specialist</span><span class="badge b-blue">RRSP/TFSA/FHSA</span></div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:var(--t)">⭐ 4.9</div><button class="btn-sm btn-primary" style="margin-top:6px">Book</button></div>
+          </div>
+          <div class="advisor-chip">
+            <div class="ac-av">👨</div>
+            <div style="flex:1"><div class="ac-name">David Chen, CFP</div><div class="ac-role">Financial planning · 1.2km · Mandarin, English</div><div class="tag-row"><span class="badge b-blue">First home buyers</span><span class="badge b-green">FHSA expert</span></div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:var(--t)">⭐ 4.7</div><button class="btn-sm btn-ghost" style="margin-top:6px">Book</button></div>
+          </div>
+          <div class="advisor-chip">
+            <div class="ac-av">👩</div>
+            <div style="flex:1"><div class="ac-name">Maria Santos, CFA</div><div class="ac-role">Investments & portfolio · 2.1km · Tagalog, English</div><div class="tag-row"><span class="badge b-blue">ETF investing</span><span class="badge b-gray">Wealthsimple</span></div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:var(--t)">⭐ 4.8</div><button class="btn-sm btn-ghost" style="margin-top:6px">Book</button></div>
+          </div>
+          <div class="advisor-chip">
+            <div class="ac-av">👨</div>
+            <div style="flex:1"><div class="ac-name">Raj Patel, CPA, CFA</div><div class="ac-role">Tax + investments · 3.4km · Hindi, English</div><div class="tag-row"><span class="badge b-green">Newcomer specialist</span><span class="badge b-blue">Dual-qualified</span></div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:var(--t)">⭐ 5.0</div><button class="btn-sm btn-ghost" style="margin-top:6px">Book</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─ 2A: ALL MY MONEY ─ -->
+  <div id="p2a" class="panel">
+    <div class="topbar">
+      <div><div class="topbar-title">All My Money</div><div class="topbar-sub">5 connected accounts · synced 2 min ago</div></div>
+      <div class="topbar-right">
+        <div class="arrive-score">Arrive Score <span>68</span><span style="color:var(--tm);font-weight:400">/100</span></div>
+        <button class="btn-sm btn-ghost">+ Connect</button>
+      </div>
+    </div>
+    <div class="content">
+      <!-- Dark net worth hero -->
+      <div class="nw-dark">
+        <div class="nw-dark-label">Total Net Worth</div>
+        <div class="nw-dark-amount">$112,400</div>
+        <div class="nw-dark-meta">
+          <div class="nw-dark-stat">Portfolio XIRR <strong class="dn">4.2%</strong></div>
+          <div class="nw-dark-stat">TSX Composite <strong class="up">5.8%</strong></div>
+          <div class="nw-dark-stat">vs Benchmark <strong class="dn">−1.6%</strong></div>
+          <div class="nw-dark-stat">Since Jan 2026 <strong class="up">↑ $15,000</strong></div>
+        </div>
+      </div>
+
+      <div class="row row-2" style="gap:16px">
+        <div>
+          <div class="section-h">🇨🇦 Registered Accounts</div>
+          <div class="card card-sm" style="margin-bottom:14px">
+            <div class="list-item">
+              <div class="li-left"><div class="li-icon li-icon-green">💎</div><div><div class="li-name">FHSA — Questrade</div><div class="li-sub">First Home Savings · cash</div></div></div>
+              <div class="li-right"><div class="amount amount-sm">$8,000</div><span class="badge b-amber" style="margin-top:3px;display:block">⚠ Not invested</span></div>
+            </div>
+            <div class="list-item">
+              <div class="li-left"><div class="li-icon li-icon-green">🛡</div><div><div class="li-name">TFSA — Wealthsimple</div><div class="li-sub">Tax-Free Savings · cash</div></div></div>
+              <div class="li-right"><div class="amount amount-sm">$7,000</div><span class="badge b-amber" style="margin-top:3px;display:block">⚠ Not invested</span></div>
+            </div>
+            <div class="list-item" style="opacity:.55">
+              <div class="li-left"><div class="li-icon li-icon-gray">📈</div><div><div class="li-name">RRSP</div><div class="li-sub">Room unlocks after 2026 filing</div></div></div>
+              <div class="li-right"><div class="amount amount-sm amount-muted">$0</div><span class="badge b-gray" style="margin-top:3px;display:block">2027</span></div>
+            </div>
+          </div>
+          <div class="section-h">🏦 Banking</div>
+          <div class="card card-sm">
+            <div class="list-item">
+              <div class="li-left"><div class="li-icon li-icon-blue">🏦</div><div><div class="li-name">RBC Chequing</div><div class="li-sub">Day-to-day · 0% return</div></div></div>
+              <div class="li-right"><div class="amount amount-sm">$12,400</div></div>
+            </div>
+            <div class="list-item">
+              <div class="li-left"><div class="li-icon li-icon-blue">💰</div><div><div class="li-name">EQ Bank HISA</div><div class="li-sub">4.50% APY · Emergency + savings</div></div></div>
+              <div class="li-right"><div class="amount amount-sm">$85,000</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-h">📊 Allocation & performance</div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="card-label">Where your money sits</div>
+            <div style="margin:10px 0">
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="font-weight:600">HISA — cash</span><span class="amount" style="font-size:12px;color:var(--tm)">$85,000 · 75.6%</span></div>
+              <div class="prog-track" style="height:8px"><div class="prog-fill" style="width:75.6%;background:#94A3B8"></div></div>
+            </div>
+            <div style="margin:10px 0">
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="font-weight:600">Chequing</span><span class="amount" style="font-size:12px;color:var(--tm)">$12,400 · 11.0%</span></div>
+              <div class="prog-track" style="height:8px"><div class="prog-fill" style="width:11%;background:#60A5FA"></div></div>
+            </div>
+            <div style="margin:10px 0">
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="font-weight:600">FHSA — cash</span><span class="amount" style="font-size:12px;color:var(--tm)">$8,000 · 7.1%</span></div>
+              <div class="prog-track" style="height:8px"><div class="prog-fill" style="width:7.1%"></div></div>
+            </div>
+            <div style="margin:10px 0">
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="font-weight:600">TFSA — cash</span><span class="amount" style="font-size:12px;color:var(--tm)">$7,000 · 6.2%</span></div>
+              <div class="prog-track" style="height:8px"><div class="prog-fill" style="width:6.2%"></div></div>
+            </div>
+            <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--b);font-size:12px;color:var(--tm)">
+              <span style="color:var(--amber);font-weight:600">⚠ 88.9% sitting in cash or low-yield accounts.</span> Invested portion earning 4.5%. TSX benchmark: 5.8%.
+            </div>
+          </div>
+
+          <div class="card" style="background:var(--rbg);border-color:#FECACA">
+            <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px">📉 XIRR underperforming benchmark by 1.6%</div>
+            <div style="font-size:12px;color:var(--tm);line-height:1.55">Your $15,000 in FHSA + TFSA is in cash (0% return). If invested in XEQT at the TSX benchmark rate, you'd earn an extra ~$870/year tax-free. See <strong>AI Advisor → Execute Plan</strong>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─ 2B: GOALS ─ -->
+  <div id="p2b" class="panel">
+    <div class="topbar">
+      <div><div class="topbar-title">Your Goals</div><div class="topbar-sub">Age 31 · Savings $112K · Income $85K/yr · Expected return 7%</div></div>
+      <div class="topbar-right">
+        <button class="btn-sm btn-ghost" onclick="document.getElementById('impact-modal').classList.add('open')">📊 View Impact</button>
+        <button class="btn-sm btn-primary" onclick="document.getElementById('addgoal-modal').classList.add('open')">+ Add Goal</button>
+      </div>
+    </div>
+    <div class="content" style="padding-bottom:32px">
+
+      <!-- ── NET WORTH TRAJECTORY CHART ── -->
+      <div class="chart-wrap">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:0 4px">
+          <div style="font-family:'Fraunces',serif;font-size:15px;font-weight:600;color:var(--t)">Net Worth Trajectory</div>
+          <div style="display:flex;gap:14px;font-size:11px;color:var(--tm)">
+            <span>● <span style="color:var(--p);font-weight:600">Net Worth</span></span>
+            <span>○ Goal milestones</span>
+          </div>
+        </div>
+
+        <svg viewBox="0 0 680 210" style="width:100%;overflow:visible;display:block">
+          <defs>
+            <linearGradient id="gfill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#15803D" stop-opacity="0.12"/>
+              <stop offset="100%" stop-color="#15803D" stop-opacity="0.01"/>
+            </linearGradient>
+          </defs>
+
+          <!-- grid lines -->
+          <line x1="44" y1="22" x2="660" y2="22" stroke="#E5E7EB" stroke-width="1"/>
+          <line x1="44" y1="72" x2="660" y2="72" stroke="#E5E7EB" stroke-width="1"/>
+          <line x1="44" y1="122" x2="660" y2="122" stroke="#E5E7EB" stroke-width="1"/>
+          <line x1="44" y1="172" x2="660" y2="172" stroke="#E5E7EB" stroke-width="1"/>
+
+          <!-- y-axis labels -->
+          <text x="40" y="26" text-anchor="end" font-size="9" fill="#9CA3AF" font-family="Geist Mono, monospace">$1.5M</text>
+          <text x="40" y="76" text-anchor="end" font-size="9" fill="#9CA3AF" font-family="Geist Mono, monospace">$1.0M</text>
+          <text x="40" y="126" text-anchor="end" font-size="9" fill="#9CA3AF" font-family="Geist Mono, monospace">$500K</text>
+          <text x="40" y="176" text-anchor="end" font-size="9" fill="#9CA3AF" font-family="Geist Mono, monospace">$0</text>
+
+          <!-- filled area under curve -->
+          <path d="M 48,172 C 80,170 100,167 120,163 C 148,158 165,152 188,144 C 215,134 238,122 264,109 C 292,94 318,80 344,68 C 372,55 398,43 424,35 C 450,27 474,22 500,22 C 524,22 545,28 570,38 C 590,46 618,60 640,75 L 640,172 Z" fill="url(#gfill)"/>
+
+          <!-- net worth curve -->
+          <path d="M 48,172 C 80,170 100,167 120,163 C 148,158 165,152 188,144 C 215,134 238,122 264,109 C 292,94 318,80 344,68 C 372,55 398,43 424,35 C 450,27 474,22 500,22 C 524,22 545,28 570,38 C 590,46 618,60 640,75" fill="none" stroke="#15803D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- x-axis labels (age / year) -->
+          <text x="48"  y="192" text-anchor="middle" font-size="9" fill="#9CA3AF">31</text>
+          <text x="48"  y="202" text-anchor="middle" font-size="8" fill="#9CA3AF">2026</text>
+          <text x="152" y="192" text-anchor="middle" font-size="9" fill="#9CA3AF">37</text>
+          <text x="152" y="202" text-anchor="middle" font-size="8" fill="#9CA3AF">2032</text>
+          <text x="256" y="192" text-anchor="middle" font-size="9" fill="#9CA3AF">43</text>
+          <text x="256" y="202" text-anchor="middle" font-size="8" fill="#9CA3AF">2038</text>
+          <text x="360" y="192" text-anchor="middle" font-size="9" fill="#9CA3AF">49</text>
+          <text x="360" y="202" text-anchor="middle" font-size="8" fill="#9CA3AF">2044</text>
+          <text x="464" y="192" text-anchor="middle" font-size="9" fill="#9CA3AF">55</text>
+          <text x="464" y="202" text-anchor="middle" font-size="8" fill="#9CA3AF">2050</text>
+          <text x="568" y="192" text-anchor="middle" font-size="9" fill="#9CA3AF">61</text>
+          <text x="568" y="202" text-anchor="middle" font-size="8" fill="#9CA3AF">2056</text>
+          <text x="640" y="192" text-anchor="middle" font-size="9" fill="#9CA3AF">65</text>
+          <text x="640" y="202" text-anchor="middle" font-size="8" fill="#9CA3AF">2060</text>
+
+          <!-- GOAL: First Home at age 33 (x≈69, y≈168 on curve) -->
+          <circle cx="69" cy="168" r="15" fill="white" stroke="#D97706" stroke-width="2"/>
+          <text x="69" y="173" text-anchor="middle" font-size="13">🏠</text>
+          <line x1="69" y1="153" x2="69" y2="145" stroke="#D97706" stroke-width="1" stroke-dasharray="2,2"/>
+          <text x="69" y="142" text-anchor="middle" font-size="9" fill="#D97706" font-weight="bold">$100K</text>
+
+          <!-- GOAL: Emergency Fund at age 32 (x≈58, y≈170) -->
+          <circle cx="58" cy="170" r="12" fill="white" stroke="#15803D" stroke-width="2"/>
+          <text x="58" y="174" text-anchor="middle" font-size="11">🛡</text>
+
+          <!-- GOAL: Retirement at age 65 (x≈640, y≈75 on curve) -->
+          <circle cx="640" cy="75" r="16" fill="#15803D" stroke="#14532D" stroke-width="2"/>
+          <text x="640" y="80" text-anchor="middle" font-size="13">✅</text>
+          <text x="640" y="60" text-anchor="middle" font-size="9" fill="#15803D" font-weight="bold">$1.5M</text>
+
+          <!-- current position dot -->
+          <circle cx="48" cy="172" r="5" fill="#15803D"/>
+          <text x="48" y="184" text-anchor="middle" font-size="8" fill="#15803D" font-weight="bold">Now</text>
+        </svg>
+
+        <div style="display:flex;gap:16px;padding:8px 4px 0;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tm)"><span style="width:12px;height:12px;border-radius:50%;background:#D97706;border:2px solid #D97706;display:inline-block"></span>🏠 First Home — age 33, $100K</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tm)"><span style="width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--p);display:inline-block"></span>🛡 Emergency Fund — age 32, $20K</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tm)"><span style="width:12px;height:12px;border-radius:50%;background:var(--p);display:inline-block"></span>✅ Retirement — age 65, $1.5M</div>
+        </div>
+      </div>
+
+      <!-- ── POPULAR GOALS ── -->
+      <div class="section-h">🇨🇦 Popular Canadian Goals</div>
+      <div class="pg-grid" style="margin-bottom:20px">
+        <div class="pg-tile"><div class="pg-tile-icon">🏠</div><div><div class="pg-tile-name">First Home</div><div class="pg-tile-sub">Avg down payment $120K in GTA</div></div></div>
+        <div class="pg-tile"><div class="pg-tile-icon">🚗</div><div><div class="pg-tile-name">Car</div><div class="pg-tile-sub">Avg $35K for a reliable used vehicle</div></div></div>
+        <div class="pg-tile"><div class="pg-tile-icon">🎓</div><div><div class="pg-tile-name">Child's Education</div><div class="pg-tile-sub">RESP + $80K/child for university</div></div></div>
+        <div class="pg-tile"><div class="pg-tile-icon">✈️</div><div><div class="pg-tile-name">Vacation</div><div class="pg-tile-sub">Visit family abroad, avg $5K/trip</div></div></div>
+      </div>
+
+      <!-- ── SCENARIOS ── -->
+      <div class="section-h">🔮 Prepare for Scenarios</div>
+      <div class="sc-grid">
+        <div class="sc-card"><div class="sc-card-name">Job Loss</div><div class="sc-card-sub">Canada: 3–6 month EI benefit. How long does your emergency fund last?</div></div>
+        <div class="sc-card"><div class="sc-card-name">Parental Leave</div><div class="sc-card-sub">EI parental benefits cover ~55% of income for up to 35 weeks. Model the gap.</div></div>
+        <div class="sc-card"><div class="sc-card-name">Sabbatical / Career Break</div><div class="sc-card-sub">No EI. How long can you sustain your lifestyle without income?</div></div>
+        <div class="sc-card"><div class="sc-card-name">Return to Home Country</div><div class="sc-card-sub">TFSA / FHSA are Canadian accounts. What happens if you leave permanently?</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── VIEW IMPACT MODAL ── -->
+  <div class="modal-overlay" id="impact-modal" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="modal-box">
+      <div class="modal-head">
+        <div class="modal-title">View Impact</div>
+        <button class="modal-close" onclick="document.getElementById('impact-modal').classList.remove('open')">×</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:13px;color:var(--tm);margin-bottom:18px;line-height:1.5">Adjust these assumptions to see how they change your net worth trajectory.</p>
+        <div class="slider-row"><label>Retirement Age <span id="ret-val">65</span></label><input type="range" min="50" max="70" value="65" oninput="document.getElementById('ret-val').textContent=this.value"></div>
+        <div class="slider-row"><label>Life Expectancy <span id="life-val">85</span></label><input type="range" min="70" max="100" value="85" oninput="document.getElementById('life-val').textContent=this.value"></div>
+        <div class="slider-row"><label>Emergency Fund (months) <span id="emerg-val">6</span></label><input type="range" min="3" max="24" value="6" oninput="document.getElementById('emerg-val').textContent=this.value"></div>
+        <div class="slider-row"><label>Annual Income Growth % <span id="inc-val">3.5</span>%</label><input type="range" min="0" max="10" value="35" step="1" oninput="document.getElementById('inc-val').textContent=(this.value/10).toFixed(1)"></div>
+        <div class="slider-row"><label>Canadian Inflation % <span id="inf-val">2.5</span>%</label><input type="range" min="1" max="6" value="25" step="1" oninput="document.getElementById('inf-val').textContent=(this.value/10).toFixed(1)"></div>
+        <div class="slider-row"><label>Expense Cut at Retirement <span id="exp-val">20</span>%</label><input type="range" min="0" max="50" value="20" oninput="document.getElementById('exp-val').textContent=this.value"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-sm btn-ghost">Reset All</button>
+        <button class="btn-sm btn-primary" onclick="document.getElementById('impact-modal').classList.remove('open')">View Impact →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ADD GOAL MODAL ── -->
+  <div class="modal-overlay" id="addgoal-modal" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="modal-box">
+      <div class="modal-head">
+        <div class="modal-title">Add / Edit Goal</div>
+        <button class="modal-close" onclick="document.getElementById('addgoal-modal').classList.remove('open')">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="field"><label>Goal Type</label><select><option>First Home Down Payment</option><option>Car</option><option>Child's Education (RESP)</option><option>Vacation / Travel</option><option>Emergency Fund</option><option>Retirement</option><option>Custom</option></select></div>
+        <div class="field"><label>Goal Name</label><input type="text" placeholder="e.g. First home in GTA"/></div>
+        <div class="field"><label>Goal Amount (CAD)</label><input type="text" placeholder="$100,000"/></div>
+        <div class="field"><label>Target Year</label><input type="text" placeholder="2028"/></div>
+        <div class="field"><label>Expected Inflation %</label><input type="text" value="2.5"/></div>
+        <div class="field"><label>Inflation-adjusted Amount <span style="font-size:11px;color:var(--tm)">(calculated)</span></label><input type="text" value="$108,243" style="background:var(--sur2);color:var(--tm)" readonly/></div>
+        <div style="margin-bottom:14px">
+          <label style="font-size:12px;font-weight:600;color:var(--tm);display:block;margin-bottom:8px">Priority</label>
+          <div style="display:flex;gap:16px;font-size:14px">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="pri" value="high"> High</label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="pri" value="med" checked> Medium</label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="pri" value="low"> Low</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-sm btn-ghost" onclick="document.getElementById('addgoal-modal').classList.remove('open')">Cancel</button>
+        <button class="btn-sm btn-primary" onclick="document.getElementById('addgoal-modal').classList.remove('open')">Save Goal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─ 2C: BEST PRACTICES ─ -->
+  <div id="p2c" class="panel">
+    <div class="topbar">
+      <div><div class="topbar-title">Canadian Finance Best Practices</div><div class="topbar-sub">Your financial health score</div></div>
+      <div class="topbar-right"><div class="amount amount-md" style="color:var(--amber)">6 / 10</div></div>
+    </div>
+    <div class="content">
+      <div class="row row-2" style="gap:16px">
+        <div>
+          <div class="section-h">✅ Completed</div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="check-item"><div class="check-circle cc-done">✓</div><div><div class="check-main">Opened a TFSA</div><div class="check-sub">Wealthsimple · $7,000 contributed</div></div></div>
+            <div class="check-item"><div class="check-circle cc-done">✓</div><div><div class="check-main">Opened an FHSA</div><div class="check-sub">Questrade · $8,000 contributed · Dec 31, 2026 deadline met</div></div></div>
+            <div class="check-item"><div class="check-circle cc-done">✓</div><div><div class="check-main">Emergency fund (90% complete)</div><div class="check-sub">$18,000 of $20,000 · EQ Bank HISA</div></div></div>
+            <div class="check-item"><div class="check-circle cc-done">✓</div><div><div class="check-main">No high-interest debt</div><div class="check-sub">Credit card paid in full each month</div></div></div>
+          </div>
+          <div class="section-h">⚠️ Needs attention</div>
+          <div class="card">
+            <div class="check-item"><div class="check-circle cc-warn">!</div><div><div class="check-main">Invest TFSA and FHSA contributions</div><div class="check-sub">$15,000 sitting in cash. Should be in a low-cost index fund (XEQT/XBAL). See Execute Plan.</div></div></div>
+            <div class="check-item"><div class="check-circle cc-warn">!</div><div><div class="check-main">Credit utilization too high (42%)</div><div class="check-sub">Aim for under 30%. Pay $500 more on RBC card this month.</div></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-h">📋 Not yet started</div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="check-item"><div class="check-circle cc-todo"></div><div><div class="check-main">File 2026 tax return (Feb–April 2027)</div><div class="check-sub">Required to unlock RRSP room. Use SimpleTax (free) or H&R Block. Worth doing even if income is $0 for 2026 partial year.</div></div></div>
+            <div class="check-item"><div class="check-circle cc-todo"></div><div><div class="check-main">Open RRSP after 2027 filing</div><div class="check-sub">$15,300 room available. Deadline: March 1, 2028 (to apply against 2027 taxes).</div></div></div>
+            <div class="check-item"><div class="check-circle cc-todo"></div><div><div class="check-main">Will & power of attorney</div><div class="check-sub">Often overlooked by newcomers. Particularly important if you have dependents outside Canada.</div></div></div>
+            <div class="check-item"><div class="check-circle cc-todo"></div><div><div class="check-main">Life & disability insurance review</div><div class="check-sub">New residents are often underinsured. TD and Manulife offer newcomer-specific products.</div></div></div>
+          </div>
+          <div class="card" style="background:var(--p50);border-color:#BBF7D0">
+            <div class="card-label" style="color:var(--pd)">Canadian vs. your home country</div>
+            <div style="font-size:13px;color:var(--t);line-height:1.6">Canada's registered accounts (RRSP/TFSA/FHSA) are unusually powerful vs. most countries. India's PPF/EPF equivalent — but with the FHSA being unique globally: deductible going in AND tax-free coming out for a home purchase.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─ 3A: AI ANALYSIS ─ -->
+  <div id="p3a" class="panel">
+    <div class="topbar">
+      <div><div class="topbar-title">Action Center</div><div class="topbar-sub">AI analysis · May 21, 2026 · 4 areas reviewed</div></div>
+      <div class="topbar-right">
+        <div class="arrive-score">Arrive Score <span>68</span><span style="color:var(--tm);font-weight:400">/100</span></div>
+        <button class="btn-sm btn-primary" onclick="show('p3b',document.querySelectorAll('.sid-item')[7])">Talk to specialist →</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="row row-31" style="gap:20px">
+        <div>
+
+          <!-- Category 1: Account Setup -->
+          <div class="ac-cat">
+            <div class="ac-cat-header">
+              <div class="ac-cat-title">
+                <div class="ac-cat-icon" style="background:var(--p50)">🏦</div>
+                Account Setup
+              </div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="badge b-amber">1 action needed</span>
+                <span style="color:var(--tf);font-size:18px">›</span>
+              </div>
+            </div>
+            <div class="ac-cat-body">
+              <div class="ac-action"><div class="ac-action-dot" style="background:var(--p)"></div><div><div class="main">TFSA opened ✓ — $7,000 contributed</div><div class="sub">Wealthsimple · 2026 room fully used</div></div></div>
+              <div class="ac-action"><div class="ac-action-dot" style="background:var(--p)"></div><div><div class="main">FHSA opened ✓ — $8,000 contributed</div><div class="sub">Questrade · Dec 31, 2026 deadline met</div></div></div>
+              <div class="ac-action"><div class="ac-action-dot" style="background:var(--amber)"></div><div><div class="main">⚠ RRSP not yet open — room unlocks in 2027</div><div class="sub">File 2026 tax return by April 30, 2027 → $15,300 room unlocks → open RRSP by March 1, 2028</div></div></div>
+            </div>
+          </div>
+
+          <!-- Category 2: Portfolio Health -->
+          <div class="ac-cat">
+            <div class="ac-cat-header">
+              <div class="ac-cat-title">
+                <div class="ac-cat-icon" style="background:var(--rbg)">📉</div>
+                Portfolio Health
+              </div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="badge b-red">2 critical</span>
+                <span style="color:var(--tf);font-size:18px">›</span>
+              </div>
+            </div>
+            <div class="ac-cat-body">
+              <div class="ac-action"><div class="ac-action-dot" style="background:var(--red)"></div><div><div class="main">$15,000 in TFSA + FHSA sitting in cash (0% return)</div><div class="sub">Fix this week: buy XEQT (all-equity, MER 0.20%) in both accounts. Costs ~$1,050/year in foregone growth at 7% benchmark.</div></div></div>
+              <div class="ac-action"><div class="ac-action-dot" style="background:var(--red)"></div><div><div class="main">Portfolio XIRR 4.2% vs TSX benchmark 5.8% (−1.6%)</div><div class="sub">Gap caused entirely by uninvested registered accounts. Investing TFSA + FHSA closes this gap immediately.</div></div></div>
+              <div class="ac-action"><div class="ac-action-dot" style="background:var(--p)"></div><div><div class="main">HISA earning 4.50% APY ✓ — appropriate for now</div><div class="sub">EQ Bank · $85,000 · correct placement while RRSP room is pending</div></div></div>
+            </div>
+          </div>
+
+          <!-- Category 3: Goal Progress -->
+          <div class="ac-cat">
+            <div class="ac-cat-header">
+              <div class="ac-cat-title">
+                <div class="ac-cat-icon" style="background:var(--abg)">🎯</div>
+                Goal Progress
+              </div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="badge b-amber">1 of 3 on track</span>
+                <span style="color:var(--tf);font-size:18px">›</span>
+              </div>
+            </div>
+            <div class="ac-cat-body">
+              <div class="ac-action"><div class="ac-action-dot" style="background:var(--amber)"></div><div><div class="main">🏠 First Home: Dec 2031 at current pace — 3 years behind goal</div><div class="sub">Fix: increase savings to $2,400/month. FHSA room resets Jan 2027 ($8K more). With XEQT growth: Dec 2028 on track.</div></div></div>
+              <div class="ac-action"><div class="ac-action-dot" style="background:var(--p)"></div><div><div class="main">🛡 Emergency Fund: 90% complete ✓</div><div class="sub">$18,000 of $20,000 — one more $2,000 contribution. On track.</div></div></div>
+              <div class="ac-action"><div class="ac-action-dot" style="background:var(--amber)"></div><div><div class="main">💎 FHSA contributed but not invested</div><div class="sub">$8,000 contributed (goal met). But sitting in cash — invest in XEQT to actually grow it tax-free.</div></div></div>
+            </div>
+          </div>
+
+          <!-- Category 4: Credit -->
+          <div class="ac-cat">
+            <div class="ac-cat-header">
+              <div class="ac-cat-title">
+                <div class="ac-cat-icon" style="background:#EFF6FF">⭐</div>
+                Credit Score
+              </div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="badge b-amber">Needs improvement</span>
+                <span style="color:var(--tf);font-size:18px">›</span>
+              </div>
+            </div>
+            <div class="ac-cat-body">
+              <div class="ac-action"><div class="ac-action-dot" style="background:var(--amber)"></div><div><div class="main">Score 680 — below 740 threshold for best mortgage rate</div><div class="sub">At current 680, preferred rate unavailable. Cost: ~$20,000 over 5-year mortgage term at $500K purchase.</div></div></div>
+              <div class="ac-action"><div class="ac-action-dot" style="background:var(--amber)"></div><div><div class="main">Credit utilization 42% — reduce to under 30%</div><div class="sub">Pay RBC card from $2,100 → $1,500 this month. Expected score gain: +20–30 points in 30 days.</div></div></div>
+              <div class="ac-action"><div class="ac-action-dot" style="background:var(--p)"></div><div><div class="main">Payment history: 100% on time ✓</div><div class="sub">8 months of clean payments. Most important factor (35% of score) is strong.</div></div></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Score + Forecast -->
+        <div>
+          <div class="card" style="margin-bottom:14px;text-align:center;padding:24px">
+            <div class="card-label" style="text-align:center">Your Arrive Score</div>
+            <div class="score-ring-wrap">
+              <div class="score-big">68<span class="score-denom">/100</span></div>
+              <div class="score-label">Fair · 4 areas reviewed</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px">
+              <div style="background:var(--p50);border-radius:8px;padding:10px;text-align:center"><div style="font-size:10px;color:var(--tm);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Accounts</div><div style="font-size:18px;font-weight:700;color:var(--p)">8/10</div></div>
+              <div style="background:var(--rbg);border-radius:8px;padding:10px;text-align:center"><div style="font-size:10px;color:var(--tm);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Portfolio</div><div style="font-size:18px;font-weight:700;color:var(--red)">5/10</div></div>
+              <div style="background:var(--abg);border-radius:8px;padding:10px;text-align:center"><div style="font-size:10px;color:var(--tm);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Goals</div><div style="font-size:18px;font-weight:700;color:var(--amber)">6/10</div></div>
+              <div style="background:#EFF6FF;border-radius:8px;padding:10px;text-align:center"><div style="font-size:10px;color:var(--tm);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Credit</div><div style="font-size:18px;font-weight:700;color:#2563EB">7/10</div></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-label">First Home · with vs. without fixes</div>
+            <div style="margin:12px 0">
+              <div style="font-size:12px;color:var(--tm);margin-bottom:4px">Current pace</div>
+              <div class="prog-track"><div class="prog-fill amber" style="width:30%"></div></div>
+              <div style="font-size:11px;color:var(--amber);margin-top:3px">Dec 2031 — 3 years late</div>
+            </div>
+            <div style="margin:12px 0">
+              <div style="font-size:12px;color:var(--tm);margin-bottom:4px">With AI recommendations</div>
+              <div class="prog-track"><div class="prog-fill" style="width:78%"></div></div>
+              <div style="font-size:11px;color:var(--p);margin-top:3px">Dec 2028 — on target ✓</div>
+            </div>
+            <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--b);font-size:12px;color:var(--tm)">
+              Two actions close the gap: <strong>invest TFSA+FHSA</strong> this week + <strong>save $2,400/month</strong> from Jan 2027.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─ 3B: TALK TO SPECIALIST ─ -->
+  <div id="p3b" class="panel">
+    <div class="topbar">
+      <div><div class="topbar-title">Talk to a Specialist</div><div class="topbar-sub">Human-in-the-loop · AI brief sent to your advisor</div></div>
+      <div class="topbar-right"><span class="badge b-green">AI brief ready</span></div>
+    </div>
+    <div class="content">
+      <div class="row row-2" style="gap:20px">
+        <div>
+          <div class="section-h">📋 AI-generated brief for your advisor</div>
+          <div class="card" style="margin-bottom:14px;background:var(--p50);border-color:#BBF7D0">
+            <div class="card-label" style="color:var(--pd)">Prepared by Arrive AI · May 21, 2026</div>
+            <div style="font-size:13px;color:var(--t);line-height:1.6">
+              <strong>Client:</strong> Arjun Kumar · arrived Jan 2026 · $85k income · $100k savings<br><br>
+              <strong>Situation:</strong> 2026 arrival — RRSP room = $0 until 2027 filing. FHSA opened ($8k), TFSA opened ($7k). Both in cash, not invested. First home goal needs acceleration.<br><br>
+              <strong>3 immediate actions:</strong><br>
+              1. Invest $15k (TFSA + FHSA) into XEQT this week<br>
+              2. Reduce credit utilization from 42% → 30% by June 2026<br>
+              3. File 2026 taxes Feb 2027, open RRSP immediately after<br><br>
+              <strong>Key risk:</strong> Credit score 680 may affect mortgage qualification. Recommend 12-month plan to reach 740+ before pre-approval.
+            </div>
+          </div>
+          <div class="section-h">💬 Ask a follow-up</div>
+          <div class="card">
+            <div style="font-size:13px;color:var(--tm);margin-bottom:10px">Your specialist will respond within 24 hours</div>
+            <div class="field"><label>Your question</label><input type="text" value="Should I use XEQT for both TFSA and FHSA or split differently?" /></div>
+            <button class="btn-sm btn-primary">Send to specialist →</button>
+          </div>
+        </div>
+        <div>
+          <div class="section-h">👩 Your assigned specialist</div>
+          <div class="advisor-chip" style="flex-direction:column;align-items:flex-start;gap:12px">
+            <div style="display:flex;gap:12px;align-items:center">
+              <div class="ac-av" style="width:52px;height:52px;font-size:22px">👩</div>
+              <div>
+                <div class="ac-name" style="font-size:15px">Priya Sharma, CPA, CA</div>
+                <div class="ac-role">Newcomer financial planning specialist</div>
+                <div class="tag-row"><span class="badge b-green">AI brief reviewed</span><span class="badge b-blue">Hindi · Punjabi · English</span></div>
+              </div>
+            </div>
+            <div style="font-size:13px;color:var(--tm);line-height:1.55;padding-top:4px;border-top:1px solid var(--b);width:100%">
+              "I've reviewed the AI brief and agree with all three recommendations. XEQT is a solid choice for your situation — low MER, globally diversified. Let's discuss the FHSA vs. TFSA allocation in our call."
+            </div>
+            <button class="btn-sm btn-primary" style="width:100%">Book 30-min call — $0 with plan</button>
+          </div>
+
+          <div class="section-h" style="margin-top:16px">📅 Conversation history</div>
+          <div class="card">
+            <div class="list-item"><div class="li-left"><div class="li-icon li-icon-green">✓</div><div><div class="li-name">AI brief delivered to Priya</div><div class="li-sub">Today, 2:14 PM · Read</div></div></div></div>
+            <div class="list-item"><div class="li-left"><div class="li-icon li-icon-blue">💬</div><div><div class="li-name">Priya reviewed + left note</div><div class="li-sub">Today, 3:42 PM</div></div></div><span class="badge b-green">New</span></div>
+            <div class="list-item"><div class="li-left"><div class="li-icon li-icon-gray">📅</div><div><div class="li-name">Call available: May 22 at 10am or 2pm</div><div class="li-sub">30 minutes · Video or phone</div></div></div><button class="btn-sm btn-ghost" style="font-size:12px">Book</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─ 3C: EXECUTE PLAN ─ -->
+  <div id="p3c" class="panel">
+    <div class="topbar">
+      <div><div class="topbar-title">Execute Plan</div><div class="topbar-sub">Wealthsimple integration · Mutual funds & indexes only</div></div>
+      <div class="topbar-right"><span class="badge b-green">✓ Wealthsimple connected</span><button class="btn-sm btn-ghost">Manage connections</button></div>
+    </div>
+    <div class="content">
+      <div class="row row-2" style="gap:20px">
+        <div>
+          <div class="section-h">⚡ Pending actions — specialist approved</div>
+
+          <div class="exec-row">
+            <div style="width:36px;height:36px;border-radius:8px;background:var(--p50);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">💎</div>
+            <div class="exec-info">
+              <div class="exec-action">Invest $8,000 FHSA → XEQT</div>
+              <div class="exec-sub">iShares Core Equity ETF · MER 0.20% · Questrade · ✓ Specialist approved</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <button class="btn-sm btn-primary">Review & execute</button>
+              <button class="btn-sm btn-ghost" style="font-size:12px">View XEQT details</button>
+            </div>
+          </div>
+
+          <div class="exec-row">
+            <div style="width:36px;height:36px;border-radius:8px;background:var(--p50);display:flex;align-items:center;justify-content:16px;font-size:16px;flex-shrink:0;align-items:center;justify-content:center">🛡</div>
+            <div class="exec-info">
+              <div class="exec-action">Invest $7,000 TFSA → XEQT</div>
+              <div class="exec-sub">iShares Core Equity ETF · MER 0.20% · Wealthsimple · ✓ Specialist approved</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <button class="btn-sm btn-primary">Review & execute</button>
+              <button class="btn-sm btn-ghost" style="font-size:12px">Use XBAL instead?</button>
+            </div>
+          </div>
+
+          <div class="section-h" style="margin-top:16px">🔒 What you can do here</div>
+          <div class="card">
+            <div class="check-item"><div class="check-circle cc-done">✓</div><div><div class="check-main">Buy mutual funds and index ETFs</div><div class="check-sub">XEQT, XBAL, VCNS, ZGRO and similar Canadian index ETFs</div></div></div>
+            <div class="check-item"><div class="check-circle cc-done">✓</div><div><div class="check-main">Execute inside registered accounts</div><div class="check-sub">TFSA, FHSA, RRSP (when available) via connected broker</div></div></div>
+            <div class="check-item"><div class="check-circle cc-todo" style="opacity:.5"></div><div style="opacity:.5"><div class="check-main">Individual stock trading — not available</div><div class="check-sub">By design. Arrive Finance focuses on long-term index investing, not trading.</div></div></div>
+            <div class="check-item"><div class="check-circle cc-todo" style="opacity:.5"></div><div style="opacity:.5"><div class="check-main">Options, crypto, leveraged products — not available</div><div class="check-sub">Out of scope. Use your broker directly for these.</div></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-h">🏦 Connected platforms</div>
+          <div class="card" style="margin-bottom:12px">
+            <div class="list-item"><div class="li-left"><div class="li-icon li-icon-green">✓</div><div><div class="li-name">Wealthsimple</div><div class="li-sub">TFSA · Read + execute · Connected May 2026</div></div></div><span class="badge b-green">Active</span></div>
+            <div class="list-item"><div class="li-left"><div class="li-icon li-icon-green">✓</div><div><div class="li-name">Questrade</div><div class="li-sub">FHSA · Read + execute · Connected May 2026</div></div></div><span class="badge b-green">Active</span></div>
+            <div class="list-item" style="opacity:.5"><div class="li-left"><div class="li-icon li-icon-gray">○</div><div><div class="li-name">RBC Direct Investing</div><div class="li-sub">RRSP (available after 2027 filing)</div></div></div><span class="badge b-gray">Not yet</span></div>
+            <div class="list-item" style="cursor:pointer"><div class="li-left"><div class="li-icon li-icon-blue">+</div><div><div class="li-name" style="color:var(--p)">Connect another platform</div><div class="li-sub">CIBC Investor's Edge, TD Direct, etc.</div></div></div></div>
+          </div>
+
+          <div class="section-h">📋 Execution history</div>
+          <div class="card">
+            <div style="font-size:13px;color:var(--tm);padding:20px 0;text-align:center">No executions yet.<br>Your pending actions are above.</div>
+          </div>
+          <div class="disclaimer">Arrive Finance executes on your behalf via your connected broker. You review and confirm every transaction before it executes. Arrive Finance is not a registered investment dealer. Index funds and mutual funds only.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+function show(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sid-item').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>

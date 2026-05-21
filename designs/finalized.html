@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrive Finance — Your Canadian Financial Setup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-900: #14532d;
+    --green-700: #15803d;
+    --green-600: #16a34a;
+    --green-100: #dcfce7;
+    --green-50:  #f0fdf4;
+    --amber-600: #d97706;
+    --amber-50:  #fffbeb;
+    --blue-600:  #2563eb;
+    --blue-50:   #eff6ff;
+    --red-600:   #dc2626;
+    --red-50:    #fef2f2;
+    --gray-900:  #111827;
+    --gray-700:  #374151;
+    --gray-500:  #6b7280;
+    --gray-300:  #d1d5db;
+    --gray-100:  #f3f4f6;
+    --gray-50:   #f9fafb;
+    --white:     #ffffff;
+    --bg:        #fafaf8;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+    --shadow-md: 0 4px 16px rgba(0,0,0,.10);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--gray-900);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── SCREEN SYSTEM ──────────────────────────────────────── */
+  .screen { display: none; min-height: 100vh; flex-direction: column; }
+  .screen.active { display: flex; }
+
+  /* ── TOPBAR ─────────────────────────────────────────────── */
+  .topbar {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-100);
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--green-700);
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 28px; height: 28px;
+    background: var(--green-700);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 14px; font-weight: 800;
+  }
+  .trust-badge {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--gray-500);
+  }
+  .lock-icon { font-size: 13px; }
+
+  /* ── PROGRESS BAR ───────────────────────────────────────── */
+  .progress-bar-wrap {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-100);
+    padding: 12px 24px;
+    flex-shrink: 0;
+  }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: var(--gray-500);
+  }
+  .progress-track {
+    height: 4px;
+    background: var(--gray-100);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--green-600);
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+
+  /* ── MAIN CARD ──────────────────────────────────────────── */
+  .card-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 48px;
+  }
+  .card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 36px 40px;
+    width: 100%;
+    max-width: 520px;
+  }
+
+  /* ── TYPOGRAPHY ─────────────────────────────────────────── */
+  .screen-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--green-600);
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--gray-900);
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+  }
+  h3 {
+    font-family: 'Fraunces', Georgia, serif;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: var(--gray-500);
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  /* ── FORM ELEMENTS ──────────────────────────────────────── */
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 6px;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  select {
+    width: 100%;
+    height: 48px;
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    padding: 0 14px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--gray-900);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  input:focus, select:focus {
+    border-color: var(--green-600);
+    box-shadow: 0 0 0 3px rgba(22,163,74,.12);
+  }
+  .input-prefix {
+    position: relative;
+  }
+  .input-prefix span {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-500);
+    font-size: 15px;
+    pointer-events: none;
+  }
+  .input-prefix input {
+    padding-left: 28px;
+  }
+  .form-row { margin-bottom: 20px; }
+  .hint {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-top: 5px;
+  }
+
+  /* ── RADIO OPTIONS ──────────────────────────────────────── */
+  .radio-group { display: flex; flex-direction: column; gap: 10px; }
+  .radio-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1.5px solid var(--gray-200, #e5e7eb);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+    background: var(--white);
+  }
+  .radio-option:hover { border-color: var(--green-600); background: var(--green-50); }
+  .radio-option.selected {
+    border-color: var(--green-600);
+    background: var(--green-50);
+  }
+  .radio-option input[type="radio"] { display: none; }
+  .radio-dot {
+    width: 18px; height: 18px;
+    border: 2px solid var(--gray-300);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color .15s;
+  }
+  .radio-option.selected .radio-dot {
+    border-color: var(--green-600);
+    background: var(--green-600);
+  }
+  .radio-option.selected .radio-dot::after {
+    content: '';
+    width: 6px; height: 6px;
+    background: white;
+    border-radius: 50%;
+  }
+  .radio-label { font-size: 14px; font-weight: 500; color: var(--gray-900); }
+  .radio-desc { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+
+  /* ── BUTTONS ────────────────────────────────────────────── */
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 50px;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: opacity .15s, transform .08s;
+    text-decoration: none;
+    font-family: inherit;
+  }
+  .btn:active { transform: scale(.985); }
+  .btn-primary {
+    background: var(--green-700);
+    color: white;
+    width: 100%;
+  }
+  .btn-primary:hover { background: var(--green-900); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--gray-700);
+    border: 1.5px solid var(--gray-300);
+    width: 100%;
+  }
+  .btn-secondary:hover { background: var(--gray-50); }
+  .btn-link {
+    background: none;
+    color: var(--green-700);
+    font-size: 14px;
+    height: auto;
+    padding: 8px 0;
+  }
+  .btn-row { display: flex; gap: 10px; margin-top: 28px; }
+  .btn-row .btn { flex: 1; }
+  .btn-row .btn-back { flex: 0 0 auto; width: auto; padding: 0 20px; color: var(--gray-500); }
+
+  /* ── NOTICE BANNERS ─────────────────────────────────────── */
+  .notice {
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .notice-icon { font-size: 16px; flex-shrink: 0; }
+  .notice-amber { background: var(--amber-50); border: 1px solid #fde68a; color: #92400e; }
+  .notice-green  { background: var(--green-50);  border: 1px solid #bbf7d0; color: var(--green-900); }
+  .notice-blue   { background: var(--blue-50);   border: 1px solid #bfdbfe; color: #1e3a8a; }
+  .notice-gray   { background: var(--gray-50);   border: 1px solid var(--gray-200, #e5e7eb); color: var(--gray-700); }
+  .notice b { font-weight: 600; }
+
+  /* ── LOADING SCREEN ─────────────────────────────────────── */
+  .loading-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 48px 24px;
+  }
+  .spinner {
+    width: 48px; height: 48px;
+    border: 3px solid var(--green-100);
+    border-top-color: var(--green-600);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-steps { display: flex; flex-direction: column; gap: 8px; width: 280px; }
+  .loading-step {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--gray-500);
+    opacity: 0;
+    transform: translateY(4px);
+    animation: fadeUp .4s ease forwards;
+  }
+  .loading-step.done { color: var(--green-700); }
+  .step-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--gray-200);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+  }
+  .loading-step.done .step-dot { background: var(--green-600); color: white; }
+  @keyframes fadeUp { to { opacity: 1; transform: none; } }
+
+  /* ── PLAN OUTPUT ────────────────────────────────────────── */
+  .plan-header {
+    background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 100%);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding: 28px 32px;
+    color: white;
+    margin: -36px -40px 0;
+  }
+  .plan-header .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .7;
+    margin-bottom: 6px;
+  }
+  .plan-header h2 { color: white; margin: 0; font-size: 22px; }
+  .plan-header .plan-summary {
+    margin-top: 8px;
+    font-size: 14px;
+    opacity: .8;
+    line-height: 1.5;
+  }
+
+  .plan-items { margin-top: 28px; display: flex; flex-direction: column; gap: 0; }
+  .plan-item {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--gray-100);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .plan-item:last-child { border-bottom: none; }
+  .plan-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--green-100);
+    color: var(--green-700);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .plan-item-body { flex: 1; }
+  .plan-item-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+  }
+  .plan-item-amount {
+    font-family: 'Geist Mono', 'Courier New', monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--green-700);
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+  .plan-item-why {
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.5;
+  }
+  .plan-item-deadline {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--amber-50);
+    border: 1px solid #fde68a;
+    color: #92400e;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 99px;
+    margin-top: 6px;
+  }
+  .plan-item.deferred .plan-num { background: var(--gray-100); color: var(--gray-500); }
+  .plan-item.deferred .plan-item-amount { color: var(--gray-400); font-size: 15px; font-weight: 500; }
+  .plan-item.ineligible .plan-num { background: var(--gray-100); color: var(--gray-400); }
+  .plan-item.ineligible .plan-item-title { color: var(--gray-500); text-decoration: line-through; }
+  .plan-item.ineligible .plan-item-why { font-size: 13px; color: var(--gray-400); }
+
+  .plan-tax-callout {
+    background: var(--green-50);
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .plan-tax-callout .callout-icon { font-size: 18px; }
+  .plan-tax-callout .callout-text { font-size: 13px; color: var(--green-900); line-height: 1.5; }
+  .plan-tax-callout b { font-weight: 600; }
+
+  /* ── ADVISOR RAIL ───────────────────────────────────────── */
+  .advisor-rail {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 28px 32px;
+    width: 100%;
+    max-width: 520px;
+    margin-top: 16px;
+    border: 1.5px solid var(--gray-100);
+  }
+  .advisor-rail h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .advisor-rail p {
+    font-size: 13px;
+    color: var(--gray-500);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .advisor-options { display: flex; flex-direction: column; gap: 10px; }
+  .advisor-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1.5px solid var(--gray-200, #e5e7eb);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    background: var(--white);
+    transition: border-color .15s, background .15s;
+    font-family: inherit;
+  }
+  .advisor-option:hover { border-color: var(--green-600); background: var(--green-50); }
+  .advisor-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .advisor-icon.green { background: var(--green-100); }
+  .advisor-icon.blue  { background: var(--blue-50); }
+  .advisor-text .advisor-title { font-size: 14px; font-weight: 600; color: var(--gray-900); }
+  .advisor-text .advisor-subtitle { font-size: 12px; color: var(--gray-500); margin-top: 1px; }
+  .advisor-arrow { margin-left: auto; color: var(--gray-400); font-size: 16px; }
+
+  /* ── RETURN TRIGGERS ────────────────────────────────────── */
+  .return-triggers {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 24px 32px;
+    width: 100%;
+    max-width: 520px;
+    margin-top: 16px;
+    border: 1.5px solid var(--gray-100);
+  }
+  .return-triggers h3 { font-size: 14px; font-weight: 600; color: var(--gray-700); margin-bottom: 12px; }
+  .trigger-list { display: flex; flex-direction: column; gap: 8px; }
+  .trigger-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--gray-600);
+  }
+  .trigger-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green-600);
+    flex-shrink: 0;
+  }
+
+  /* ── LANDING ────────────────────────────────────────────── */
+  .landing-hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 60px;
+    text-align: center;
+  }
+  .landing-logo-mark {
+    width: 72px; height: 72px;
+    background: var(--green-700);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px; color: white; font-weight: 800;
+    margin: 0 auto 24px;
+    box-shadow: 0 8px 24px rgba(21,128,61,.3);
+  }
+  .landing-hero h1 { font-family: 'Fraunces', Georgia, serif; font-size: 34px; font-weight: 700; max-width: 420px; margin-bottom: 14px; }
+  .landing-hero .subtitle { max-width: 380px; font-size: 16px; margin-bottom: 36px; }
+  .trust-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 24px;
+    margin-bottom: 36px;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--gray-600);
+  }
+  .trust-check { color: var(--green-600); font-size: 15px; }
+  .landing-cta {
+    background: var(--green-700);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 16px 40px;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: background .15s, transform .08s;
+    font-family: inherit;
+    display: inline-block;
+    text-decoration: none;
+    margin-bottom: 14px;
+  }
+  .landing-cta:hover { background: var(--green-900); }
+  .landing-cta:active { transform: scale(.97); }
+  .landing-sub { font-size: 13px; color: var(--gray-500); }
+
+  .social-proof {
+    margin-top: 40px;
+    background: var(--white);
+    border: 1px solid var(--gray-100);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    max-width: 400px;
+    text-align: left;
+    box-shadow: var(--shadow-sm);
+  }
+  .proof-text { font-size: 14px; color: var(--gray-700); line-height: 1.6; margin-bottom: 10px; }
+  .proof-author { font-size: 12px; color: var(--gray-500); display: flex; align-items: center; gap: 8px; }
+  .proof-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 12px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .stars { color: #f59e0b; letter-spacing: -1px; font-size: 14px; margin-bottom: 4px; }
+
+  /* ── PRIVACY NOTICE (before form) ───────────────────────── */
+  .privacy-notice {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: var(--radius-sm);
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+  .privacy-notice .lock { font-size: 15px; flex-shrink: 0; }
+
+  /* ── SOFT SIGNAL BANNER ─────────────────────────────────── */
+  .soft-signal {
+    background: var(--blue-50);
+    border: 1px solid #bfdbfe;
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+    display: none;
+  }
+  .soft-signal.visible { display: block; }
+
+  /* ── STEP COUNTER ───────────────────────────────────────── */
+  .step-counter {
+    font-size: 13px;
+    color: var(--gray-500);
+    margin-bottom: 6px;
+  }
+
+  /* ── RESPONSIVE ─────────────────────────────────────────── */
+  @media (max-width: 560px) {
+    .card { padding: 28px 24px; }
+    .plan-header { margin: -28px -24px 0; padding: 24px; }
+    h1 { font-size: 21px; }
+    .landing-hero h1 { font-size: 26px; }
+    .btn-row { flex-wrap: wrap; }
+  }
+
+  /* ── TRANSITIONS ────────────────────────────────────────── */
+  .card, .advisor-rail, .return-triggers {
+    animation: slideUp .25s ease;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 0: LANDING
+════════════════════════════════════════════════════════════ -->
+<div class="screen active" id="screen-landing">
+  <header class="topbar">
+    <a class="logo" href="#">
+      <div class="logo-mark">A</div>
+      Arrive Finance
+    </a>
+    <div class="trust-badge">
+      <span class="lock-icon">🔒</span>
+      256-bit encryption
+    </div>
+  </header>
+
+  <div class="landing-hero">
+    <div class="landing-logo-mark">A</div>
+    <h1>Your Canadian financial setup, done right.</h1>
+    <p class="subtitle">
+      Answer 7 questions. Get a personalized RRSP, TFSA, and FHSA plan — the same guidance a $400/hr advisor would give you, for $20/month.
+    </p>
+
+    <div class="trust-row">
+      <div class="trust-item"><span class="trust-check">✓</span> We never see your bank account</div>
+      <div class="trust-item"><span class="trust-check">✓</span> We never sell your data</div>
+      <div class="trust-item"><span class="trust-check">✓</span> Cancel anytime</div>
+      <div class="trust-item"><span class="trust-check">✓</span> Takes under 10 minutes</div>
+    </div>
+
+    <button class="landing-cta" onclick="goTo('screen-signup')">Get My Financial Plan →</button>
+    <div class="landing-sub">Free to start · $20/month after your first plan</div>
+
+    <div class="social-proof">
+      <div class="stars">★★★★★</div>
+      <p class="proof-text">"I saved $2,800 in taxes my first year because someone finally explained FHSA to me correctly. I wish I had this when I landed."</p>
+      <div class="proof-author">
+        <div class="proof-avatar">A</div>
+        <span>Avdhesh S., Software Engineer · Arrived 2023 · Mumbai → Toronto</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 1: SIGN UP
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-signup">
+  <header class="topbar">
+    <a class="logo" href="#"><div class="logo-mark">A</div> Arrive Finance</a>
+    <div class="trust-badge"><span class="lock-icon">🔒</span> Encrypted & private</div>
+  </header>
+
+  <div class="card-wrap">
+    <div class="card">
+      <div class="screen-label">Get started</div>
+      <h2>Create your account</h2>
+      <p class="subtitle">We'll email you a link to your plan and send reminders before key Canadian tax deadlines.</p>
+
+      <div class="privacy-notice">
+        <span class="lock">🔒</span>
+        <span>Your financial information is encrypted and never shared. We use it only to calculate your personalized plan. <strong>We never sell your data.</strong></span>
+      </div>
+
+      <div class="form-row">
+        <label>Full name</label>
+        <input type="text" placeholder="Priya Sharma" id="input-name">
+      </div>
+      <div class="form-row">
+        <label>Email address <span style="color:var(--green-600)">*</span></label>
+        <input type="email" placeholder="priya@email.com" id="input-email">
+        <div class="hint">Required for your plan and annual reminders (RRSP deadline, TFSA reset)</div>
+      </div>
+
+      <div class="btn-row" style="margin-top:24px;">
+        <button class="btn btn-primary" onclick="goTo('screen-q1')">Continue →</button>
+      </div>
+      <div style="text-align:center; margin-top:14px;">
+        <button class="btn btn-link" onclick="goTo('screen-landing')">← Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 2: Q1 — ARRIVAL YEAR
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-q1">
+  <header class="topbar">
+    <a class="logo" href="#"><div class="logo-mark">A</div> Arrive Finance</a>
+    <div class="trust-badge"><span class="lock-icon">🔒</span> Encrypted & private</div>
+  </header>
+  <div class="progress-bar-wrap">
+    <div class="progress-meta"><span>Step 1 of 7</span><span>Building your profile</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:14%"></div></div>
+  </div>
+  <div class="card-wrap">
+    <div class="card">
+      <div class="step-counter">Question 1 of 7</div>
+      <h2>When did you arrive in Canada?</h2>
+      <p class="subtitle">This determines your TFSA contribution room and your RRSP eligibility — two of the most important numbers in your plan.</p>
+
+      <div class="form-row">
+        <label>Year of arrival</label>
+        <select id="q1-year">
+          <option value="">Select year…</option>
+          <option value="2026">2026 (this year)</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="before2021">Before 2021</option>
+        </select>
+        <div class="hint">If you're not sure of the exact date, use the year you became a Canadian tax resident.</div>
+      </div>
+
+      <div id="rrsp-notice" class="notice notice-amber" style="display:none;">
+        <span class="notice-icon">⚠️</span>
+        <div><b>First-year RRSP note:</b> Since you arrived in 2026, you have $0 RRSP contribution room until you file your first Canadian tax return in spring 2027. Your plan will prioritize TFSA and FHSA instead.</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary btn-back" onclick="goTo('screen-signup')">← Back</button>
+        <button class="btn btn-primary" onclick="nextFromQ1()">Continue →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 3: Q2 — RESIDENCY STATUS
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-q2">
+  <header class="topbar">
+    <a class="logo" href="#"><div class="logo-mark">A</div> Arrive Finance</a>
+    <div class="trust-badge"><span class="lock-icon">🔒</span> Encrypted & private</div>
+  </header>
+  <div class="progress-bar-wrap">
+    <div class="progress-meta"><span>Step 2 of 7</span><span>Building your profile</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:28%"></div></div>
+  </div>
+  <div class="card-wrap">
+    <div class="card">
+      <div class="step-counter">Question 2 of 7</div>
+      <h2>What's your immigration status?</h2>
+      <p class="subtitle">This affects which accounts you're eligible to open today.</p>
+
+      <div class="radio-group" id="q2-options">
+        <label class="radio-option" onclick="selectRadio('q2', 'pr')">
+          <input type="radio" name="q2" value="pr">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">Permanent Resident (PR)</div>
+            <div class="radio-desc">Landed immigrant, PR card holder</div>
+          </div>
+        </label>
+        <label class="radio-option" onclick="selectRadio('q2', 'citizen')">
+          <input type="radio" name="q2" value="citizen">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">Canadian Citizen</div>
+            <div class="radio-desc">Naturalized or born citizen</div>
+          </div>
+        </label>
+        <label class="radio-option" onclick="selectRadio('q2', 'workpermit')">
+          <input type="radio" name="q2" value="workpermit">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">Work Permit / Study Permit</div>
+            <div class="radio-desc">Temporary resident with valid permit</div>
+          </div>
+        </label>
+      </div>
+
+      <div id="workpermit-notice" class="notice notice-amber" style="display:none;margin-top:16px;">
+        <span class="notice-icon">ℹ️</span>
+        <div><b>Note for work permit holders:</b> TFSA and RRSP are available to you as a Canadian tax resident. FHSA eligibility for non-PRs is more nuanced — your plan will cover this. You may benefit from a quick advisor call to confirm your specific situation.</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary btn-back" onclick="goTo('screen-q1')">← Back</button>
+        <button class="btn btn-primary" onclick="goTo('screen-q3')">Continue →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 4: Q3 — HOME PURCHASE INTENT
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-q3">
+  <header class="topbar">
+    <a class="logo" href="#"><div class="logo-mark">A</div> Arrive Finance</a>
+    <div class="trust-badge"><span class="lock-icon">🔒</span> Encrypted & private</div>
+  </header>
+  <div class="progress-bar-wrap">
+    <div class="progress-meta"><span>Step 3 of 7</span><span>Building your profile</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:43%"></div></div>
+  </div>
+  <div class="card-wrap">
+    <div class="card">
+      <div class="step-counter">Question 3 of 7</div>
+      <h2>Do you plan to buy a home in Canada?</h2>
+      <p class="subtitle">This determines whether the FHSA (First Home Savings Account) belongs in your plan. It's worth up to $40,000 in tax-free savings — but only if used correctly.</p>
+
+      <div class="radio-group" id="q3-options">
+        <label class="radio-option" onclick="selectRadio('q3', 'yes5')">
+          <input type="radio" name="q3" value="yes5">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">Yes — within 5 years</div>
+            <div class="radio-desc">FHSA is a priority: open it now to start accumulating room</div>
+          </div>
+        </label>
+        <label class="radio-option" onclick="selectRadio('q3', 'yes10')">
+          <input type="radio" name="q3" value="yes10">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">Yes — within 5–15 years</div>
+            <div class="radio-desc">FHSA still makes sense: $8,000/year room starts the day you open it</div>
+          </div>
+        </label>
+        <label class="radio-option" onclick="selectRadio('q3', 'no')">
+          <input type="radio" name="q3" value="no">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">No, not planning to buy</div>
+            <div class="radio-desc">FHSA is not for you — we'll focus on RRSP and TFSA</div>
+          </div>
+        </label>
+        <label class="radio-option" onclick="selectRadio('q3', 'owned')">
+          <input type="radio" name="q3" value="owned">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">I already owned a home before arriving</div>
+            <div class="radio-desc">FHSA rules require you to be a first-time buyer in Canada</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary btn-back" onclick="goTo('screen-q2')">← Back</button>
+        <button class="btn btn-primary" onclick="goTo('screen-q4')">Continue →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 5: Q4 — INCOME
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-q4">
+  <header class="topbar">
+    <a class="logo" href="#"><div class="logo-mark">A</div> Arrive Finance</a>
+    <div class="trust-badge"><span class="lock-icon">🔒</span> Encrypted & private</div>
+  </header>
+  <div class="progress-bar-wrap">
+    <div class="progress-meta"><span>Step 4 of 7</span><span>Almost there</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:57%"></div></div>
+  </div>
+  <div class="card-wrap">
+    <div class="card">
+      <div class="step-counter">Question 4 of 7</div>
+      <h2>What's your annual income in Canada?</h2>
+      <p class="subtitle">Used to calculate your RRSP contribution room for next year and to estimate your tax savings.</p>
+
+      <div class="privacy-notice">
+        <span class="lock">🔒</span>
+        <span>This number is encrypted immediately and never stored in plaintext. We use it only to compute your plan.</span>
+      </div>
+
+      <div class="form-row">
+        <label>Annual employment income (before tax)</label>
+        <div class="input-prefix">
+          <span>$</span>
+          <input type="number" placeholder="85,000" id="q4-income">
+        </div>
+        <div class="hint">Use your salary before deductions. Includes bonuses. CAD.</div>
+      </div>
+
+      <div class="form-row">
+        <label>Province of residence</label>
+        <select id="q4-province">
+          <option value="">Select province…</option>
+          <option value="ON">Ontario</option>
+          <option value="BC">British Columbia</option>
+          <option value="AB">Alberta</option>
+          <option value="QC">Quebec</option>
+          <option value="MB">Manitoba</option>
+          <option value="SK">Saskatchewan</option>
+          <option value="NS">Nova Scotia</option>
+          <option value="NB">New Brunswick</option>
+          <option value="NL">Newfoundland & Labrador</option>
+          <option value="PE">PEI</option>
+        </select>
+        <div class="hint">Provincial tax rates affect how much you save — Ontario and BC differ significantly from Alberta.</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary btn-back" onclick="goTo('screen-q3')">← Back</button>
+        <button class="btn btn-primary" onclick="goTo('screen-q5')">Continue →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 6: Q5 — SAVINGS
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-q5">
+  <header class="topbar">
+    <a class="logo" href="#"><div class="logo-mark">A</div> Arrive Finance</a>
+    <div class="trust-badge"><span class="lock-icon">🔒</span> Encrypted & private</div>
+  </header>
+  <div class="progress-bar-wrap">
+    <div class="progress-meta"><span>Step 5 of 7</span><span>Almost there</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:71%"></div></div>
+  </div>
+  <div class="card-wrap">
+    <div class="card">
+      <div class="step-counter">Question 5 of 7</div>
+      <h2>How much do you have available to invest?</h2>
+      <p class="subtitle">This is the amount sitting in a savings account, chequing account, or international account that you want to put to work in Canada.</p>
+
+      <div class="form-row">
+        <label>Available to invest now (CAD)</label>
+        <div class="input-prefix">
+          <span>$</span>
+          <input type="number" placeholder="100,000" id="q5-savings">
+        </div>
+        <div class="hint">Approximate is fine. Include money from any currency converted to CAD.</div>
+      </div>
+
+      <div class="form-row">
+        <label>Do you have any existing Canadian accounts?</label>
+        <select id="q5-existing">
+          <option value="none">No — starting from scratch</option>
+          <option value="tfsa">Yes — I have a TFSA</option>
+          <option value="rrsp">Yes — I have an RRSP</option>
+          <option value="both">Yes — I have both TFSA and RRSP</option>
+        </select>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary btn-back" onclick="goTo('screen-q4')">← Back</button>
+        <button class="btn btn-primary" onclick="goTo('screen-q6')">Continue →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 7: Q6 — GOALS
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-q6">
+  <header class="topbar">
+    <a class="logo" href="#"><div class="logo-mark">A</div> Arrive Finance</a>
+    <div class="trust-badge"><span class="lock-icon">🔒</span> Encrypted & private</div>
+  </header>
+  <div class="progress-bar-wrap">
+    <div class="progress-meta"><span>Step 6 of 7</span><span>One more question</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:85%"></div></div>
+  </div>
+  <div class="card-wrap">
+    <div class="card">
+      <div class="step-counter">Question 6 of 7</div>
+      <h2>What matters most to you right now?</h2>
+      <p class="subtitle">When you have two good options, this tells us which one to prioritize. Pick the one that's true today.</p>
+
+      <div class="radio-group" id="q6-options">
+        <label class="radio-option" onclick="selectRadio('q6', 'home')">
+          <input type="radio" name="q6" value="home">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">Saving for a home in Canada</div>
+            <div class="radio-desc">FHSA + TFSA first, RRSP second</div>
+          </div>
+        </label>
+        <label class="radio-option" onclick="selectRadio('q6', 'retire')">
+          <input type="radio" name="q6" value="retire">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">Long-term retirement savings</div>
+            <div class="radio-desc">RRSP + TFSA maximized for compound growth</div>
+          </div>
+        </label>
+        <label class="radio-option" onclick="selectRadio('q6', 'both')">
+          <input type="radio" name="q6" value="both">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">Balance both — home and retirement</div>
+            <div class="radio-desc">We'll allocate proportionally based on your savings</div>
+          </div>
+        </label>
+        <label class="radio-option" onclick="selectRadio('q6', 'emergency')">
+          <input type="radio" name="q6" value="emergency">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">Build an emergency fund first</div>
+            <div class="radio-desc">TFSA for emergency savings, invest the rest</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary btn-back" onclick="goTo('screen-q5')">← Back</button>
+        <button class="btn btn-primary" onclick="goTo('screen-q7')">Continue →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 8: Q7 — RISK TOLERANCE
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-q7">
+  <header class="topbar">
+    <a class="logo" href="#"><div class="logo-mark">A</div> Arrive Finance</a>
+    <div class="trust-badge"><span class="lock-icon">🔒</span> Encrypted & private</div>
+  </header>
+  <div class="progress-bar-wrap">
+    <div class="progress-meta"><span>Step 7 of 7</span><span>Last question</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
+  </div>
+  <div class="card-wrap">
+    <div class="card">
+      <div class="step-counter">Question 7 of 7</div>
+      <h2>How would you feel if your investments dropped 15% in one month?</h2>
+      <p class="subtitle">This is normal in investing. Your answer shapes our first investment recommendation.</p>
+
+      <div class="radio-group" id="q7-options">
+        <label class="radio-option" onclick="selectRadio('q7', 'calm')">
+          <input type="radio" name="q7" value="calm">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">I'd stay calm and hold</div>
+            <div class="radio-desc">Growth portfolio — higher return potential, more volatility</div>
+          </div>
+        </label>
+        <label class="radio-option" onclick="selectRadio('q7', 'nervous')">
+          <input type="radio" name="q7" value="nervous">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">I'd be nervous but wouldn't sell</div>
+            <div class="radio-desc">Balanced portfolio — mix of growth and stability</div>
+          </div>
+        </label>
+        <label class="radio-option" onclick="selectRadio('q7', 'sell')">
+          <input type="radio" name="q7" value="sell">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-label">I'd want to move to something safer</div>
+            <div class="radio-desc">Conservative portfolio — lower volatility, capital preservation</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary btn-back" onclick="goTo('screen-q6')">← Back</button>
+        <button class="btn btn-primary" onclick="startLoading()">Generate My Plan →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 9: LOADING
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-loading">
+  <header class="topbar">
+    <a class="logo" href="#"><div class="logo-mark">A</div> Arrive Finance</a>
+  </header>
+  <div class="loading-wrap">
+    <div class="spinner"></div>
+    <div style="text-align:center;">
+      <div style="font-size:17px;font-weight:600;color:var(--gray-900);margin-bottom:6px;">Analyzing your situation…</div>
+      <div style="font-size:14px;color:var(--gray-500);">This takes about 10 seconds</div>
+    </div>
+    <div class="loading-steps">
+      <div class="loading-step done" style="animation-delay:.1s">
+        <div class="step-dot">✓</div>
+        Calculating your TFSA contribution room
+      </div>
+      <div class="loading-step done" style="animation-delay:.5s">
+        <div class="step-dot">✓</div>
+        Checking FHSA eligibility and deadline
+      </div>
+      <div class="loading-step done" style="animation-delay:.9s">
+        <div class="step-dot">✓</div>
+        Computing RRSP room for next year
+      </div>
+      <div class="loading-step" id="loading-step4" style="animation-delay:1.3s">
+        <div class="step-dot" style="background:var(--green-200,#bbf7d0)"></div>
+        Generating your personalized plan
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 10: PLAN OUTPUT
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-plan">
+  <header class="topbar">
+    <a class="logo" href="#"><div class="logo-mark">A</div> Arrive Finance</a>
+    <div class="trust-badge"><span class="lock-icon">🔒</span> Encrypted & private</div>
+  </header>
+  <div class="card-wrap">
+
+    <div class="card">
+      <div class="plan-header">
+        <div class="eyebrow">Your personalized plan</div>
+        <h2>Your first 90 days in Canada</h2>
+        <div class="plan-summary">Based on your $100,000 in savings, $85,000 income, and 2026 arrival year.</div>
+      </div>
+
+      <div class="plan-items">
+
+        <!-- FHSA: eligible, priority -->
+        <div class="plan-item">
+          <div class="plan-num">1</div>
+          <div class="plan-item-body">
+            <div class="plan-item-title">Open your FHSA — First Home Savings Account</div>
+            <div class="plan-item-amount">Contribute $8,000</div>
+            <div class="plan-item-why">
+              You want to buy a home within 10 years. FHSA gives you a tax deduction this year <em>and</em> tax-free growth — the only account in Canada that does both.
+              Opening your account starts your annual $8,000 room accumulation.
+            </div>
+            <div class="plan-item-deadline">⚠️ Open by Dec 31, 2026 — or lose this year's room permanently</div>
+          </div>
+        </div>
+
+        <!-- TFSA: priority this year -->
+        <div class="plan-item">
+          <div class="plan-num">2</div>
+          <div class="plan-item-body">
+            <div class="plan-item-title">Open your TFSA — Tax-Free Savings Account</div>
+            <div class="plan-item-amount">Contribute $7,000</div>
+            <div class="plan-item-why">
+              You have $0 RRSP room until you file your 2026 taxes in spring 2027. TFSA is your best option right now — any growth inside is completely tax-free, forever.
+              Your 2026 TFSA limit is $7,000.
+            </div>
+          </div>
+        </div>
+
+        <!-- RRSP: deferred (year-1 edge case) -->
+        <div class="plan-item deferred">
+          <div class="plan-num">3</div>
+          <div class="plan-item-body">
+            <div class="plan-item-title">RRSP — Registered Retirement Savings Plan</div>
+            <div class="plan-item-amount">Wait until March 2027</div>
+            <div class="plan-item-why">
+              Because 2026 is your first year in Canada, you have no RRSP contribution room yet — it's based on your prior-year Canadian income.
+              After you file your 2026 tax return, you'll have approximately <strong>$15,300 in RRSP room</strong> (18% of $85,000). We'll remind you.
+            </div>
+            <div class="plan-item-deadline" style="background:#f1f5f9;border-color:#cbd5e1;color:#475569;">📅 We'll email you in Feb 2027</div>
+          </div>
+        </div>
+
+        <!-- Remaining savings: high-interest -->
+        <div class="plan-item">
+          <div class="plan-num">4</div>
+          <div class="plan-item-body">
+            <div class="plan-item-title">Park remaining $85,000</div>
+            <div class="plan-item-amount">High-interest savings (5.0–5.2%)</div>
+            <div class="plan-item-why">
+              After contributing to FHSA ($8k) and TFSA ($7k), your remaining $85,000 earns more in a HISA than a standard chequing account.
+              Recommended: EQ Bank or Simplii Financial — both CDIC-insured.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="plan-tax-callout">
+        <div class="callout-icon">💰</div>
+        <div class="callout-text">
+          <b>Estimated tax savings this year:</b> Contributing $8,000 to your FHSA reduces your taxable income.
+          At your income level in Ontario, that saves you approximately <b>$2,240 in taxes</b> for 2026.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ADVISOR RAIL -->
+    <div class="advisor-rail">
+      <h3>Get expert help for your situation</h3>
+      <p>You have a few unique factors — a short call with a specialist ensures you don't miss anything in your first year.</p>
+      <div class="advisor-options">
+        <button class="advisor-option" onclick="goTo('screen-advisor')">
+          <div class="advisor-icon green">👤</div>
+          <div class="advisor-text">
+            <div class="advisor-title">Talk to a financial advisor</div>
+            <div class="advisor-subtitle">Investment strategy, portfolio review, complex situations · $0 referral fee</div>
+          </div>
+          <span class="advisor-arrow">›</span>
+        </button>
+        <button class="advisor-option" onclick="goTo('screen-advisor')">
+          <div class="advisor-icon blue">📋</div>
+          <div class="advisor-text">
+            <div class="advisor-title">Get your taxes filed by a CPA</div>
+            <div class="advisor-subtitle">Newcomer tax returns, foreign income, FHSA first contribution · Tax season</div>
+          </div>
+          <span class="advisor-arrow">›</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- RETURN TRIGGERS -->
+    <div class="return-triggers">
+      <h3>We'll remind you at the right moments</h3>
+      <div class="trigger-list">
+        <div class="trigger-item"><div class="trigger-dot"></div> FHSA account opened — room accumulation starts</div>
+        <div class="trigger-item"><div class="trigger-dot"></div> RRSP deadline: Feb 28, 2027 — with your estimated room</div>
+        <div class="trigger-item"><div class="trigger-dot"></div> New TFSA room: Jan 1, 2027 — additional $7,000 opens up</div>
+        <div class="trigger-item"><div class="trigger-dot"></div> Tax filing reminder: March 2027 — newcomer checklist included</div>
+      </div>
+    </div>
+
+    <div style="max-width:520px;width:100%;margin-top:12px;text-align:center;">
+      <div style="font-size:12px;color:var(--gray-400);line-height:1.6;">
+        This plan is a personalized financial education summary based on your inputs and current CRA rules.
+        It is not financial advice. For investment recommendations, consult a registered advisor.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN 11: ADVISOR BOOKING
+════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-advisor">
+  <header class="topbar">
+    <a class="logo" href="#"><div class="logo-mark">A</div> Arrive Finance</a>
+    <div class="trust-badge"><span class="lock-icon">🔒</span> Encrypted & private</div>
+  </header>
+  <div class="card-wrap">
+    <div class="card">
+      <div class="screen-label">Expert connection</div>
+      <h2>We'll match you with the right specialist</h2>
+      <p class="subtitle">All our advisors speak English + your language, specialize in newcomer situations, and have no minimum investment requirement.</p>
+
+      <div class="notice notice-green">
+        <span class="notice-icon">✓</span>
+        <div><b>No referral fee.</b> We connect you at no extra cost. If you decide to work with an advisor long-term, they pay us a referral fee — not you.</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px;">
+        <div style="padding:16px;border:1.5px solid var(--gray-100);border-radius:10px;display:flex;gap:14px;align-items:flex-start;">
+          <div style="font-size:24px;">🇮🇳</div>
+          <div>
+            <div style="font-size:14px;font-weight:600;margin-bottom:3px;">Rajiv Nair, CFP</div>
+            <div style="font-size:12px;color:var(--gray-500);margin-bottom:6px;">Hindi · English · 12 years experience · Newcomer specialist</div>
+            <div style="font-size:12px;color:var(--green-700);">Next available: Tomorrow, 10am EST</div>
+          </div>
+        </div>
+        <div style="padding:16px;border:1.5px solid var(--gray-100);border-radius:10px;display:flex;gap:14px;align-items:flex-start;">
+          <div style="font-size:24px;">🇵🇭</div>
+          <div>
+            <div style="font-size:14px;font-weight:600;margin-bottom:3px;">Maria Santos, CFP</div>
+            <div style="font-size:12px;color:var(--gray-500);margin-bottom:6px;">Tagalog · English · 8 years experience · FHSA specialist</div>
+            <div style="font-size:12px;color:var(--green-700);">Next available: Thursday, 2pm EST</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label>Your preferred language</label>
+        <select>
+          <option>English</option>
+          <option>Hindi / हिन्दी</option>
+          <option>Punjabi / ਪੰਜਾਬੀ</option>
+          <option>Mandarin / 普通话</option>
+          <option>Tagalog</option>
+          <option>French / Français</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label>What do you need help with?</label>
+        <select>
+          <option>FHSA + RRSP setup in my first year</option>
+          <option>Investment strategy for my savings</option>
+          <option>Foreign income and tax filing</option>
+          <option>Estate planning (will, power of attorney)</option>
+          <option>Large investment event (sale of property abroad)</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" onclick="goTo('screen-plan')">Request Introduction →</button>
+      <div style="text-align:center;margin-top:12px;">
+        <button class="btn btn-link" onclick="goTo('screen-plan')">← Back to my plan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── NAVIGATION ─────────────────────────────────────────────
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+}
+
+// ── RADIO SELECTION ─────────────────────────────────────────
+function selectRadio(group, value) {
+  document.querySelectorAll(`[id^="${group}"] .radio-option, #${group}-options .radio-option`).forEach(opt => {
+    opt.classList.remove('selected');
+  });
+  const labels = document.querySelectorAll(`input[name="${group}"]`);
+  labels.forEach(input => {
+    if (input.value === value) {
+      input.closest('.radio-option').classList.add('selected');
+    }
+  });
+
+  // Side effects
+  if (group === 'q2') {
+    const notice = document.getElementById('workpermit-notice');
+    if (notice) notice.style.display = value === 'workpermit' ? 'flex' : 'none';
+  }
+}
+
+// ── Q1 LOGIC (year-1 RRSP edge case) ───────────────────────
+function nextFromQ1() {
+  const year = document.getElementById('q1-year').value;
+  const notice = document.getElementById('rrsp-notice');
+  if (year === '2026') {
+    notice.style.display = 'flex';
+    // Small delay so user sees the notice before advancing
+    setTimeout(() => goTo('screen-q2'), 1200);
+  } else {
+    goTo('screen-q2');
+  }
+}
+
+// Show RRSP notice reactively
+document.getElementById('q1-year').addEventListener('change', function() {
+  const notice = document.getElementById('rrsp-notice');
+  if (this.value === '2026') {
+    notice.style.display = 'flex';
+  } else {
+    notice.style.display = 'none';
+  }
+});
+
+// ── LOADING SEQUENCE ─────────────────────────────────────────
+function startLoading() {
+  goTo('screen-loading');
+  // Mark last step as done after 2s, then show plan
+  setTimeout(() => {
+    const step4 = document.getElementById('loading-step4');
+    if (step4) {
+      step4.classList.add('done');
+      step4.querySelector('.step-dot').textContent = '✓';
+    }
+  }, 2000);
+  setTimeout(() => goTo('screen-plan'), 3200);
+}
+
+// ── KEYBOARD NAV ─────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const active = document.querySelector('.screen.active');
+    const btn = active && active.querySelector('.btn-primary');
+    if (btn) btn.click();
+  }
+});
+</script>
+
+</body>
+</html>
