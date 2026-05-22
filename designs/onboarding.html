@@ -13,6 +13,29 @@
   --b:#E5E7EB;
   --amber:#D97706;--abg:#FFFBEB;--ab:#FDE68A;
 }
+[data-theme="dark"]{
+  --bg:#0B1410;--sur:#13201A;--sur2:#1A2A22;
+  --p:#22C55E;--pd:#86EFAC;--pl:#0F3D24;--p50:#0B2616;
+  --t:#F3F4F6;--tm:#9CA3AF;--tf:#6B7280;
+  --b:#1F2F26;
+  --amber:#FBBF24;--abg:#3A2810;--ab:#5C3D14;
+}
+[data-theme="dark"] .form-input{background:#13201A;color:#F3F4F6}
+[data-theme="dark"] .option{background:#13201A;border-color:#1F2F26}
+[data-theme="dark"] .option.selected{background:#0B2616;border-color:#22C55E}
+[data-theme="dark"] .option:hover{background:#0B2616}
+[data-theme="dark"] .lang-card{background:#13201A;border-color:#1F2F26}
+[data-theme="dark"] .lang-card.selected{background:#0B2616;border-color:#22C55E}
+[data-theme="dark"] .result-card{background:#13201A;border-color:#1F2F26}
+[data-theme="dark"] .paywall-card{background:#13201A}
+[data-theme="dark"] .wiz-step-h,[data-theme="dark"] .results-h,[data-theme="dark"] .rc-acct{color:#F3F4F6}
+[data-theme="dark"] .step-item.active{background:#0B2616}
+[data-theme="dark"] .results-header{background:linear-gradient(135deg,#0B2616 0%,#143820 100%);border-color:#1F4A2E}
+[data-theme="dark"] .results-greeting,[data-theme="dark"] .results-h,[data-theme="dark"] .results-sub{color:#BBF7D0}
+
+/* Theme toggle button */
+.theme-toggle{position:fixed;bottom:20px;right:20px;z-index:200;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--b);background:var(--sur);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:all .15s}
+.theme-toggle:hover{border-color:var(--p);transform:scale(1.05)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;display:flex;flex-direction:column}
 
@@ -672,7 +695,29 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
   </div><!-- end wiz-main -->
 </div><!-- end wizard-wrap -->
 
+<!-- Theme toggle -->
+<button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+
 <script>
+// Theme toggle
+function toggleTheme(){
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀️' : '🌙';
+  try { localStorage.setItem('arrive-theme', next); } catch(e){}
+}
+(function(){
+  let saved;
+  try { saved = localStorage.getItem('arrive-theme'); } catch(e){}
+  if (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) saved = 'dark';
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme','dark');
+    const btn = document.getElementById('theme-toggle');
+    if (btn) btn.textContent = '☀️';
+  }
+})();
+
 let state = { lang:'en', status:'pr', income:'0', savings:'10k', goals:[] };
 let currentStep = 0;
 const totalSteps = 7;

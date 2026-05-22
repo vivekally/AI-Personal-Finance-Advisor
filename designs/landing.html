@@ -12,7 +12,28 @@
   --t:#111827;--tm:#6B7280;--tf:#9CA3AF;
   --b:#E5E7EB;--b2:#F3F4F6;
   --amber:#D97706;--abg:#FFFBEB;--ab:#FDE68A;
+  --dark-hero:linear-gradient(145deg,#0a1a0f 0%,#0F2419 40%,#112318 100%);
 }
+[data-theme="dark"]{
+  --bg:#0B1410;--sur:#13201A;--sur2:#1A2A22;
+  --p:#22C55E;--pd:#86EFAC;--pl:#0F3D24;--p50:#0B2616;--p100:#143820;
+  --t:#F3F4F6;--tm:#9CA3AF;--tf:#6B7280;
+  --b:#1F2F26;--b2:#1A2A22;
+  --amber:#FBBF24;--abg:#3A2810;--ab:#5C3D14;
+}
+[data-theme="dark"] .mockup-card{background:#13201A;border-color:#1F2F26}
+[data-theme="dark"] .mc-acct{background:#1A2A22}
+[data-theme="dark"] .float-card{background:#13201A;border-color:#1F2F26}
+[data-theme="dark"] .fc-1 .fc-label,[data-theme="dark"] .step-title,[data-theme="dark"] .feat-title,[data-theme="dark"] .cta-h2,[data-theme="dark"] .hero-h1,[data-theme="dark"] .section-h2,[data-theme="dark"] .price-num,[data-theme="dark"] .student-h{color:#F3F4F6}
+[data-theme="dark"] .hero-h1 em,[data-theme="dark"] .student-h{color:#86EFAC}
+[data-theme="dark"] footer{background:#050B07}
+[data-theme="dark"] .student-section{background:linear-gradient(135deg,#0B2616 0%,#143820 100%);border-color:#1F4A2E}
+[data-theme="dark"] .student-h,[data-theme="dark"] .student-body{color:#BBF7D0}
+[data-theme="dark"] .student-fact{background:#13201A}
+
+/* Theme toggle button */
+.theme-toggle{position:fixed;bottom:20px;right:20px;z-index:200;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--b);background:var(--sur);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:all .15s}
+.theme-toggle:hover{border-color:var(--p);transform:scale(1.05)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--t);line-height:1.6}
@@ -38,13 +59,18 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);position:sticky;top:0
 .fhsa-banner .days{font-family:'Geist Mono',monospace;font-size:16px;font-weight:500;color:var(--amber)}
 .fhsa-banner a{font-size:13px;font-weight:600;color:var(--amber);text-decoration:underline}
 
-/* ── HERO ── */
-.hero{max-width:1100px;margin:0 auto;padding:80px 24px 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+/* ── HERO (dark) ── */
+.hero-wrap{background:var(--dark-hero);position:relative;overflow:hidden}
+.hero-wrap::before{content:'';position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 48px,#fff 48px,#fff 49px),repeating-linear-gradient(90deg,transparent,transparent 48px,#fff 48px,#fff 49px);pointer-events:none}
+.hero-wrap::after{content:'';position:absolute;right:-80px;top:-100px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(21,128,61,.22) 0%,transparent 70%);pointer-events:none}
+.hero{max-width:1100px;margin:0 auto;padding:80px 24px 80px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
 .hero-left{}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--pl);color:var(--pd);font-size:12px;font-weight:700;padding:4px 10px;border-radius:9999px;margin-bottom:20px}
-.hero-h1{font-family:'Fraunces',serif;font-size:52px;font-weight:700;line-height:1.08;color:var(--t);margin-bottom:20px}
-.hero-h1 em{color:var(--p);font-style:normal}
-.hero-sub{font-size:17px;color:var(--tm);line-height:1.7;margin-bottom:32px;max-width:480px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(21,128,61,.18);color:#86EFAC;border:1px solid rgba(21,128,61,.3);font-size:12px;font-weight:700;padding:4px 10px;border-radius:9999px;margin-bottom:20px}
+.hero-h1{font-family:'Fraunces',serif;font-size:52px;font-weight:700;line-height:1.08;color:#fff;margin-bottom:20px}
+.hero-h1 em{color:#86EFAC;font-style:normal}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:32px;max-width:480px}
+.hero-social{color:rgba(255,255,255,.55)}
+.hero-social .av:first-child{background:rgba(255,255,255,.12);color:#fff}
 .hero-ctas{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .hero-social{margin-top:28px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--tm)}
 .hero-avatars{display:flex}
@@ -225,6 +251,7 @@ footer{background:var(--t);padding:48px 24px 32px}
 </nav>
 
 <!-- HERO -->
+<div class="hero-wrap">
 <div class="hero">
   <div class="hero-left">
     <div class="hero-badge">🇨🇦 Built for newcomers to Canada</div>
@@ -313,6 +340,8 @@ footer{background:var(--t);padding:48px 24px 32px}
     </div>
   </div>
 </div>
+
+</div><!-- /hero-wrap -->
 
 <!-- PROOF BAR -->
 <div class="proof-bar">
@@ -663,7 +692,29 @@ footer{background:var(--t);padding:48px 24px 32px}
   </div>
 </footer>
 
+<!-- Theme toggle -->
+<button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+
 <script>
+// Theme toggle with localStorage persistence
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀️' : '🌙';
+  try { localStorage.setItem('arrive-theme', next); } catch(e){}
+}
+(function(){
+  let saved;
+  try { saved = localStorage.getItem('arrive-theme'); } catch(e){}
+  if (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) saved = 'dark';
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    const btn = document.getElementById('theme-toggle');
+    if (btn) btn.textContent = '☀️';
+  }
+})();
+
 // Dynamic FHSA deadline countdown — Dec 31 of current year
 (function(){
   const now = new Date();
