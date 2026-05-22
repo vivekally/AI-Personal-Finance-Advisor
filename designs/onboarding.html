@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arrive Finance — Get Your Free Plan</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#FAFAF8;--sur:#FFF;--sur2:#F3F4F6;
@@ -142,9 +142,26 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
 .si-body{font-size:13px;color:#9A3412;line-height:1.6}
 .si-body strong{font-weight:700;color:#7C2D12}
 
-/* Devanagari typography — applied to any [lang="hi"] element */
+/* Multi-script typography */
 [lang="hi"]{font-family:'Noto Sans Devanagari','Plus Jakarta Sans',sans-serif}
+[lang="pa"]{font-family:'Noto Sans Gurmukhi','Plus Jakarta Sans',sans-serif}
+[lang="ur"],[lang="fa"]{font-family:'Noto Naskh Arabic','Plus Jakarta Sans',sans-serif}
+[lang="zh"]{font-family:'Noto Sans SC','Plus Jakarta Sans',sans-serif}
 .devanagari{font-family:'Noto Sans Devanagari','Plus Jakarta Sans',sans-serif}
+
+/* Language grid (10 languages) */
+.lang-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px}
+.lang-card{border:2px solid var(--b);border-radius:12px;padding:14px 10px;cursor:pointer;text-align:center;background:var(--sur);transition:all .15s;position:relative}
+.lang-card:hover{border-color:var(--p);background:var(--p50)}
+.lang-card.selected{border-color:var(--p);background:var(--p50)}
+.lang-flag{font-size:22px;margin-bottom:6px;line-height:1}
+.lang-name{font-size:14px;font-weight:700;color:var(--t);line-height:1.2;margin-bottom:2px;min-height:18px}
+.lang-name-sub{font-size:11px;color:var(--tm);margin-bottom:6px}
+.lang-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:9999px;text-transform:uppercase;letter-spacing:.05em}
+.lang-tag-live{background:var(--pl);color:var(--pd)}
+.lang-tag-soon{background:var(--sur2);color:var(--tm)}
+
+@media(max-width:900px){.lang-grid{grid-template-columns:repeat(2,1fr)}}
 
 @media(max-width:768px){
   .wizard-wrap{grid-template-columns:1fr}
@@ -234,23 +251,67 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
     <div class="step-panel active" id="panel-0">
       <div class="wiz-step-label">Step 1 of 7</div>
       <h2 class="wiz-step-h">Choose your language</h2>
-      <p class="wiz-step-sub">Arrive Finance is available in English and हिंदी. We're adding Punjabi and Mandarin soon.</p>
+      <p class="wiz-step-sub">Arrive Finance is available in English and हिंदी today. 8 more languages are rolling out — covering ~95% of newcomers to Canada.</p>
 
-      <div class="options-2">
-        <div class="option selected" onclick="selectOption(this, 'lang', 'en')">
-          <div class="opt-icon">🇨🇦</div>
-          <div>
-            <div class="opt-title">English</div>
-            <div class="opt-sub">Full platform in English</div>
-          </div>
+      <div class="lang-grid">
+        <div class="lang-card selected" onclick="selectOption(this, 'lang', 'en')">
+          <div class="lang-flag">🇨🇦</div>
+          <div class="lang-name">English</div>
+          <div class="lang-tag lang-tag-live">Live</div>
         </div>
-        <div class="option" onclick="selectOption(this, 'lang', 'hi')">
-          <div class="opt-icon">🇮🇳</div>
-          <div>
-            <div class="opt-title devanagari" lang="hi">हिंदी</div>
-            <div class="opt-sub devanagari" lang="hi">पूरा प्लेटफॉर्म हिंदी में</div>
-            <div class="opt-tag tag-insight">✓ Available now</div>
-          </div>
+        <div class="lang-card" onclick="selectOption(this, 'lang', 'hi')">
+          <div class="lang-flag">🇮🇳</div>
+          <div class="lang-name devanagari" lang="hi">हिंदी</div>
+          <div class="lang-name-sub">Hindi</div>
+          <div class="lang-tag lang-tag-live">Live</div>
+        </div>
+        <div class="lang-card" onclick="selectOption(this, 'lang', 'pa')">
+          <div class="lang-flag">🇮🇳</div>
+          <div class="lang-name" lang="pa" style="font-family:'Noto Sans Gurmukhi','Plus Jakarta Sans',sans-serif">ਪੰਜਾਬੀ</div>
+          <div class="lang-name-sub">Punjabi</div>
+          <div class="lang-tag lang-tag-soon">Soon</div>
+        </div>
+        <div class="lang-card" onclick="selectOption(this, 'lang', 'ur')">
+          <div class="lang-flag">🇵🇰</div>
+          <div class="lang-name" lang="ur" style="font-family:'Noto Naskh Arabic','Plus Jakarta Sans',sans-serif;direction:rtl">اردو</div>
+          <div class="lang-name-sub">Urdu</div>
+          <div class="lang-tag lang-tag-soon">Soon</div>
+        </div>
+        <div class="lang-card" onclick="selectOption(this, 'lang', 'zh')">
+          <div class="lang-flag">🇨🇳</div>
+          <div class="lang-name" lang="zh" style="font-family:'Noto Sans SC','Plus Jakarta Sans',sans-serif">中文</div>
+          <div class="lang-name-sub">Mandarin</div>
+          <div class="lang-tag lang-tag-soon">Soon</div>
+        </div>
+        <div class="lang-card" onclick="selectOption(this, 'lang', 'tl')">
+          <div class="lang-flag">🇵🇭</div>
+          <div class="lang-name">Tagalog</div>
+          <div class="lang-name-sub">Filipino</div>
+          <div class="lang-tag lang-tag-soon">Soon</div>
+        </div>
+        <div class="lang-card" onclick="selectOption(this, 'lang', 'fr')">
+          <div class="lang-flag">🇫🇷</div>
+          <div class="lang-name">Français</div>
+          <div class="lang-name-sub">French</div>
+          <div class="lang-tag lang-tag-soon">Soon</div>
+        </div>
+        <div class="lang-card" onclick="selectOption(this, 'lang', 'es')">
+          <div class="lang-flag">🇪🇸</div>
+          <div class="lang-name">Español</div>
+          <div class="lang-name-sub">Spanish</div>
+          <div class="lang-tag lang-tag-soon">Soon</div>
+        </div>
+        <div class="lang-card" onclick="selectOption(this, 'lang', 'uk')">
+          <div class="lang-flag">🇺🇦</div>
+          <div class="lang-name" lang="uk" style="font-family:'Noto Sans','Plus Jakarta Sans',sans-serif">Українська</div>
+          <div class="lang-name-sub">Ukrainian</div>
+          <div class="lang-tag lang-tag-soon">Soon</div>
+        </div>
+        <div class="lang-card" onclick="selectOption(this, 'lang', 'fa')">
+          <div class="lang-flag">🇮🇷</div>
+          <div class="lang-name" lang="fa" style="font-family:'Noto Naskh Arabic','Plus Jakarta Sans',sans-serif;direction:rtl">فارسی</div>
+          <div class="lang-name-sub">Persian (Farsi)</div>
+          <div class="lang-tag lang-tag-soon">Soon</div>
         </div>
       </div>
 
@@ -546,6 +607,10 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
           <div class="rc-val" style="color:var(--p)" id="tfsa-val">$7,000</div>
           <div class="rc-status status-open" id="tfsa-status">Open now</div>
           <div style="font-size:11px;color:var(--tm);margin-top:6px" id="tfsa-note">Full 2026 room available</div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--b)">
+            <div style="font-size:10px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.06em">💰 Tax advantage</div>
+            <div style="font-size:11px;color:var(--t);margin-top:2px;line-height:1.4">Growth and withdrawals are <strong>100% tax-free forever</strong>. $7K/yr × 25 yrs at 7% = <strong style="color:var(--p)">~$443K — all tax-free.</strong></div>
+          </div>
         </div>
         <div class="result-card">
           <div class="rc-label">First Home Savings</div>
@@ -553,6 +618,10 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
           <div class="rc-val" style="color:var(--amber)" id="fhsa-val">$8,000</div>
           <div class="rc-status status-urgent" id="fhsa-status">⚠ Deadline Dec 31</div>
           <div style="font-size:11px;color:var(--tm);margin-top:6px" id="fhsa-note">Open before Dec 31 to save this room</div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--b)">
+            <div style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.06em">💰 Tax advantage</div>
+            <div style="font-size:11px;color:var(--t);margin-top:2px;line-height:1.4"><strong>Best of both worlds:</strong> deduct $8K from your income now (save <strong style="color:var(--p)">~$2,400 in tax</strong> at 30%), and withdraw tax-free for your first home.</div>
+          </div>
         </div>
         <div class="result-card">
           <div class="rc-label">Retirement Savings</div>
@@ -560,6 +629,10 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
           <div class="rc-val" style="color:var(--tf)" id="rrsp-val">$0</div>
           <div class="rc-status status-wait" id="rrsp-status" >Available after tax return</div>
           <div style="font-size:11px;color:var(--tm);margin-top:6px" id="rrsp-note">Room unlocks after your first Canadian tax filing</div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--b)">
+            <div style="font-size:10px;font-weight:700;color:#2563EB;text-transform:uppercase;letter-spacing:.06em">💰 Tax advantage</div>
+            <div style="font-size:11px;color:var(--t);margin-top:2px;line-height:1.4">Contributions reduce your taxable income now. Every <strong>$10K contributed</strong> at a 30% marginal rate = <strong style="color:var(--p)">$3,000 tax refund.</strong></div>
+          </div>
         </div>
       </div>
 
