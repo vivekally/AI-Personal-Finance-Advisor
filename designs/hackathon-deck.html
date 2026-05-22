@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrive Finance — Builder Sprint Toronto 2026 · Challenge #3 The Access Problem</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --p:#15803D; --pd:#14532D; --pl:#DCFCE7; --p50:#F0FDF4;
+  --dark:#0F2419; --dark2:#162D1F;
+  --bg:#FAFAF8; --sur:#FFF; --b:#E5E7EB;
+  --t:#111827; --tm:#6B7280; --tf:#9CA3AF;
+  --amber:#D97706; --abg:#FFFBEB; --ab:#FDE68A;
+  --blue:#2563EB; --bbg:#EFF6FF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Plus Jakarta Sans',sans-serif}
+
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden;background:#000}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .4s ease, transform .4s ease;transform:translateX(60px);will-change:transform,opacity}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0)}
+.slide.exit{opacity:0;transform:translateX(-60px)}
+
+/* nav */
+.nav{position:fixed;bottom:24px;right:28px;z-index:100;display:flex;align-items:center;gap:12px}
+.nav-count{font-size:12px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.06em;min-width:48px;text-align:center}
+.nav-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;backdrop-filter:blur(8px)}
+.nav-btn:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5)}
+.nav-btn:disabled{opacity:.25;cursor:not-allowed}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--p);transition:width .4s ease;z-index:101}
+.event-chip{position:fixed;top:18px;left:24px;font-size:11px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.07em;text-transform:uppercase;z-index:99}
+.event-chip.dark{color:var(--tm)}
+
+/* type */
+.logo-chip{display:inline-flex;align-items:center;gap:7px;font-family:'Fraunces',serif;font-size:15px;font-weight:700}
+.headline{font-family:'Fraunces',serif;font-weight:700;line-height:1.08}
+.hl-88{font-size:clamp(48px,6.5vw,88px)}
+.hl-64{font-size:clamp(40px,5vw,64px)}
+.hl-48{font-size:clamp(32px,3.6vw,48px)}
+.hl-36{font-size:clamp(24px,2.6vw,36px)}
+.hl-28{font-size:22px}
+.body-lg{font-size:clamp(15px,1.3vw,18px);line-height:1.6}
+.body-md{font-size:clamp(13px,1.05vw,15px);line-height:1.6}
+.body-sm{font-size:13px;line-height:1.55}
+.mono{font-family:'Geist Mono',monospace;font-variant-numeric:tabular-nums}
+.label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em}
+.green{color:var(--p)}.amber{color:var(--amber)}.white{color:#fff}.muted{color:rgba(255,255,255,.55)}.muted-dark{color:var(--tm)}
+
+/* layout */
+.pad{padding:56px 80px}
+.cols-2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.cols-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.cols-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:18px}
+.v-center{display:flex;flex-direction:column;justify-content:center}
+.h-space{display:flex;align-items:center;justify-content:space-between}
+
+/* cards */
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:20px}
+.card-light{background:#fff;border:1px solid var(--b);border-radius:14px;padding:22px}
+.card-green{background:var(--p50);border:1px solid #BBF7D0;border-radius:14px;padding:22px}
+.card-dark{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px}
+
+/* stats */
+.stat-num{font-family:'Geist Mono',monospace;font-weight:500;line-height:1}
+.stat-72{font-size:clamp(48px,5.2vw,72px)}
+.stat-56{font-size:clamp(36px,4vw,56px)}
+.stat-36{font-size:clamp(26px,2.6vw,36px)}
+
+/* badges */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:9999px}
+.b-green{background:var(--pl);color:var(--pd)}
+.b-amber{background:var(--abg);color:var(--amber);border:1px solid var(--ab)}
+.b-white{background:rgba(255,255,255,.12);color:#fff}
+.b-blue{background:var(--bbg);color:var(--blue)}
+
+/* backgrounds */
+.bg-dark{background:linear-gradient(145deg,#0a1a0f 0%,var(--dark) 40%,#112318 100%);position:relative;overflow:hidden}
+.bg-dark::before{content:'';position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 48px,#fff 48px,#fff 49px),repeating-linear-gradient(90deg,transparent,transparent 48px,#fff 48px,#fff 49px);pointer-events:none}
+.bg-dark::after{content:'';position:absolute;right:-60px;top:-80px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(21,128,61,.18) 0%,transparent 70%);pointer-events:none}
+.bg-light{background:var(--bg)}
+.bg-white{background:#fff}
+
+/* multi-script */
+[lang="hi"]{font-family:'Noto Sans Devanagari','Plus Jakarta Sans',sans-serif}
+[lang="pa"]{font-family:'Noto Sans Gurmukhi','Plus Jakarta Sans',sans-serif}
+[lang="ur"],[lang="fa"]{font-family:'Noto Naskh Arabic','Plus Jakarta Sans',sans-serif;direction:rtl}
+[lang="zh"]{font-family:'Noto Sans SC','Plus Jakarta Sans',sans-serif}
+
+/* mockup frame */
+.mockup-frame{background:#fff;border:1px solid var(--b);border-radius:10px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.12)}
+.mockup-bar{height:26px;background:#F3F4F6;border-bottom:1px solid var(--b);display:flex;align-items:center;padding:0 10px;gap:5px}
+.mockup-dot{width:7px;height:7px;border-radius:50%}
+
+/* shimmer accent on cover */
+.accent-line{position:absolute;left:0;top:0;width:6px;height:100%;background:linear-gradient(180deg,transparent 0%,var(--p) 30%,#86EFAC 60%,var(--p) 90%,transparent 100%)}
+
+.cover-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding-top:32px;border-top:1px solid rgba(255,255,255,.1)}
+.cover-stat{display:flex;flex-direction:column;gap:6px}
+.cover-stat .stat-num{font-size:clamp(32px,3.6vw,48px);color:#fff}
+.cover-stat .stat-num.g{color:#86EFAC}
+.cover-stat .stat-label{font-size:11px;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+
+/* language tiles */
+.lang-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.lang-tile{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px 10px;text-align:center}
+.lang-tile.live{border-color:rgba(21,128,61,.4);background:rgba(21,128,61,.1)}
+.lang-flag{font-size:20px;line-height:1;margin-bottom:6px}
+.lang-name-native{font-size:14px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:2px;min-height:18px}
+.lang-name-en{font-size:10px;color:rgba(255,255,255,.4);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.lang-tile.live .lang-name-en{color:#86EFAC}
+
+/* timeline */
+.timeline-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.tl-cell{padding:12px 10px;border-radius:8px;text-align:center}
+.tl-cell.done{background:rgba(21,128,61,.15);border:1px solid rgba(21,128,61,.3)}
+.tl-cell.now{background:rgba(217,119,6,.15);border:1px solid rgba(217,119,6,.4)}
+.tl-cell.next{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}
+.tl-label{font-size:10px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.tl-week{font-size:12px;font-weight:700;color:#fff;margin-bottom:3px}
+.tl-what{font-size:10px;color:rgba(255,255,255,.55);line-height:1.3}
+
+/* prototype tiles */
+.proto-tile{background:#fff;border:1px solid var(--b);border-radius:12px;overflow:hidden;transition:all .2s}
+.proto-tile-head{padding:12px 14px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+.proto-tile-title{font-family:'Fraunces',serif;font-size:14px;font-weight:700;color:var(--t)}
+.proto-tile-body{padding:14px;height:140px;display:flex;align-items:center;justify-content:center;font-size:32px;background:linear-gradient(135deg,var(--p50) 0%,#fff 100%);position:relative;overflow:hidden}
+
+/* trust pillars */
+.trust-row{display:flex;gap:14px;align-items:center;padding:14px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;margin-bottom:10px}
+.trust-icon{width:36px;height:36px;border-radius:8px;background:rgba(21,128,61,.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+
+/* persona */
+.persona-row{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;background:#fff;border:1px solid var(--b);border-radius:10px;margin-bottom:8px}
+.persona-icon-sq{width:40px;height:40px;border-radius:10px;background:#F3F4F6;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+
+/* shweta callout */
+.quote-block{background:rgba(21,128,61,.08);border:1px solid rgba(21,128,61,.25);border-radius:14px;padding:24px;position:relative}
+.quote-mark-deco{position:absolute;top:8px;left:18px;font-family:'Fraunces',serif;font-size:48px;color:rgba(21,128,61,.3);line-height:1}
+
+/* link chip */
+.link-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:9999px;font-size:13px;font-weight:600;color:#fff;text-decoration:none;transition:all .15s}
+.link-chip:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4)}
+.link-chip.green{background:var(--p);border-color:var(--p)}
+.link-chip.green:hover{background:var(--pd)}
+
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+  <div class="progress-bar" id="progress"></div>
+
+  <!-- ══════════ SLIDE 1 — COVER ══════════ -->
+  <div class="slide active bg-dark" id="s1">
+    <div class="accent-line"></div>
+    <div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:1">
+      <div class="h-space">
+        <div class="logo-chip white">
+          <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+        <div style="display:flex;gap:8px">
+          <span class="badge b-white">Builder Sprint Toronto · 2026</span>
+          <span class="badge" style="background:rgba(21,128,61,.2);color:#86EFAC;border:1px solid rgba(21,128,61,.4)">Challenge #3</span>
+        </div>
+      </div>
+
+      <div style="max-width:780px">
+        <div class="label" style="color:#86EFAC;margin-bottom:18px">The Access Problem</div>
+        <div class="headline hl-88 white" style="margin-bottom:24px">The financial OS every newcomer to Canada <em style="font-style:italic;color:#86EFAC">deserves.</em></div>
+        <div class="body-lg" style="color:rgba(255,255,255,.65);max-width:600px">
+          Built for someone the current system ignores: 483,000 newcomers a year who arrive with savings, ambition, and no fluency in Canada's $9.81 trillion financial system.
+        </div>
+      </div>
+
+      <div class="cover-stats">
+        <div class="cover-stat"><div class="stat-num">483K</div><div class="stat-label">newcomers / yr</div></div>
+        <div class="cover-stat"><div class="stat-num">38%</div><div class="stat-label">don't understand Canadian banking</div></div>
+        <div class="cover-stat"><div class="stat-num">76%</div><div class="stat-label">fear a financial mistake</div></div>
+        <div class="cover-stat"><div class="stat-num g">$20</div><div class="stat-label">first paying customer</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 2 — THE ACCESS PROBLEM ══════════ -->
+  <div class="slide bg-light" id="s2">
+    <div class="event-chip dark">Slide 2 · Problem Fit & Insight</div>
+    <div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:center">
+
+      <div style="max-width:760px;margin-bottom:36px">
+        <div class="label green" style="margin-bottom:10px">The Access Problem</div>
+        <div class="headline hl-64" style="color:var(--t);margin-bottom:18px">"Build something for someone the current system ignores."</div>
+        <div class="body-lg muted-dark">Canada's financial advisory industry manages $9.81 trillion in AUM — built for people who are already wealthy, already fluent, already here. Newcomers are none of these things.</div>
+      </div>
+
+      <div class="cols-3">
+        <div class="card-light" style="border-top:3px solid var(--p)">
+          <div style="font-size:32px;margin-bottom:12px">🌏</div>
+          <div class="headline hl-28" style="margin-bottom:8px">Non-English speakers</div>
+          <div class="body-sm muted-dark">No mainstream product offers wizard-based onboarding in Hindi, Punjabi, Mandarin, Tagalog — the 4 most common newcomer languages. Multilingual = afterthought everywhere else.</div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--b);font-family:'Geist Mono',monospace;font-size:13px;color:var(--p);font-weight:600">~60% of newcomers</div>
+        </div>
+
+        <div class="card-light" style="border-top:3px solid var(--amber)">
+          <div style="font-size:32px;margin-bottom:12px">🎓</div>
+          <div class="headline hl-28" style="margin-bottom:8px">International students</div>
+          <div class="body-sm muted-dark">TFSA and FHSA eligibility are based on Canadian tax residency — not PR status. A student 2 years in has $14,000 of unused TFSA room. Almost no product surfaces this.</div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--b);font-family:'Geist Mono',monospace;font-size:13px;color:var(--amber);font-weight:600">$14K unused / student</div>
+        </div>
+
+        <div class="card-light" style="border-top:3px solid var(--blue)">
+          <div style="font-size:32px;margin-bottom:12px">💼</div>
+          <div class="headline hl-28" style="margin-bottom:8px">Skilled workers, year 1–3</div>
+          <div class="body-sm muted-dark">$50K–$200K saved. Can't justify $150/hr for a CFP. Don't know enough to navigate alone. <strong style="color:var(--t)">The FHSA Dec 31 deadline silently costs every newcomer $8,000 of room — forever.</strong></div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--b);font-family:'Geist Mono',monospace;font-size:13px;color:var(--blue);font-weight:600">$8K / year lost</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 3 — MEET SHWETA ══════════ -->
+  <div class="slide bg-dark" id="s3">
+    <div class="event-chip">Slide 3 · One real person — and what the access problem costs her</div>
+    <div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1">
+
+      <div class="cols-2" style="gap:64px;align-items:center">
+        <div>
+          <div style="display:flex;align-items:center;gap:18px;margin-bottom:24px">
+            <div style="width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#22C55E 0%,#15803D 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:30px;font-weight:700;font-family:'Fraunces',serif;flex-shrink:0">S</div>
+            <div>
+              <div class="headline hl-36 white" style="margin-bottom:4px">Shweta Singh</div>
+              <div class="body-md muted">Product Support Engineer · India → Toronto · arrived 2024</div>
+            </div>
+          </div>
+
+          <div class="quote-block" style="margin-bottom:20px">
+            <div class="quote-mark-deco">"</div>
+            <div style="font-family:'Fraunces',serif;font-size:19px;font-style:italic;color:#fff;line-height:1.5;margin-left:32px">A one-stop solution where I can see my entire financial health from different accounts and investments and goals, and the system can help me plan my finances better.</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(21,128,61,.15);border:1px solid rgba(21,128,61,.35);border-radius:10px">
+            <div style="font-size:24px">💸</div>
+            <div>
+              <div style="font-size:13px;color:#86EFAC;font-weight:700;letter-spacing:.04em;text-transform:uppercase">First revenue</div>
+              <div class="body-md white">Paid <strong>$20 by Interac on the first demo</strong> — no prompting, no discount.</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="label" style="color:rgba(255,255,255,.4);margin-bottom:14px">What the access problem cost her</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:baseline">
+                <div class="body-md white" style="font-weight:600">$100,000 saved over 2 years</div>
+                <div class="mono" style="color:#FCA5A5">$0 in TFSA</div>
+              </div>
+              <div class="body-sm muted" style="margin-top:4px">Sat in a chequing account at 1–2% while $14K of TFSA room expired silently.</div>
+            </div>
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:baseline">
+                <div class="body-md white" style="font-weight:600">2024 FHSA $8,000</div>
+                <div class="mono amber">gone forever</div>
+              </div>
+              <div class="body-sm muted" style="margin-top:4px">Never opened an FHSA before Dec 31, 2024. That year's $8K of room is permanently lost.</div>
+            </div>
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:baseline">
+                <div class="body-md white" style="font-weight:600">4 CFP sessions at $150/hr</div>
+                <div class="mono" style="color:#FBBF24">$600 spent</div>
+              </div>
+              <div class="body-sm muted" style="margin-top:4px">Just to understand what accounts she was eligible to open as an Indian PR holder in Year 1.</div>
+            </div>
+          </div>
+          <div style="margin-top:16px;font-size:14px;color:#86EFAC;font-weight:600;font-style:italic">Shweta is one of 483,000 this year. We built Arrive Finance for her.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 4 — THE SOLUTION ══════════ -->
+  <div class="slide bg-white" id="s4">
+    <div class="event-chip dark">Slide 4 · Innovation & Originality</div>
+    <div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:center">
+
+      <div style="margin-bottom:28px">
+        <div class="label green" style="margin-bottom:10px">Our Solution</div>
+        <div class="headline hl-48" style="color:var(--t);margin-bottom:14px">A personal finance OS purpose-built for newcomer realities — not a generic app with a translated landing page.</div>
+        <div class="body-lg muted-dark" style="max-width:760px">Three pillars. One coherent system. Built ground-up for the edge cases generic finance apps can't retrofit.</div>
+      </div>
+
+      <div class="cols-3" style="margin-bottom:24px">
+        <div class="card-light" style="border-top:3px solid var(--p)">
+          <div style="font-size:30px;margin-bottom:12px">🧭</div>
+          <div class="headline hl-28" style="margin-bottom:8px;color:var(--t)">Onboard</div>
+          <div class="body-sm muted-dark" style="margin-bottom:12px">7-step wizard with newcomer-specific rules. Knows RRSP year-1 = $0. Knows TFSA accumulates from tax residency, not PR. Knows the FHSA Dec 31 deadline by heart.</div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--p);font-weight:600;letter-spacing:.04em;text-transform:uppercase">10-language plan</div>
+        </div>
+        <div class="card-light" style="border-top:3px solid var(--blue)">
+          <div style="font-size:30px;margin-bottom:12px">📊</div>
+          <div class="headline hl-28" style="margin-bottom:8px;color:var(--t)">Track</div>
+          <div class="body-sm muted-dark" style="margin-bottom:12px">All accounts in one view via Flinks (Canadian open banking, live since 2026). Arrive Score 0–100. Real-time alerts when cash sits uninvested in registered rooms.</div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--blue);font-weight:600;letter-spacing:.04em;text-transform:uppercase">Flinks · ca-central-1</div>
+        </div>
+        <div class="card-light" style="border-top:3px solid var(--amber)">
+          <div style="font-size:30px;margin-bottom:12px">⚡</div>
+          <div class="headline hl-28" style="margin-bottom:8px;color:var(--t)">Optimize</div>
+          <div class="body-sm muted-dark" style="margin-bottom:12px">AI Action Center surfaces the next concrete step. Human-in-the-loop CFP review before any execution. One-tap ETF guidance via SnapTrade (pending IIROC review).</div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--amber);font-weight:600;letter-spacing:.04em;text-transform:uppercase">AI + human escalation</div>
+        </div>
+      </div>
+
+      <div style="background:var(--p50);border:1px solid #BBF7D0;border-radius:12px;padding:18px 22px;display:flex;align-items:center;gap:18px">
+        <div style="font-size:24px;flex-shrink:0">🇨🇦</div>
+        <div class="body-md" style="color:var(--pd);flex:1">
+          <strong>Why now:</strong> Canada's Consumer-Driven Banking Act received Royal Assent <strong>March 26, 2026</strong>. The Big Six are legally required to expose customer data via API. The infrastructure for our aggregation layer just landed — and we're building on it in week one.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 5 — TECHNICAL EXECUTION & WORKING DEMO ══════════ -->
+  <div class="slide bg-light" id="s5">
+    <div class="event-chip dark">Slide 5 · Technical Execution & Working Demo · 25% of judging</div>
+    <div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:center">
+
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px">
+        <div>
+          <div class="label green" style="margin-bottom:10px">Working Product · Live & Interactive</div>
+          <div class="headline hl-48" style="color:var(--t)">4 deployed artifacts. ~3,800 lines of HTML/JS. Built this week.</div>
+        </div>
+        <span class="badge b-green" style="font-size:12px;padding:5px 12px">🟢 Live at github.io</span>
+      </div>
+
+      <div class="cols-4" style="margin-bottom:22px">
+        <div class="proto-tile">
+          <div class="proto-tile-head"><div class="proto-tile-title">🌐 Landing</div><span class="badge b-green">Live</span></div>
+          <div class="proto-tile-body">
+            <div style="text-align:center">
+              <div style="font-size:9px;color:var(--tm);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">⏰ 223 days · FHSA</div>
+              <div style="font-family:'Fraunces',serif;font-size:14px;font-weight:700;color:var(--t)">Trusted advisor<br><em style="color:var(--p);font-style:normal">you couldn't afford</em></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proto-tile">
+          <div class="proto-tile-head"><div class="proto-tile-title">🧭 Wizard</div><span class="badge b-green">Live</span></div>
+          <div class="proto-tile-body" style="background:linear-gradient(135deg,#FFFBEB 0%,#fff 100%)">
+            <div style="text-align:center">
+              <div style="display:flex;gap:3px;justify-content:center;margin-bottom:6px">
+                <div style="width:14px;height:3px;background:var(--p);border-radius:2px"></div>
+                <div style="width:14px;height:3px;background:var(--p);border-radius:2px"></div>
+                <div style="width:14px;height:3px;background:var(--p);border-radius:2px"></div>
+                <div style="width:14px;height:3px;background:var(--b);border-radius:2px"></div>
+                <div style="width:14px;height:3px;background:var(--b);border-radius:2px"></div>
+              </div>
+              <div style="font-family:'Fraunces',serif;font-size:12px;font-weight:700;color:var(--t);margin-bottom:3px">7-step wizard</div>
+              <div style="font-size:10px;color:var(--tm)">10 languages · state machine</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proto-tile">
+          <div class="proto-tile-head"><div class="proto-tile-title">📊 Platform</div><span class="badge b-green">Live</span></div>
+          <div class="proto-tile-body" style="background:linear-gradient(135deg,#EFF6FF 0%,#fff 100%)">
+            <div style="text-align:center">
+              <div style="font-family:'Geist Mono',monospace;font-size:28px;font-weight:500;color:var(--p);line-height:1">68<span style="font-size:14px;color:var(--tm)">/100</span></div>
+              <div style="font-size:10px;color:var(--tm);font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-top:4px">Arrive Score</div>
+              <div style="font-size:10px;color:var(--tm);margin-top:3px">9 panels · AI advisor</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proto-tile">
+          <div class="proto-tile-head"><div class="proto-tile-title">🎯 Investor Deck</div><span class="badge b-green">Live</span></div>
+          <div class="proto-tile-body" style="background:linear-gradient(135deg,#0F2419 0%,#162D1F 100%);color:#fff">
+            <div style="text-align:center">
+              <div style="font-family:'Fraunces',serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">19 slides</div>
+              <div style="font-size:10px;color:rgba(255,255,255,.6)">Market · Traction · Ask</div>
+              <div style="font-size:10px;color:#86EFAC;margin-top:6px;font-weight:600">Keyboard nav</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cols-2" style="gap:24px">
+        <div class="card-light" style="background:var(--dark);border:none;color:#fff">
+          <div class="label" style="color:#86EFAC;margin-bottom:10px">What's actually built (not mocked)</div>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;font-size:13px;color:rgba(255,255,255,.75);line-height:1.5">
+            <li>✓ <strong style="color:#fff">Year-by-year TFSA limits table</strong> (2009–2026, exact CRA values) drives all room calcs</li>
+            <li>✓ <strong style="color:#fff">Dynamic FHSA countdown</strong> to Dec 31 — updates daily across landing, wizard, platform</li>
+            <li>✓ <strong style="color:#fff">7-step wizard state machine</strong> with persona-aware insights (student, PR, work permit, returning Canadian)</li>
+            <li>✓ <strong style="color:#fff">Multi-script typography</strong> — Devanagari, Gurmukhi, Naskh Arabic (RTL), Noto Sans SC</li>
+            <li>✓ <strong style="color:#fff">Dark mode + system-pref detection + localStorage</strong> on all 3 prototypes</li>
+            <li>✓ <strong style="color:#fff">9-panel platform</strong> with calculator tab switching, AI brief generation, specialist booking</li>
+          </ul>
+        </div>
+
+        <div class="card-light">
+          <div class="label" style="color:var(--p);margin-bottom:10px">Live URLs · click to try</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <a href="https://vivekally.github.io/AI-Personal-Finance-Advisor/" class="link-chip green" style="justify-content:flex-start">🏠 vivekally.github.io/AI-Personal-Finance-Advisor</a>
+            <a href="https://vivekally.github.io/AI-Personal-Finance-Advisor/designs/landing.html" class="link-chip" style="background:var(--p50);color:var(--pd);border-color:#BBF7D0;justify-content:flex-start">🌐 /designs/landing.html</a>
+            <a href="https://vivekally.github.io/AI-Personal-Finance-Advisor/designs/onboarding.html" class="link-chip" style="background:var(--p50);color:var(--pd);border-color:#BBF7D0;justify-content:flex-start">🧭 /designs/onboarding.html</a>
+            <a href="https://vivekally.github.io/AI-Personal-Finance-Advisor/designs/platform-mockup.html" class="link-chip" style="background:var(--p50);color:var(--pd);border-color:#BBF7D0;justify-content:flex-start">📊 /designs/platform-mockup.html</a>
+          </div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--b);font-size:11px;color:var(--tm);line-height:1.5"><strong>Source:</strong> github.com/vivekally/AI-Personal-Finance-Advisor · 7 commits this week · 4 markdown docs (PRD, DESIGN, Deep Research, README)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 6 — RESPONSIBLE AI & TRUST ══════════ -->
+  <div class="slide bg-dark" id="s6">
+    <div class="event-chip">Slide 6 · Responsible AI & Trust by Design · 15%</div>
+    <div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1">
+
+      <div style="margin-bottom:28px;max-width:780px">
+        <div class="label" style="color:#86EFAC;margin-bottom:10px">Built Responsibly</div>
+        <div class="headline hl-48 white" style="margin-bottom:14px">Trust isn't a feature. It's the architecture.</div>
+        <div class="body-lg muted">An AI that holds opinions about $100,000 of someone's life savings must be auditable, accountable, and humble about what it doesn't know.</div>
+      </div>
+
+      <div class="cols-2" style="gap:36px">
+        <div>
+          <div class="trust-row">
+            <div class="trust-icon">📚</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">"Education, not advice"</div>
+              <div class="body-sm muted">Every wizard output is labeled as personalized education. Avoids triggering OSC/provincial Securities Act requirements for registered investment advice. Fintech-lawyer scoping call booked before Stripe launch.</div>
+            </div>
+          </div>
+          <div class="trust-row">
+            <div class="trust-icon">👤</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">Human-in-the-loop escalation</div>
+              <div class="body-sm muted">AI generates a brief → licensed CFP reviews and annotates → user executes. No autonomous trades. Every recommendation has a human signature before any money moves.</div>
+            </div>
+          </div>
+          <div class="trust-row">
+            <div class="trust-icon">🇨🇦</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">PIPEDA + data residency</div>
+              <div class="body-sm muted">Turso SQLite in ca-central-1 (Montreal). Flinks &amp; SnapTrade tokens AES-256 encrypted at the application layer. Zero raw account data in plaintext logs — verified by audit trail.</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="trust-row">
+            <div class="trust-icon">📩</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">CASL-compliant WhatsApp</div>
+              <div class="body-sm muted">Double opt-in. Timestamp + IP stored. STOP keyword unsubscribes immediately and purges from the Dec 14 reminder queue. Non-compliance penalty: up to $10M — we won't risk it.</div>
+            </div>
+          </div>
+          <div class="trust-row">
+            <div class="trust-icon">📊</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">Every claim has a source</div>
+              <div class="body-sm muted">19-slide investor deck appendix lists 13 primary sources (IRCC, FCAC, Statista, DLA Piper, Flinks, FP Canada). Estimates are labeled as estimates. Banks' #1 new-customer segment? Globe and Mail, on the record.</div>
+            </div>
+          </div>
+          <div class="trust-row">
+            <div class="trust-icon">🚫</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">Brokerage execution = pending</div>
+              <div class="body-sm muted">SnapTrade order execution is deferred to Year 2 pending IIROC/CSA review. Until cleared, we surface "guided execution" — user reviews and confirms in their own broker. We don't pretend to be what we're not.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 7 — INCLUSIVITY & UX ══════════ -->
+  <div class="slide bg-dark" id="s7">
+    <div class="event-chip">Slide 7 · User Experience & Inclusivity · 10%</div>
+    <div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1">
+
+      <div style="margin-bottom:24px;max-width:840px">
+        <div class="label" style="color:#86EFAC;margin-bottom:10px">10 Languages · 95% of Newcomers</div>
+        <div class="headline hl-48 white" style="margin-bottom:14px">Built for the actual languages newcomers speak — not just translated English.</div>
+        <div class="body-md muted">Multi-script typography done right: Devanagari, Gurmukhi, Naskh Arabic (RTL), Noto Sans SC. Each glyph uses the correct font, weight, and direction. Generic Latin fonts rendering Devanagari as tofu is the visual signal of products built without care.</div>
+      </div>
+
+      <div class="lang-grid" style="margin-bottom:24px">
+        <div class="lang-tile live"><div class="lang-flag">🇨🇦</div><div class="lang-name-native">English</div><div class="lang-name-en">Live</div></div>
+        <div class="lang-tile live"><div class="lang-flag">🇮🇳</div><div class="lang-name-native" lang="hi">हिंदी</div><div class="lang-name-en">Hindi · Live</div></div>
+        <div class="lang-tile"><div class="lang-flag">🇮🇳</div><div class="lang-name-native" lang="pa">ਪੰਜਾਬੀ</div><div class="lang-name-en">Punjabi</div></div>
+        <div class="lang-tile"><div class="lang-flag">🇵🇰</div><div class="lang-name-native" lang="ur">اردو</div><div class="lang-name-en">Urdu</div></div>
+        <div class="lang-tile"><div class="lang-flag">🇨🇳</div><div class="lang-name-native" lang="zh">中文</div><div class="lang-name-en">Mandarin</div></div>
+        <div class="lang-tile"><div class="lang-flag">🇵🇭</div><div class="lang-name-native">Tagalog</div><div class="lang-name-en">Filipino</div></div>
+        <div class="lang-tile"><div class="lang-flag">🇫🇷</div><div class="lang-name-native">Français</div><div class="lang-name-en">French</div></div>
+        <div class="lang-tile"><div class="lang-flag">🇪🇸</div><div class="lang-name-native">Español</div><div class="lang-name-en">Spanish</div></div>
+        <div class="lang-tile"><div class="lang-flag">🇺🇦</div><div class="lang-name-native">Українська</div><div class="lang-name-en">Ukrainian</div></div>
+        <div class="lang-tile"><div class="lang-flag">🇮🇷</div><div class="lang-name-native" lang="fa">فارسی</div><div class="lang-name-en">Persian</div></div>
+      </div>
+
+      <div class="cols-3">
+        <div class="card">
+          <div style="font-size:11px;font-weight:700;color:#86EFAC;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px">Persona-aware UX</div>
+          <div class="body-sm muted">Same wizard surfaces different insights based on status. International students see <em style="color:#fff">"You qualify based on tax residency, not PR."</em> Work-permit holders see <em style="color:#fff">"FHSA applies if you're a first-time buyer."</em> Generic apps surface the same screen to everyone.</div>
+        </div>
+        <div class="card">
+          <div style="font-size:11px;font-weight:700;color:#86EFAC;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px">Dark mode + accessibility</div>
+          <div class="body-sm muted">Full dark theme across all 3 prototypes. Honors system preference. Persists via localStorage. 44px tap targets. AAA contrast on critical text. Multi-script fonts loaded preflight so Devanagari, Gurmukhi, Arabic render cleanly from first paint.</div>
+        </div>
+        <div class="card">
+          <div style="font-size:11px;font-weight:700;color:#86EFAC;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px">Specialist directory · language filter</div>
+          <div class="body-sm muted">Priya Sharma (CPA — Hindi, Punjabi). Ben Chen (CFP/CFA — French, Spanish). David Chen (Mandarin). Maria Santos (Tagalog). Find a real human who speaks your language, in your city.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 8 — WHY NOW + INNOVATION ══════════ -->
+  <div class="slide bg-white" id="s8">
+    <div class="event-chip dark">Slide 8 · Why Now + What Nobody Else is Building</div>
+    <div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:center">
+
+      <div style="margin-bottom:24px">
+        <div class="label green" style="margin-bottom:10px">Why Now · Why Us</div>
+        <div class="headline hl-48" style="color:var(--t)">Three converging tailwinds. One zero-competitor wedge.</div>
+      </div>
+
+      <div class="cols-2" style="gap:36px">
+        <div>
+          <div class="label muted-dark" style="margin-bottom:12px">🟢 Tailwinds converging in 2026</div>
+
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:14px;background:var(--p50);border:1px solid #BBF7D0;border-radius:10px;margin-bottom:10px">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--p);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--pd);margin-bottom:3px">Open banking landed March 26, 2026</div>
+              <div class="body-sm" style="color:var(--pd)">Consumer-Driven Banking Act = Royal Assent. Big Six legally required to expose APIs. Flinks live today. We build the aggregation layer on regulated infrastructure, not scraping.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:14px;background:var(--p50);border:1px solid #BBF7D0;border-radius:10px;margin-bottom:10px">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--p);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--pd);margin-bottom:3px">Record newcomer admissions — and still climbing</div>
+              <div class="body-sm" style="color:var(--pd)">483,600 PRs admitted 2024 (IRCC). 395K planned 2025. Top source: India (~28%). Settlement concentrated GTA + Vancouver (~59%) — our SAM lives in two metros with strong newcomer communities.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:14px;background:var(--p50);border:1px solid #BBF7D0;border-radius:10px">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--p);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--pd);margin-bottom:3px">AI cost curve crossed the threshold</div>
+              <div class="body-sm" style="color:var(--pd)">Personalized financial guidance — historically a $150/hr human service — is now a $2/month inference cost. The economics that make Arrive Finance viable at $20/month didn't exist in 2022.</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="label muted-dark" style="margin-bottom:12px">🎯 What nobody else is shipping</div>
+
+          <div class="card-light" style="padding:16px;margin-bottom:10px">
+            <div style="font-size:13px;font-weight:700;color:var(--t);margin-bottom:3px">Newcomer-first edge-case logic</div>
+            <div class="body-sm muted-dark">RRSP year-1 = $0. TFSA from tax residency. FHSA Dec 31 deadline as a permanent loss. Student tax-residency eligibility. <strong>Impossible to bolt onto a generic finance app — requires ground-up architecture.</strong></div>
+          </div>
+
+          <div class="card-light" style="padding:16px;margin-bottom:10px">
+            <div style="font-size:13px;font-weight:700;color:var(--t);margin-bottom:3px">10-language plan, multi-script done right</div>
+            <div class="body-sm muted-dark">Most products: English only, or English + French. We commit to the actual newcomer language mix — and ship multi-script typography that respects Devanagari, Gurmukhi, Arabic-script (RTL), Mandarin.</div>
+          </div>
+
+          <div class="card-light" style="padding:16px;margin-bottom:10px;border-color:var(--ab);background:var(--abg)">
+            <div style="font-size:13px;font-weight:700;color:#92400E;margin-bottom:3px">🔥 The bank acquisition channel</div>
+            <div class="body-sm" style="color:#78350F">Banks already pay <strong>$200–550 CAC per newcomer</strong> (RBC's $400 cash + Apple Watch bundle is documented). Arrive Finance ships them already-educated, ready-to-open customers. <strong>$50–150 referral fee = 70–80% bank CAC discount + a B2B revenue stream on top of consumer SaaS.</strong></div>
+          </div>
+
+          <div class="card-light" style="padding:16px">
+            <div style="font-size:13px;font-weight:700;color:var(--t);margin-bottom:3px">Human-in-the-loop AI for regulated advice</div>
+            <div class="body-sm muted-dark">Robo-advisors execute autonomously. Self-directed brokerages give no guidance. We sit in the middle: AI generates the brief, licensed CFP reviews, user executes. The safety net no competitor provides.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 9 — PATH FORWARD ══════════ -->
+  <div class="slide bg-dark" id="s9">
+    <div class="event-chip">Slide 9 · Pitch, Feasibility & Path Forward · 20%</div>
+    <div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1">
+
+      <div style="margin-bottom:22px">
+        <div class="label" style="color:#86EFAC;margin-bottom:8px">Path Forward</div>
+        <div class="headline hl-48 white">From $20 from Shweta to $20K MRR in 12 months.</div>
+      </div>
+
+      <div class="timeline-grid" style="margin-bottom:24px">
+        <div class="tl-cell done"><div class="tl-label" style="color:#86EFAC">✓ Done</div><div class="tl-week">Now</div><div class="tl-what">$20 paid · Domain · Prototypes · PRD · Investor deck</div></div>
+        <div class="tl-cell now"><div class="tl-label" style="color:#FBBF24">● Active</div><div class="tl-week">Week 1</div><div class="tl-what">FHSA deadline tool · 50 email signups · Flinks API approval</div></div>
+        <div class="tl-cell next"><div class="tl-label">Next</div><div class="tl-week">Week 3–6</div><div class="tl-what">Rules engine (TS + Vitest) · Wizard · Stripe · 10 beta users</div></div>
+        <div class="tl-cell next"><div class="tl-label">Next</div><div class="tl-week">Week 9–12</div><div class="tl-what">Flinks live · AI Advisor · Arrive Score · Directory</div></div>
+        <div class="tl-cell next"><div class="tl-label">Target</div><div class="tl-week">Month 12</div><div class="tl-what">1,000 users · $20K MRR · YC S2027 application</div></div>
+      </div>
+
+      <div class="cols-2" style="gap:24px">
+        <div class="card-dark">
+          <div class="label" style="color:#86EFAC;margin-bottom:10px">Business Model · Unit Economics</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
+            <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:10px;text-align:center"><div class="mono" style="font-size:18px;font-weight:500;color:#fff">$0</div><div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:2px">Free tier · lead gen</div></div>
+            <div style="background:rgba(21,128,61,.15);border:1px solid rgba(21,128,61,.3);border-radius:8px;padding:10px;text-align:center"><div class="mono" style="font-size:18px;font-weight:500;color:#86EFAC">$20</div><div style="font-size:10px;color:#86EFAC;margin-top:2px;font-weight:600">Pro · /month</div></div>
+            <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:10px;text-align:center"><div class="mono" style="font-size:18px;font-weight:500;color:#fff">$49</div><div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:2px">Premium · waitlist</div></div>
+          </div>
+          <div style="display:flex;gap:18px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1)">
+            <div><div class="mono" style="font-size:18px;color:#fff;font-weight:500">$240</div><div style="font-size:10px;color:rgba(255,255,255,.5)">ARPU</div></div>
+            <div><div class="mono" style="font-size:18px;color:#fff;font-weight:500">~$40</div><div style="font-size:10px;color:rgba(255,255,255,.5)">CAC</div></div>
+            <div><div class="mono" style="font-size:18px;color:#86EFAC;font-weight:500">6 : 1</div><div style="font-size:10px;color:rgba(255,255,255,.5)">LTV : CAC</div></div>
+            <div><div class="mono" style="font-size:18px;color:#86EFAC;font-weight:500">2.4 mo</div><div style="font-size:10px;color:rgba(255,255,255,.5)">payback</div></div>
+          </div>
+        </div>
+
+        <div class="card-dark" style="border-color:rgba(217,119,6,.3)">
+          <div class="label" style="color:#FBBF24;margin-bottom:10px">🔥 The B2B Multiplier</div>
+          <div class="body-sm muted" style="margin-bottom:10px">Year 2 onward: banks pay us to acquire the customers we've already educated. White-label + referral API.</div>
+          <div style="display:flex;gap:14px">
+            <div><div class="mono amber" style="font-size:20px;font-weight:500">$200–550</div><div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:2px">Bank CAC per newcomer · industry est.</div></div>
+            <div><div class="mono" style="font-size:20px;color:#86EFAC;font-weight:500">$50–150</div><div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:2px">Our referral fee · 70–80% bank discount</div></div>
+          </div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1);font-size:11px;color:rgba(255,255,255,.55);line-height:1.5">A 100-customer/month bank pilot at $100/referral = <strong style="color:#86EFAC">$120K/yr</strong> from a single partner. Covers a full year of infrastructure.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SLIDE 10 — THE ASK + DEMO ══════════ -->
+  <div class="slide bg-dark" id="s10">
+    <div class="event-chip">Slide 10 · The Ask</div>
+    <div class="accent-line"></div>
+    <div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:1">
+
+      <div class="h-space">
+        <div class="logo-chip white">
+          <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+        <span class="badge" style="background:rgba(21,128,61,.2);color:#86EFAC;border:1px solid rgba(21,128,61,.4)">Builder Sprint Toronto · Challenge #3</span>
+      </div>
+
+      <div style="max-width:840px">
+        <div class="label" style="color:#86EFAC;margin-bottom:18px">Three things to take with you</div>
+        <div class="headline hl-64 white" style="margin-bottom:32px">If a newcomer matters to you, this matters now.</div>
+
+        <div style="display:flex;flex-direction:column;gap:14px">
+
+          <div style="display:flex;gap:18px;align-items:center;padding:18px 22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px">
+            <div style="width:44px;height:44px;border-radius:50%;background:rgba(21,128,61,.2);border:1px solid rgba(21,128,61,.4);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">1</div>
+            <div style="flex:1">
+              <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:2px">Try the live prototype</div>
+              <div class="body-sm muted">7-step wizard with 10-language plan, FHSA countdown, dark mode toggle, persona-aware insights.</div>
+            </div>
+            <a href="https://vivekally.github.io/AI-Personal-Finance-Advisor/" class="link-chip green">vivekally.github.io →</a>
+          </div>
+
+          <div style="display:flex;gap:18px;align-items:center;padding:18px 22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px">
+            <div style="width:44px;height:44px;border-radius:50%;background:rgba(21,128,61,.2);border:1px solid rgba(21,128,61,.4);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">2</div>
+            <div style="flex:1">
+              <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:2px">Watch the 2-min demo</div>
+              <div class="body-sm muted">Shweta's journey through the wizard. Wins from problem identification through CFP escalation.</div>
+            </div>
+            <a href="#" class="link-chip">📹 Demo video</a>
+          </div>
+
+          <div style="display:flex;gap:18px;align-items:center;padding:18px 22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px">
+            <div style="width:44px;height:44px;border-radius:50%;background:rgba(21,128,61,.2);border:1px solid rgba(21,128,61,.4);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">3</div>
+            <div style="flex:1">
+              <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:2px">Read the 19-slide investor deck</div>
+              <div class="body-sm muted">Full market sizing, regulatory analysis, unit economics, sources appendix.</div>
+            </div>
+            <a href="https://vivekally.github.io/AI-Personal-Finance-Advisor/designs/investor-deck.html" class="link-chip">🎯 Investor deck</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding-top:24px;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-size:13px;color:rgba(255,255,255,.5)">Team Arrive Finance · engg@brainally.io</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.35);margin-top:3px">Source: github.com/vivekally/AI-Personal-Finance-Advisor</div>
+        </div>
+        <div style="font-family:'Fraunces',serif;font-size:14px;font-style:italic;color:rgba(255,255,255,.55)">"The trusted advisor I couldn't afford."</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<nav class="nav">
+  <button class="nav-btn" id="btn-prev" onclick="prevSlide()" disabled>←</button>
+  <div class="nav-count" id="nav-count">1 / 10</div>
+  <button class="nav-btn" id="btn-next" onclick="nextSlide()">→</button>
+</nav>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let current = 0;
+
+function updateUI() {
+  document.getElementById('nav-count').textContent = `${current + 1} / ${total}`;
+  document.getElementById('btn-prev').disabled = current === 0;
+  document.getElementById('btn-next').disabled = current === total - 1;
+  document.getElementById('progress').style.width = `${((current + 1) / total) * 100}%`;
+}
+
+function goTo(n) {
+  if (n < 0 || n >= total) return;
+  const prev = slides[current];
+  prev.classList.remove('active');
+  prev.classList.add('exit');
+  setTimeout(() => prev.classList.remove('exit'), 420);
+  current = n;
+  slides[current].classList.add('active');
+  updateUI();
+}
+
+function nextSlide() { goTo(current + 1); }
+function prevSlide() { goTo(current - 1); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSlide(); }
+});
+
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 60) { dx < 0 ? nextSlide() : prevSlide(); }
+});
+
+updateUI();
+</script>
+</body>
+</html>
