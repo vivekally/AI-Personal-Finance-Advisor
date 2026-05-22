@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrive Finance — Get Your Free Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAFAF8;--sur:#FFF;--sur2:#F3F4F6;
+  --p:#15803D;--pd:#14532D;--pl:#DCFCE7;--p50:#F0FDF4;
+  --t:#111827;--tm:#6B7280;--tf:#9CA3AF;
+  --b:#E5E7EB;
+  --amber:#D97706;--abg:#FFFBEB;--ab:#FDE68A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;display:flex;flex-direction:column}
+
+nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.logo{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--p);text-decoration:none}
+.logo span{color:var(--t);font-weight:400}
+.nav-right{font-size:13px;color:var(--tm)}
+.nav-right a{color:var(--p);text-decoration:none;font-weight:600}
+
+.wizard-wrap{flex:1;display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 56px)}
+
+/* ── SIDEBAR ── */
+.wiz-sidebar{background:var(--sur);border-right:1px solid var(--b);padding:40px 32px;display:flex;flex-direction:column}
+.wiz-sidebar-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--t);margin-bottom:6px}
+.wiz-sidebar-sub{font-size:13px;color:var(--tm);line-height:1.5;margin-bottom:32px}
+.steps{display:flex;flex-direction:column;gap:4px}
+.step-item{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;border-radius:10px;transition:background .15s}
+.step-item.active{background:var(--p50)}
+.step-item.done{opacity:.7}
+.step-circle{width:26px;height:26px;border-radius:50%;border:2px solid var(--b);background:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--tf);flex-shrink:0;margin-top:1px;transition:all .15s}
+.step-item.active .step-circle{border-color:var(--p);background:var(--p);color:#fff}
+.step-item.done .step-circle{border-color:var(--p);background:var(--pl);color:var(--pd)}
+.step-content{}
+.step-label{font-size:13px;font-weight:600;color:var(--t)}
+.step-item.active .step-label{color:var(--p)}
+.step-desc{font-size:11px;color:var(--tm);margin-top:1px}
+
+.wiz-sidebar-footer{margin-top:auto;padding-top:24px;border-top:1px solid var(--b)}
+.security-note{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--tf)}
+
+/* ── MAIN ── */
+.wiz-main{padding:48px 56px;overflow-y:auto}
+.wiz-progress{height:4px;background:var(--b);border-radius:9999px;margin-bottom:40px;overflow:hidden}
+.wiz-progress-fill{height:100%;background:var(--p);border-radius:9999px;transition:width .4s ease}
+
+/* step panels */
+.step-panel{display:none}
+.step-panel.active{display:block}
+
+.wiz-step-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--p);margin-bottom:8px}
+.wiz-step-h{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--t);line-height:1.2;margin-bottom:10px}
+.wiz-step-sub{font-size:15px;color:var(--tm);margin-bottom:32px;line-height:1.6;max-width:480px}
+
+/* options grid */
+.options{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.options-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.option{border:2px solid var(--b);border-radius:12px;padding:16px 18px;cursor:pointer;transition:all .15s;background:var(--sur);display:flex;align-items:flex-start;gap:12px}
+.option:hover{border-color:var(--p);background:var(--p50)}
+.option.selected{border-color:var(--p);background:var(--p50)}
+.opt-icon{font-size:22px;flex-shrink:0;margin-top:1px}
+.opt-title{font-size:14px;font-weight:700;color:var(--t);margin-bottom:3px}
+.opt-sub{font-size:12px;color:var(--tm);line-height:1.4}
+.opt-tag{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:9999px;margin-top:6px}
+.tag-insight{background:var(--pl);color:var(--pd)}
+.tag-alert{background:var(--abg);color:var(--amber);border:1px solid var(--ab)}
+
+/* form fields */
+.form-group{margin-bottom:20px}
+.form-label{font-size:13px;font-weight:600;color:var(--t);margin-bottom:6px;display:block}
+.form-sub{font-size:12px;color:var(--tm);margin-bottom:8px}
+.form-input{width:100%;border:2px solid var(--b);border-radius:10px;padding:12px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--t);background:var(--sur);transition:border-color .15s;outline:none}
+.form-input:focus{border-color:var(--p)}
+.form-input-money{position:relative}
+.form-input-money::before{content:'$';position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:'Geist Mono',monospace;color:var(--tm);font-size:14px}
+.form-input-money .form-input{padding-left:28px;font-family:'Geist Mono',monospace}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* insight box */
+.insight-box{background:var(--p50);border:1px solid var(--pl);border-radius:10px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start;margin-bottom:20px}
+.ib-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.ib-text{font-size:13px;color:var(--pd);line-height:1.5}
+.ib-text strong{font-weight:700}
+
+.alert-box{background:var(--abg);border:1px solid var(--ab);border-radius:10px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start;margin-bottom:20px}
+.ab-text{font-size:13px;color:var(--amber);line-height:1.5}
+.ab-text strong{font-weight:700}
+
+/* nav buttons */
+.wiz-nav{display:flex;align-items:center;justify-content:space-between;margin-top:32px;padding-top:24px;border-top:1px solid var(--b)}
+.btn{display:inline-flex;align-items:center;gap:6px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;padding:11px 22px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;transition:all .15s}
+.btn-primary{background:var(--p);color:#fff}.btn-primary:hover{background:var(--pd)}
+.btn-ghost{background:none;border:1.5px solid var(--b);color:var(--t)}.btn-ghost:hover{border-color:var(--p);color:var(--p)}
+.btn-lg{font-size:15px;padding:13px 28px}
+.wiz-step-count{font-size:12px;color:var(--tf)}
+
+/* ── RESULTS PANEL ── */
+.results-header{background:linear-gradient(135deg,#F0FDF4 0%,#DCFCE7 100%);border:1px solid var(--pl);border-radius:14px;padding:28px;margin-bottom:24px}
+.results-greeting{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--pd);margin-bottom:8px}
+.results-h{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--pd);line-height:1.2;margin-bottom:12px}
+.results-sub{font-size:14px;color:var(--pd);opacity:.8;line-height:1.6}
+
+.results-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:24px}
+.result-card{background:var(--sur);border:1px solid var(--b);border-radius:12px;padding:18px}
+.rc-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tf);margin-bottom:8px}
+.rc-acct{font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:var(--t);margin-bottom:4px}
+.rc-val{font-family:'Geist Mono',monospace;font-size:20px;font-weight:500;margin-bottom:8px}
+.rc-status{font-size:11px;font-weight:600;padding:2px 7px;border-radius:9999px;display:inline-block}
+.status-open{background:var(--pl);color:var(--pd)}
+.status-urgent{background:var(--abg);color:var(--amber);border:1px solid var(--ab)}
+.status-wait{background:var(--sur2);color:var(--tm)}
+
+.action-list{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.action-item{background:var(--sur);border:1px solid var(--b);border-radius:10px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px}
+.action-num{width:24px;height:24px;border-radius:50%;background:var(--p);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.action-body{}
+.action-title{font-size:14px;font-weight:700;color:var(--t);margin-bottom:3px}
+.action-desc{font-size:12px;color:var(--tm);line-height:1.5}
+.action-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:9999px;margin-top:6px}
+.badge-urgent{background:var(--abg);color:var(--amber);border:1px solid var(--ab)}
+.badge-now{background:var(--pl);color:var(--pd)}
+.badge-later{background:var(--sur2);color:var(--tm)}
+
+.paywall-card{background:var(--sur);border:2px solid var(--p);border-radius:14px;padding:28px;text-align:center}
+.pw-icon{font-size:36px;margin-bottom:12px}
+.pw-h{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--t);margin-bottom:8px}
+.pw-sub{font-size:14px;color:var(--tm);line-height:1.6;margin-bottom:20px;max-width:380px;margin-left:auto;margin-right:auto}
+.pw-features{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:20px}
+.pw-feat{font-size:12px;font-weight:600;background:var(--p50);color:var(--pd);padding:4px 10px;border-radius:9999px}
+.pw-price{font-family:'Geist Mono',monospace;font-size:28px;font-weight:500;color:var(--p);margin-bottom:4px}
+.pw-note{font-size:12px;color:var(--tf);margin-top:8px}
+
+/* student-specific insight panel */
+.student-insight{background:#FFF7ED;border:1px solid #FED7AA;border-radius:12px;padding:18px;margin-bottom:20px}
+.si-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.si-icon{font-size:20px}
+.si-title{font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:#C2410C}
+.si-body{font-size:13px;color:#9A3412;line-height:1.6}
+.si-body strong{font-weight:700;color:#7C2D12}
+
+/* lang toggle */
+.lang-toggle{display:flex;gap:8px;margin-bottom:28px}
+.lang-btn{padding:7px 16px;border-radius:8px;border:1.5px solid var(--b);background:var(--sur);font-size:13px;font-weight:600;color:var(--tm);cursor:pointer;transition:all .15s}
+.lang-btn.active{border-color:var(--p);color:var(--p);background:var(--p50)}
+
+@media(max-width:768px){
+  .wizard-wrap{grid-template-columns:1fr}
+  .wiz-sidebar{display:none}
+  .wiz-main{padding:24px}
+  .results-grid{grid-template-columns:1fr}
+  .options-2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="landing.html">Arrive<span>Finance</span></a>
+  <div class="nav-right">Already have an account? <a href="platform-mockup.html">Sign in</a></div>
+</nav>
+
+<div class="wizard-wrap">
+
+  <!-- SIDEBAR STEPS -->
+  <div class="wiz-sidebar">
+    <div class="wiz-sidebar-title">Get your free plan</div>
+    <div class="wiz-sidebar-sub">5 minutes. No credit card. We calculate your exact TFSA, RRSP, and FHSA situation.</div>
+
+    <div class="steps">
+      <div class="step-item" id="s-0">
+        <div class="step-circle">1</div>
+        <div class="step-content">
+          <div class="step-label">Language</div>
+          <div class="step-desc">English or हिंदी</div>
+        </div>
+      </div>
+      <div class="step-item" id="s-1">
+        <div class="step-circle">2</div>
+        <div class="step-content">
+          <div class="step-label">Your status</div>
+          <div class="step-desc">PR, student, work permit</div>
+        </div>
+      </div>
+      <div class="step-item" id="s-2">
+        <div class="step-circle">3</div>
+        <div class="step-content">
+          <div class="step-label">Arrival date</div>
+          <div class="step-desc">When you became a Canadian resident</div>
+        </div>
+      </div>
+      <div class="step-item" id="s-3">
+        <div class="step-circle">4</div>
+        <div class="step-content">
+          <div class="step-label">Income</div>
+          <div class="step-desc">Canadian earned income</div>
+        </div>
+      </div>
+      <div class="step-item" id="s-4">
+        <div class="step-circle">5</div>
+        <div class="step-content">
+          <div class="step-label">Savings</div>
+          <div class="step-desc">What you have to invest</div>
+        </div>
+      </div>
+      <div class="step-item" id="s-5">
+        <div class="step-circle">6</div>
+        <div class="step-content">
+          <div class="step-label">Goals</div>
+          <div class="step-desc">Home purchase, retirement, education</div>
+        </div>
+      </div>
+      <div class="step-item" id="s-6">
+        <div class="step-circle">7</div>
+        <div class="step-content">
+          <div class="step-label">Your plan</div>
+          <div class="step-desc">Personalized account roadmap</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wiz-sidebar-footer">
+      <div class="security-note">🔒 Bank-level security. We never store banking credentials.</div>
+    </div>
+  </div>
+
+  <!-- MAIN WIZARD -->
+  <div class="wiz-main">
+    <div class="wiz-progress"><div class="wiz-progress-fill" id="progress" style="width:5%"></div></div>
+
+    <!-- STEP 0: Language -->
+    <div class="step-panel active" id="panel-0">
+      <div class="wiz-step-label">Step 1 of 7</div>
+      <h2 class="wiz-step-h">Choose your language</h2>
+      <p class="wiz-step-sub">Arrive Finance is available in English and हिंदी. We're adding Punjabi and Mandarin soon.</p>
+
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="selectLang('en', this)">🇨🇦 English</button>
+        <button class="lang-btn" onclick="selectLang('hi', this)">🇮🇳 हिंदी</button>
+      </div>
+
+      <div class="options-2">
+        <div class="option selected" onclick="selectOption(this, 'lang', 'en')">
+          <div class="opt-icon">🇨🇦</div>
+          <div>
+            <div class="opt-title">English</div>
+            <div class="opt-sub">Full platform in English</div>
+          </div>
+        </div>
+        <div class="option" onclick="selectOption(this, 'lang', 'hi')">
+          <div class="opt-icon">🇮🇳</div>
+          <div>
+            <div class="opt-title">हिंदी</div>
+            <div class="opt-sub">पूरा प्लेटफॉर्म हिंदी में</div>
+            <div class="opt-tag tag-insight">✓ Available now</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wiz-nav">
+        <div class="wiz-step-count">Step 1 of 7</div>
+        <button class="btn btn-primary" onclick="next(0)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 1: Status -->
+    <div class="step-panel" id="panel-1">
+      <div class="wiz-step-label">Step 2 of 7</div>
+      <h2 class="wiz-step-h">What's your current status in Canada?</h2>
+      <p class="wiz-step-sub">This determines which accounts you're eligible for right now. You may be surprised — students and work permit holders have more options than they think.</p>
+
+      <div class="options">
+        <div class="option selected" onclick="selectOption(this, 'status', 'pr')">
+          <div class="opt-icon">🏠</div>
+          <div>
+            <div class="opt-title">Permanent Resident or Canadian Citizen</div>
+            <div class="opt-sub">I have a PR card, or I was recently granted Canadian citizenship</div>
+            <div class="opt-tag tag-insight">✓ Eligible for TFSA, FHSA, RRSP</div>
+          </div>
+        </div>
+        <div class="option" onclick="selectOption(this, 'status', 'pgwp')">
+          <div class="opt-icon">💼</div>
+          <div>
+            <div class="opt-title">Work Permit Holder (PGWP, LMIA, etc.)</div>
+            <div class="opt-sub">I graduated and have a Post-Graduation Work Permit, or I have an employer-sponsored work permit</div>
+            <div class="opt-tag tag-insight">✓ Eligible for TFSA + FHSA — not PR-only!</div>
+          </div>
+        </div>
+        <div class="option" onclick="selectOption(this, 'status', 'student')">
+          <div class="opt-icon">🎓</div>
+          <div>
+            <div class="opt-title">International Student (Study Permit)</div>
+            <div class="opt-sub">I'm enrolled at a Canadian school on a study permit</div>
+            <div class="opt-tag tag-insight">✓ You can open a TFSA and FHSA right now</div>
+          </div>
+        </div>
+        <div class="option" onclick="selectOption(this, 'status', 'citizen_return')">
+          <div class="opt-icon">✈️</div>
+          <div>
+            <div class="opt-title">Canadian Citizen Returning from Abroad</div>
+            <div class="opt-sub">I'm Canadian and have returned after living outside Canada</div>
+            <div class="opt-tag tag-insight">TFSA room may have paused during non-residency years</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="student-status-insight" style="display:none">
+        <div class="student-insight">
+          <div class="si-header">
+            <div class="si-icon">🎓</div>
+            <div class="si-title">International students: you have more than you think</div>
+          </div>
+          <div class="si-body">Most students believe they need permanent residency to open Canadian accounts. <strong>This is wrong.</strong> As a Canadian resident for tax purposes (which you become after 183+ days in Canada), you are eligible for TFSA and FHSA accounts — right now, on your study permit. If you've been in Canada for 2 years, you likely have <strong>$14,000 in unused TFSA room</strong> and <strong>FHSA room that expires December 31</strong>.</div>
+        </div>
+      </div>
+
+      <div id="pgwp-status-insight" style="display:none">
+        <div class="insight-box">
+          <div class="ib-icon">💡</div>
+          <div class="ib-text">Work permit holders are often surprised: <strong>TFSA and FHSA are based on Canadian residency, not immigration status.</strong> If you're living and working in Canada, you're likely eligible for both — and potentially have accumulated room since you first arrived.</div>
+        </div>
+      </div>
+
+      <div class="wiz-nav">
+        <button class="btn btn-ghost" onclick="prev(1)">← Back</button>
+        <div class="wiz-step-count">Step 2 of 7</div>
+        <button class="btn btn-primary" onclick="next(1)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Arrival date -->
+    <div class="step-panel" id="panel-2">
+      <div class="wiz-step-label">Step 3 of 7</div>
+      <h2 class="wiz-step-h">When did you arrive in Canada?</h2>
+      <p class="wiz-step-sub">We use this to calculate exactly how much TFSA room you've accumulated and whether your FHSA deadline is this December 31.</p>
+
+      <div class="form-group">
+        <label class="form-label">Month and year you first became a Canadian resident</label>
+        <div class="form-sub">For students: when you first arrived and stayed 183+ days. For PR holders: your landing date.</div>
+        <div class="form-row">
+          <select class="form-input" id="arrivalMonth" onchange="updateArrivalInsight()">
+            <option value="">Month</option>
+            <option value="1">January</option><option value="2">February</option>
+            <option value="3">March</option><option value="4">April</option>
+            <option value="5">May</option><option value="6">June</option>
+            <option value="7">July</option><option value="8">August</option>
+            <option value="9">September</option><option value="10">October</option>
+            <option value="11">November</option><option value="12">December</option>
+          </select>
+          <select class="form-input" id="arrivalYear" onchange="updateArrivalInsight()">
+            <option value="">Year</option>
+            <option value="2026">2026</option><option value="2025">2025</option>
+            <option value="2024">2024</option><option value="2023">2023</option>
+            <option value="2022">2022</option><option value="2021">2021</option>
+            <option value="2020">2020</option><option value="2019">2019</option>
+            <option value="2018">2018</option><option value="2017">2017</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="arrival-insight" style="display:none"></div>
+
+      <div class="wiz-nav">
+        <button class="btn btn-ghost" onclick="prev(2)">← Back</button>
+        <div class="wiz-step-count">Step 3 of 7</div>
+        <button class="btn btn-primary" onclick="next(2)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Income -->
+    <div class="step-panel" id="panel-3">
+      <div class="wiz-step-label">Step 4 of 7</div>
+      <h2 class="wiz-step-h">What's your approximate annual income in Canada?</h2>
+      <p class="wiz-step-sub">We use this to calculate your RRSP contribution room (18% of prior-year Canadian earned income). Estimates are fine — you can update this later.</p>
+
+      <div id="student-income-note" style="display:none">
+        <div class="insight-box">
+          <div class="ib-icon">🎓</div>
+          <div class="ib-text"><strong>Students:</strong> Include any Canadian earned income — on-campus work, co-op placements, part-time jobs. Even $15,000 in earnings generates $2,700 in RRSP room. Scholarships and bursaries typically do NOT count as earned income.</div>
+        </div>
+      </div>
+
+      <div class="options">
+        <div class="option selected" onclick="selectOption(this, 'income', '0')">
+          <div class="opt-icon">📚</div>
+          <div>
+            <div class="opt-title">No Canadian income / Under $20,000</div>
+            <div class="opt-sub">Student, not yet working, or just started earning in Canada</div>
+            <div class="opt-tag tag-insight">RRSP room: $0 or minimal until first tax return</div>
+          </div>
+        </div>
+        <div class="option" onclick="selectOption(this, 'income', '60k')">
+          <div class="opt-icon">💼</div>
+          <div>
+            <div class="opt-title">$20,000 – $80,000</div>
+            <div class="opt-sub">Entry to mid-level employment in Canada</div>
+            <div class="opt-tag tag-insight">RRSP room: $3,600 – $14,400 after first tax return</div>
+          </div>
+        </div>
+        <div class="option" onclick="selectOption(this, 'income', '100k')">
+          <div class="opt-icon">🚀</div>
+          <div>
+            <div class="opt-title">$80,000 – $150,000</div>
+            <div class="opt-sub">Tech, finance, engineering, healthcare</div>
+            <div class="opt-tag tag-insight">RRSP room: $14,400 – $27,000 after first tax return</div>
+          </div>
+        </div>
+        <div class="option" onclick="selectOption(this, 'income', '150k+')">
+          <div class="opt-icon">⭐</div>
+          <div>
+            <div class="opt-title">Over $150,000</div>
+            <div class="opt-sub">Senior roles, business ownership, dual income household</div>
+            <div class="opt-tag tag-insight">RRSP room: up to $32,490 (2026 limit)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wiz-nav">
+        <button class="btn btn-ghost" onclick="prev(3)">← Back</button>
+        <div class="wiz-step-count">Step 4 of 7</div>
+        <button class="btn btn-primary" onclick="next(3)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Savings -->
+    <div class="step-panel" id="panel-4">
+      <div class="wiz-step-label">Step 5 of 7</div>
+      <h2 class="wiz-step-h">How much do you have available to invest?</h2>
+      <p class="wiz-step-sub">This helps us show you how to prioritize your accounts. Include savings, GICs, and any money sitting in chequing. Not your home equity.</p>
+
+      <div class="options">
+        <div class="option selected" onclick="selectOption(this, 'savings', '10k')">
+          <div class="opt-icon">🌱</div>
+          <div>
+            <div class="opt-title">Under $20,000</div>
+            <div class="opt-sub">Getting started — every dollar counts in the right account</div>
+          </div>
+        </div>
+        <div class="option" onclick="selectOption(this, 'savings', '50k')">
+          <div class="opt-icon">📈</div>
+          <div>
+            <div class="opt-title">$20,000 – $80,000</div>
+            <div class="opt-sub">Solid savings — likely enough to fill TFSA and FHSA room</div>
+          </div>
+        </div>
+        <div class="option" onclick="selectOption(this, 'savings', '100k')">
+          <div class="opt-icon">💰</div>
+          <div>
+            <div class="opt-title">$80,000 – $200,000</div>
+            <div class="opt-sub">Significant savings — account sequencing matters a lot here</div>
+          </div>
+        </div>
+        <div class="option" onclick="selectOption(this, 'savings', '200k+')">
+          <div class="opt-icon">🏦</div>
+          <div>
+            <div class="opt-title">Over $200,000</div>
+            <div class="opt-sub">Non-registered accounts + possible T1135 obligation</div>
+            <div class="opt-tag tag-alert">Foreign assets over $100K require T1135 declaration</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wiz-nav">
+        <button class="btn btn-ghost" onclick="prev(4)">← Back</button>
+        <div class="wiz-step-count">Step 5 of 7</div>
+        <button class="btn btn-primary" onclick="next(4)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: Goals -->
+    <div class="step-panel" id="panel-5">
+      <div class="wiz-step-label">Step 6 of 7</div>
+      <h2 class="wiz-step-h">What are you saving toward?</h2>
+      <p class="wiz-step-sub">Select all that apply. Your goals determine which accounts to prioritize and in what order.</p>
+
+      <div class="options">
+        <div class="option selected" onclick="toggleGoal(this, 'home')">
+          <div class="opt-icon">🏡</div>
+          <div>
+            <div class="opt-title">First home in Canada</div>
+            <div class="opt-sub">Planning to buy property — FHSA and Home Buyers' Plan (RRSP) both apply</div>
+            <div class="opt-tag tag-alert">⚠ FHSA deadline: December 31, 2026</div>
+          </div>
+        </div>
+        <div class="option" onclick="toggleGoal(this, 'retirement')">
+          <div class="opt-icon">🌅</div>
+          <div>
+            <div class="opt-title">Long-term retirement</div>
+            <div class="opt-sub">RRSP + TFSA for tax-advantaged growth over 20+ years</div>
+          </div>
+        </div>
+        <div class="option" onclick="toggleGoal(this, 'resp')">
+          <div class="opt-icon">🎓</div>
+          <div>
+            <div class="opt-title">Children's education (RESP)</div>
+            <div class="opt-sub">CESG grants add 20% to every dollar contributed (up to $500/year)</div>
+            <div class="opt-tag tag-insight">Government adds $500/year for free</div>
+          </div>
+        </div>
+        <div class="option" onclick="toggleGoal(this, 'emergency')">
+          <div class="opt-icon">🛡️</div>
+          <div>
+            <div class="opt-title">Emergency fund</div>
+            <div class="opt-sub">3-6 months of expenses in a TFSA HISA — accessible, tax-free growth</div>
+          </div>
+        </div>
+        <div class="option" onclick="toggleGoal(this, 'return')">
+          <div class="opt-icon">✈️</div>
+          <div>
+            <div class="opt-title">Possible return to home country</div>
+            <div class="opt-sub">TFSA accounts must be closed on departure — plan accordingly</div>
+            <div class="opt-tag tag-alert">TFSA implications if you stop being a Canadian resident</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wiz-nav">
+        <button class="btn btn-ghost" onclick="prev(5)">← Back</button>
+        <div class="wiz-step-count">Step 6 of 7</div>
+        <button class="btn btn-primary" onclick="next(5)">Get my plan →</button>
+      </div>
+    </div>
+
+    <!-- STEP 6: Email + Results -->
+    <div class="step-panel" id="panel-6">
+      <div class="wiz-step-label">Step 7 of 7 · Your personalized plan</div>
+
+      <!-- Results header — dynamic based on status -->
+      <div class="results-header">
+        <div class="results-greeting" id="results-greeting">Your financial plan is ready</div>
+        <h2 class="results-h" id="results-h">Here's what you can open right now — and what to do first.</h2>
+        <div class="results-sub" id="results-sub">Based on your situation, we've calculated your exact account eligibility and contribution room. The most urgent action is at the top.</div>
+      </div>
+
+      <!-- Student insight (shown for student status) -->
+      <div class="student-insight" id="student-result-insight" style="display:none">
+        <div class="si-header">
+          <div class="si-icon">🎓</div>
+          <div class="si-title">Good news: you don't need PR to open these accounts</div>
+        </div>
+        <div class="si-body">As a Canadian resident for tax purposes, you are eligible for <strong>TFSA and FHSA right now</strong> on your study permit. Most students miss this — and lose thousands in tax-free room every year they wait.</div>
+      </div>
+
+      <!-- Account plan -->
+      <div class="results-grid">
+        <div class="result-card">
+          <div class="rc-label">Tax-Free Savings</div>
+          <div class="rc-acct">TFSA</div>
+          <div class="rc-val" style="color:var(--p)" id="tfsa-val">$7,000</div>
+          <div class="rc-status status-open" id="tfsa-status">Open now</div>
+          <div style="font-size:11px;color:var(--tm);margin-top:6px" id="tfsa-note">Full 2026 room available</div>
+        </div>
+        <div class="result-card">
+          <div class="rc-label">First Home Savings</div>
+          <div class="rc-acct">FHSA</div>
+          <div class="rc-val" style="color:var(--amber)" id="fhsa-val">$8,000</div>
+          <div class="rc-status status-urgent" id="fhsa-status">⚠ Deadline Dec 31</div>
+          <div style="font-size:11px;color:var(--tm);margin-top:6px" id="fhsa-note">Open before Dec 31 to save this room</div>
+        </div>
+        <div class="result-card">
+          <div class="rc-label">Retirement Savings</div>
+          <div class="rc-acct">RRSP</div>
+          <div class="rc-val" style="color:var(--tf)" id="rrsp-val">$0</div>
+          <div class="rc-status status-wait" id="rrsp-status" >Available after tax return</div>
+          <div style="font-size:11px;color:var(--tm);margin-top:6px" id="rrsp-note">Room unlocks after your first Canadian tax filing</div>
+        </div>
+      </div>
+
+      <!-- Action plan -->
+      <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--t);margin-bottom:14px">Your action plan</div>
+      <div class="action-list" id="action-list">
+        <!-- populated by JS -->
+      </div>
+
+      <!-- Email capture + paywall -->
+      <div class="paywall-card">
+        <div class="pw-icon">📊</div>
+        <div class="pw-h">Track your progress with the full dashboard</div>
+        <div class="pw-sub">Your plan is just the start. The Pro dashboard shows your financial health in real-time, your Arrive Score, and AI-powered next steps — all in one place.</div>
+        <div class="pw-features">
+          <div class="pw-feat">Financial Health Dashboard</div>
+          <div class="pw-feat">Arrive Score</div>
+          <div class="pw-feat">AI Advisor</div>
+          <div class="pw-feat">WhatsApp FHSA reminder</div>
+        </div>
+        <div class="pw-price">$20 / month</div>
+        <div class="form-group" style="max-width:360px;margin:12px auto 0">
+          <input type="email" class="form-input" placeholder="Enter your email to get started">
+        </div>
+        <button class="btn btn-primary btn-lg" style="margin-top:12px" onclick="window.location.href='platform-mockup.html'">Start 14-day free trial →</button>
+        <div class="pw-note">No credit card required. Cancel anytime. Free plan stays free forever.</div>
+      </div>
+
+    </div>
+
+  </div><!-- end wiz-main -->
+</div><!-- end wizard-wrap -->
+
+<script>
+let state = { lang:'en', status:'pr', income:'0', savings:'10k', goals:['home'] };
+let currentStep = 0;
+const totalSteps = 7;
+
+function updateProgress() {
+  const pct = Math.round(((currentStep + 1) / totalSteps) * 100);
+  document.getElementById('progress').style.width = pct + '%';
+  document.querySelectorAll('.step-item').forEach((el, i) => {
+    el.classList.remove('active','done');
+    if (i === currentStep) el.classList.add('active');
+    if (i < currentStep) el.classList.add('done');
+    const circle = el.querySelector('.step-circle');
+    if (i < currentStep) circle.textContent = '✓';
+    else circle.textContent = (i+1);
+  });
+}
+
+function next(from) {
+  document.getElementById('panel-' + from).classList.remove('active');
+  currentStep = from + 1;
+  document.getElementById('panel-' + currentStep).classList.add('active');
+  updateProgress();
+  if (currentStep === 6) buildResults();
+  window.scrollTo(0, 0);
+}
+
+function prev(from) {
+  document.getElementById('panel-' + from).classList.remove('active');
+  currentStep = from - 1;
+  document.getElementById('panel-' + currentStep).classList.add('active');
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+function selectOption(el, key, val) {
+  const parent = el.parentElement;
+  parent.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  state[key] = val;
+
+  if (key === 'status') {
+    document.getElementById('student-status-insight').style.display = val === 'student' ? 'block' : 'none';
+    document.getElementById('pgwp-status-insight').style.display = val === 'pgwp' ? 'block' : 'none';
+    document.getElementById('student-income-note').style.display = val === 'student' ? 'block' : 'none';
+  }
+}
+
+function toggleGoal(el, goal) {
+  el.classList.toggle('selected');
+  const idx = state.goals.indexOf(goal);
+  if (idx > -1) state.goals.splice(idx, 1);
+  else state.goals.push(goal);
+}
+
+function selectLang(lang, btn) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  state.lang = lang;
+}
+
+function updateArrivalInsight() {
+  const m = parseInt(document.getElementById('arrivalMonth').value);
+  const y = parseInt(document.getElementById('arrivalYear').value);
+  if (!m || !y) return;
+  const el = document.getElementById('arrival-insight');
+  const currentYear = 2026;
+  const yearsInCA = currentYear - y;
+  const tfsaRoom = Math.min(yearsInCA + 1, 7) * 7000; // simplified
+  const fhsaUrgent = y >= 2025;
+
+  let html = '';
+  if (fhsaUrgent) {
+    html += `<div class="alert-box"><div class="ib-icon">⚠️</div><div class="ab-text"><strong>FHSA is urgent for you.</strong> You arrived in ${y} — your first eligible FHSA year's room (${y === 2026 ? '$8,000' : '$8,000 × 2 years = $16,000'}) expires December 31, 2026 if you haven't opened an account yet. This is your most time-sensitive action.</div></div>`;
+  }
+  html += `<div class="insight-box"><div class="ib-icon">💡</div><div class="ib-text">Based on your arrival date: you have approximately <strong>$${tfsaRoom.toLocaleString()} in TFSA room</strong> available. ${yearsInCA === 0 ? 'You arrived this year — your full 2026 room ($7,000) is available.' : `${yearsInCA + 1} years of room has accumulated.`}</div></div>`;
+  el.innerHTML = html;
+  el.style.display = 'block';
+}
+
+function buildResults() {
+  const s = state;
+  const isStudent = s.status === 'student';
+  const isPGWP = s.status === 'pgwp';
+  const isYearOne = true; // simplified for mockup
+
+  // Student insight
+  document.getElementById('student-result-insight').style.display = isStudent ? 'block' : 'none';
+
+  // Greeting
+  const greetings = {
+    student: 'Your plan — international student edition',
+    pgwp: 'Your plan — work permit holder',
+    pr: 'Your plan — permanent resident',
+    citizen_return: 'Your plan — returning Canadian'
+  };
+  document.getElementById('results-greeting').textContent = greetings[s.status] || 'Your plan';
+
+  // Headlines by status
+  if (isStudent) {
+    document.getElementById('results-h').textContent = 'You can open a TFSA and FHSA right now — no PR required.';
+    document.getElementById('results-sub').textContent = 'As a Canadian resident for tax purposes, you have accounts available that most students never open because they think they need a PR card first.';
+  }
+
+  // RRSP
+  const rrspEl = document.getElementById('rrsp-val');
+  const rrspNote = document.getElementById('rrsp-note');
+  const rrspStatus = document.getElementById('rrsp-status');
+  if (s.income === '0') {
+    rrspEl.textContent = '$0';
+    rrspNote.textContent = isStudent ? 'RRSP room requires Canadian earned income filed in a tax return. On-campus work counts.' : 'No Canadian income = no RRSP room yet. Opens after first tax return with earned income.';
+  } else if (s.income === '60k') {
+    rrspEl.textContent = '$9,000';
+    rrspEl.style.color = 'var(--p)';
+    rrspStatus.textContent = 'Available after first return';
+    rrspStatus.className = 'rc-status status-open';
+    rrspNote.textContent = 'Estimated 18% × $50,000 average. Confirm on your CRA My Account.';
+  } else {
+    rrspEl.textContent = '$18,000+';
+    rrspEl.style.color = 'var(--p)';
+    rrspStatus.textContent = 'Available after first return';
+    rrspStatus.className = 'rc-status status-open';
+    rrspNote.textContent = 'Estimated based on income bracket. Max 2026 limit: $32,490.';
+  }
+
+  // Build action list
+  const actions = [];
+
+  // Most urgent: FHSA
+  if (s.goals.includes('home')) {
+    actions.push({
+      num: 1,
+      title: 'Open your FHSA before December 31, 2026',
+      desc: 'This is your most urgent action. Opening the account before Dec 31 locks in $8,000 of contribution room — even if you don\'t contribute money yet. Missing this deadline loses the room permanently.',
+      badge: 'badge-urgent',
+      badgeText: '⚠ 223 days left'
+    });
+  }
+
+  // TFSA
+  actions.push({
+    num: actions.length + 1,
+    title: 'Open a TFSA and invest your savings',
+    desc: 'You have $7,000 of tax-free room this year. Money in a TFSA grows tax-free. Don\'t leave it in a savings account at 3% — consider XEQT or VGRO for long-term growth at ~8% average.',
+    badge: 'badge-now',
+    badgeText: 'Do this now'
+  });
+
+  // RESP if applicable
+  if (s.goals.includes('resp')) {
+    actions.push({
+      num: actions.length + 1,
+      title: 'Open an RESP for your child',
+      desc: 'The Canada Education Savings Grant adds 20% to every dollar you contribute (up to $500/year from the government). This is free money — apply as soon as your child is born.',
+      badge: 'badge-now',
+      badgeText: 'Do this now'
+    });
+  }
+
+  // RRSP
+  if (s.income !== '0') {
+    actions.push({
+      num: actions.length + 1,
+      title: 'File your first Canadian tax return to unlock RRSP room',
+      desc: 'RRSP contribution room is based on 18% of your prior-year Canadian income. File your 2026 return (due April 30, 2027) to unlock your first year of RRSP room.',
+      badge: 'badge-later',
+      badgeText: 'April 2027'
+    });
+  }
+
+  // Return to country warning
+  if (s.goals.includes('return')) {
+    actions.push({
+      num: actions.length + 1,
+      title: 'Plan TFSA withdrawal before any departure',
+      desc: 'If you stop being a Canadian resident, you must stop contributing to your TFSA. You can keep the money in it, but you cannot contribute while a non-resident. Withdrawals can be re-contributed after returning.',
+      badge: 'badge-later',
+      badgeText: 'Important if leaving'
+    });
+  }
+
+  const list = document.getElementById('action-list');
+  list.innerHTML = actions.map(a => `
+    <div class="action-item">
+      <div class="action-num">${a.num}</div>
+      <div class="action-body">
+        <div class="action-title">${a.title}</div>
+        <div class="action-desc">${a.desc}</div>
+        <div class="action-badge ${a.badge}">${a.badgeText}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Init
+updateProgress();
+document.getElementById('s-0').classList.add('active');
+</script>
+</body>
+</html>

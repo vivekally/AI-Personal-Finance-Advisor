@@ -19,7 +19,7 @@
 - **Body:** Plus Jakarta Sans — warm, highly readable, excellent Latin + extended script coverage for multilingual users. 400 (regular) for body, 500 (medium) for labels, 600 (semibold) for emphasis, 700 (bold) for CTAs.
 - **Numbers/Data:** Geist Mono with `font-variant-numeric: tabular-nums` — contribution room amounts and dollar figures align and breathe correctly. Never use proportional numbers for financial data.
 - **Code:** Geist Mono
-- **Loading:** Google Fonts — `https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap`
+- **Loading:** Google Fonts — `https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap`
 - **Scale:**
   - `--text-xs`:   12px / 1.5
   - `--text-sm`:   13px / 1.5
@@ -30,6 +30,27 @@
   - `--text-3xl`:  30px / 1.2
   - `--text-4xl`:  36px / 1.15 (Fraunces)
   - `--text-5xl`:  48px / 1.1  (Fraunces, landing hero)
+
+## Internationalisation — Hindi/Devanagari Typography
+
+Hindi is the primary non-English locale for Arrive Finance. Fraunces and Plus Jakarta Sans cover Latin script only and must not be used to render Devanagari text.
+
+- **Devanagari body font:** Noto Sans Devanagari — designed by Google specifically to pair with Latin fonts at the same optical weight. Free via Google Fonts.
+- **Devanagari weights:** 400 (regular), 500 (medium), 600 (semibold), 700 (bold) — mirrors Plus Jakarta Sans weights exactly so shared CSS weight variables work across both locales.
+- **Substitution rule:** When the active locale is `hi` (Hindi), `font-family` stacks must place `'Noto Sans Devanagari'` before `'Plus Jakarta Sans'` so Devanagari glyphs are served by the correct face:
+  ```css
+  /* Hindi locale override — applied via [lang="hi"] or .locale-hi */
+  font-family: 'Noto Sans Devanagari', 'Plus Jakarta Sans', sans-serif;
+  ```
+- **Headings in Hindi:** Fraunces is Latin-only and renders Devanagari as fallback tofu. For Hindi headings, use Noto Sans Devanagari at a heavier weight and larger size to preserve visual hierarchy (e.g., `font-weight: 700`, bump size one step up the scale):
+  ```css
+  [lang="hi"] h1, [lang="hi"] h2, [lang="hi"] h3 {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-weight: 700;
+  }
+  ```
+- **Financial figures:** Geist Mono is Latin/ASCII only. Dollar amounts and numerals are identical in Hindi UI (Indian numerals are not used); Geist Mono remains correct for all financial data regardless of locale.
+- **Do not mix:** Never set a Devanagari string inside a Fraunces element. The browser fallback chain will render it, but at mismatched weight/metrics that breaks line-height and visual rhythm.
 
 ## Color
 - **Approach:** Restrained — green is the only color that "speaks." Amber is reserved exclusively for urgency. Everything else is neutral.
@@ -167,3 +188,4 @@
 | 2026-05-21 | Warm off-white (#FAFAF8) background | Not stark white — warmth signals human environment, not software. |
 | 2026-05-21 | Minimal-functional motion only | Target user is anxious. Animations that delay are stress-inducing, not delightful. |
 | 2026-05-21 | Geist Mono for financial figures | Tabular-nums ensures dollar amounts align correctly in plan output. |
+| 2026-05-21 | Noto Sans Devanagari for Hindi locale | Fraunces and Plus Jakarta Sans are Latin-only. Hindi is the primary non-English locale (v1 scope). Noto Sans Devanagari is designed to pair with Latin fonts at matching optical weight; Fraunces must not be used for Hindi headings. |

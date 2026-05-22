@@ -238,7 +238,7 @@ input[type=range]{width:100%;accent-color:var(--p);height:4px}
 
   <div class="sid-section">
     <div class="sid-section-label">💼 Financial Health</div>
-    <div class="sid-item" onclick="show('p2a',this)"><span class="sid-icon">🏦</span>All My Money</div>
+    <div class="sid-item" onclick="show('p2a',this)"><span class="sid-icon">🏦</span>All My Money <span class="badge b-amber" style="margin-left:auto;font-size:10px;padding:1px 5px">Soon</span></div>
     <div class="sid-item" onclick="show('p2b',this)"><span class="sid-icon">🎯</span>Goals</div>
     <div class="sid-item" onclick="show('p2c',this)"><span class="sid-icon">✅</span>Best Practices</div>
   </div>
@@ -417,88 +417,137 @@ input[type=range]{width:100%;accent-color:var(--p);height:4px}
     </div>
   </div>
 
-  <!-- ─ 2A: ALL MY MONEY ─ -->
+  <!-- ─ 2A: ALL MY MONEY — COMING SOON ─ -->
   <div id="p2a" class="panel">
     <div class="topbar">
-      <div><div class="topbar-title">All My Money</div><div class="topbar-sub">5 connected accounts · synced 2 min ago</div></div>
+      <div><div class="topbar-title">All My Money</div><div class="topbar-sub">Bank sync · connecting to Canadian banks</div></div>
       <div class="topbar-right">
-        <div class="arrive-score">Arrive Score <span>68</span><span style="color:var(--tm);font-weight:400">/100</span></div>
-        <button class="btn-sm btn-ghost">+ Connect</button>
+        <span class="badge b-amber" style="font-size:12px;padding:4px 10px">🔗 Coming Soon</span>
       </div>
     </div>
-    <div class="content">
-      <!-- Dark net worth hero -->
-      <div class="nw-dark">
-        <div class="nw-dark-label">Total Net Worth</div>
-        <div class="nw-dark-amount">$112,400</div>
-        <div class="nw-dark-meta">
-          <div class="nw-dark-stat">Portfolio XIRR <strong class="dn">4.2%</strong></div>
-          <div class="nw-dark-stat">TSX Composite <strong class="up">5.8%</strong></div>
-          <div class="nw-dark-stat">vs Benchmark <strong class="dn">−1.6%</strong></div>
-          <div class="nw-dark-stat">Since Jan 2026 <strong class="up">↑ $15,000</strong></div>
-        </div>
-      </div>
+    <div class="content" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:32px">
 
-      <div class="row row-2" style="gap:16px">
-        <div>
-          <div class="section-h">🇨🇦 Registered Accounts</div>
-          <div class="card card-sm" style="margin-bottom:14px">
-            <div class="list-item">
-              <div class="li-left"><div class="li-icon li-icon-green">💎</div><div><div class="li-name">FHSA — Questrade</div><div class="li-sub">First Home Savings · cash</div></div></div>
-              <div class="li-right"><div class="amount amount-sm">$8,000</div><span class="badge b-amber" style="margin-top:3px;display:block">⚠ Not invested</span></div>
-            </div>
-            <div class="list-item">
-              <div class="li-left"><div class="li-icon li-icon-green">🛡</div><div><div class="li-name">TFSA — Wealthsimple</div><div class="li-sub">Tax-Free Savings · cash</div></div></div>
-              <div class="li-right"><div class="amount amount-sm">$7,000</div><span class="badge b-amber" style="margin-top:3px;display:block">⚠ Not invested</span></div>
-            </div>
-            <div class="list-item" style="opacity:.55">
-              <div class="li-left"><div class="li-icon li-icon-gray">📈</div><div><div class="li-name">RRSP</div><div class="li-sub">Room unlocks after 2026 filing</div></div></div>
-              <div class="li-right"><div class="amount amount-sm amount-muted">$0</div><span class="badge b-gray" style="margin-top:3px;display:block">2027</span></div>
-            </div>
+      <!-- Main coming-soon card -->
+      <div style="width:100%;max-width:780px">
+
+        <!-- Hero illustration area -->
+        <div style="background:linear-gradient(135deg,#0F2419 0%,#14532D 100%);border-radius:16px;padding:36px 40px;text-align:center;margin-bottom:20px;position:relative;overflow:hidden">
+          <!-- Subtle grid pattern -->
+          <div style="position:absolute;inset:0;opacity:.06;background-image:repeating-linear-gradient(0deg,transparent,transparent 32px,#fff 32px,#fff 33px),repeating-linear-gradient(90deg,transparent,transparent 32px,#fff 32px,#fff 33px)"></div>
+
+          <!-- Bank logo cluster -->
+          <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px;position:relative">
+            <div style="width:52px;height:52px;border-radius:12px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:24px;transform:rotate(-8deg)">🏦</div>
+            <div style="width:60px;height:60px;border-radius:14px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 20px rgba(0,0,0,.3)">🔗</div>
+            <div style="width:52px;height:52px;border-radius:12px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:24px;transform:rotate(8deg)">💰</div>
           </div>
-          <div class="section-h">🏦 Banking</div>
-          <div class="card card-sm">
-            <div class="list-item">
-              <div class="li-left"><div class="li-icon li-icon-blue">🏦</div><div><div class="li-name">RBC Chequing</div><div class="li-sub">Day-to-day · 0% return</div></div></div>
-              <div class="li-right"><div class="amount amount-sm">$12,400</div></div>
-            </div>
-            <div class="list-item">
-              <div class="li-left"><div class="li-icon li-icon-blue">💰</div><div><div class="li-name">EQ Bank HISA</div><div class="li-sub">4.50% APY · Emergency + savings</div></div></div>
-              <div class="li-right"><div class="amount amount-sm">$85,000</div></div>
-            </div>
+
+          <div style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#fff;margin-bottom:10px;position:relative">Your finances, all in one place</div>
+          <div style="font-size:14px;color:rgba(255,255,255,.7);max-width:440px;margin:0 auto;line-height:1.6;position:relative">
+            We're connecting Arrive Finance to Canadian banks. See your RBC, TD, Scotiabank, Wealthsimple, and EQ Bank accounts alongside your RRSP, TFSA, and FHSA — automatically.
+          </div>
+
+          <!-- Coming-soon bank pills -->
+          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:20px;position:relative">
+            <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;padding:4px 12px;border-radius:9999px">🏦 RBC</span>
+            <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;padding:4px 12px;border-radius:9999px">🏦 TD</span>
+            <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;padding:4px 12px;border-radius:9999px">🏦 Scotiabank</span>
+            <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;padding:4px 12px;border-radius:9999px">🏦 BMO</span>
+            <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;padding:4px 12px;border-radius:9999px">💚 Wealthsimple</span>
+            <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;padding:4px 12px;border-radius:9999px">🟩 EQ Bank</span>
+            <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);font-size:12px;font-weight:500;padding:4px 12px;border-radius:9999px">+ more</span>
           </div>
         </div>
 
-        <div>
-          <div class="section-h">📊 Allocation & performance</div>
-          <div class="card" style="margin-bottom:14px">
-            <div class="card-label">Where your money sits</div>
-            <div style="margin:10px 0">
-              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="font-weight:600">HISA — cash</span><span class="amount" style="font-size:12px;color:var(--tm)">$85,000 · 75.6%</span></div>
-              <div class="prog-track" style="height:8px"><div class="prog-fill" style="width:75.6%;background:#94A3B8"></div></div>
+        <!-- Two-column row: preview features + notify form -->
+        <div class="row row-2" style="gap:16px;margin-bottom:16px">
+
+          <!-- Left: what you'll get -->
+          <div class="card">
+            <div class="card-title" style="margin-bottom:12px">What you'll see when it launches</div>
+            <div class="check-item">
+              <div class="check-circle" style="background:var(--p50);border:1.5px solid #BBF7D0;color:var(--p)">📊</div>
+              <div>
+                <div class="check-main">Real-time net worth</div>
+                <div class="check-sub">Total across all accounts — chequing, TFSA, FHSA, RRSP, savings — in one number.</div>
+              </div>
             </div>
-            <div style="margin:10px 0">
-              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="font-weight:600">Chequing</span><span class="amount" style="font-size:12px;color:var(--tm)">$12,400 · 11.0%</span></div>
-              <div class="prog-track" style="height:8px"><div class="prog-fill" style="width:11%;background:#60A5FA"></div></div>
+            <div class="check-item">
+              <div class="check-circle" style="background:var(--p50);border:1.5px solid #BBF7D0;color:var(--p)">📈</div>
+              <div>
+                <div class="check-main">Portfolio performance vs. TSX benchmark</div>
+                <div class="check-sub">See your XIRR against the Canadian benchmark. Know exactly where you're lagging.</div>
+              </div>
             </div>
-            <div style="margin:10px 0">
-              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="font-weight:600">FHSA — cash</span><span class="amount" style="font-size:12px;color:var(--tm)">$8,000 · 7.1%</span></div>
-              <div class="prog-track" style="height:8px"><div class="prog-fill" style="width:7.1%"></div></div>
+            <div class="check-item">
+              <div class="check-circle" style="background:var(--p50);border:1.5px solid #BBF7D0;color:var(--p)">💡</div>
+              <div>
+                <div class="check-main">Smart allocation alerts</div>
+                <div class="check-sub">Automatic flag if cash is sitting uninvested in registered accounts. No more forgetting to buy XEQT.</div>
+              </div>
             </div>
-            <div style="margin:10px 0">
-              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="font-weight:600">TFSA — cash</span><span class="amount" style="font-size:12px;color:var(--tm)">$7,000 · 6.2%</span></div>
-              <div class="prog-track" style="height:8px"><div class="prog-fill" style="width:6.2%"></div></div>
-            </div>
-            <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--b);font-size:12px;color:var(--tm)">
-              <span style="color:var(--amber);font-weight:600">⚠ 88.9% sitting in cash or low-yield accounts.</span> Invested portion earning 4.5%. TSX benchmark: 5.8%.
+            <div class="check-item" style="border-bottom:none">
+              <div class="check-circle" style="background:var(--p50);border:1.5px solid #BBF7D0;color:var(--p)">🔒</div>
+              <div>
+                <div class="check-main">Read-only. No bank credentials stored.</div>
+                <div class="check-sub">Powered by Flinks (open banking). AES-256 encrypted. Canadian data only, stored in ca-central-1.</div>
+              </div>
             </div>
           </div>
 
-          <div class="card" style="background:var(--rbg);border-color:#FECACA">
-            <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px">📉 XIRR underperforming benchmark by 1.6%</div>
-            <div style="font-size:12px;color:var(--tm);line-height:1.55">Your $15,000 in FHSA + TFSA is in cash (0% return). If invested in XEQT at the TSX benchmark rate, you'd earn an extra ~$870/year tax-free. See <strong>AI Advisor → Execute Plan</strong>.</div>
+          <!-- Right: notify form -->
+          <div class="card" style="display:flex;flex-direction:column;justify-content:space-between">
+            <div>
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--amber);margin-bottom:8px">🔔 Get notified first</div>
+              <div class="card-title" style="margin-bottom:6px">Be the first to connect your accounts</div>
+              <div class="card-sub" style="margin-bottom:18px">Beta access opens in the coming weeks. Leave your email and we'll notify you the day bank sync goes live.</div>
+
+              <div class="field" style="margin-bottom:10px">
+                <label>Email address</label>
+                <input type="email" placeholder="you@example.com" id="notify-email" />
+              </div>
+              <button class="btn-sm btn-primary" style="width:100%;font-size:14px;padding:10px" onclick="handleNotify()">Notify me when it's ready →</button>
+              <div id="notify-success" style="display:none;margin-top:10px;background:var(--p50);border:1px solid #BBF7D0;border-radius:8px;padding:10px;font-size:13px;color:var(--pd);text-align:center">
+                ✅ You're on the list! We'll email you when bank sync launches.
+              </div>
+            </div>
+
+            <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--b)">
+              <div style="font-size:11px;color:var(--tf);line-height:1.5">
+                🇨🇦 Canadian data stays in Canada · Read-only bank access · No bank passwords stored · Unsubscribe anytime
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- Preview mockup of what the panel will look like -->
+        <div class="card" style="opacity:.45;pointer-events:none;border-style:dashed">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tf)">Preview — what this panel will show</div>
+            <span class="badge b-gray">Coming soon</span>
+          </div>
+          <div style="background:#0F2419;border-radius:10px;padding:16px 20px;color:#fff;margin-bottom:14px">
+            <div style="font-size:10px;opacity:.6;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px">Total Net Worth</div>
+            <div style="font-family:'Geist Mono',monospace;font-size:28px;font-weight:500">$112,400</div>
+            <div style="display:flex;gap:16px;margin-top:8px;font-size:11px;opacity:.6">
+              <span>Portfolio XIRR 4.2%</span><span>vs TSX 5.8%</span><span>Since Jan 2026 ↑ $15K</span>
+            </div>
+          </div>
+          <div class="row row-2" style="gap:10px">
+            <div>
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tf);margin-bottom:6px">🇨🇦 Registered Accounts</div>
+              <div style="background:var(--sur2);border-radius:8px;padding:8px 10px;margin-bottom:6px;display:flex;justify-content:space-between;font-size:12px"><span>💎 FHSA — Questrade</span><span class="amount" style="font-size:12px;color:var(--p)">$8,000</span></div>
+              <div style="background:var(--sur2);border-radius:8px;padding:8px 10px;margin-bottom:6px;display:flex;justify-content:space-between;font-size:12px"><span>🛡 TFSA — Wealthsimple</span><span class="amount" style="font-size:12px;color:var(--p)">$7,000</span></div>
+              <div style="background:var(--sur2);border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;font-size:12px;opacity:.5"><span>📈 RRSP</span><span class="amount" style="font-size:12px">unlocks 2027</span></div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tf);margin-bottom:6px">🏦 Banking</div>
+              <div style="background:var(--sur2);border-radius:8px;padding:8px 10px;margin-bottom:6px;display:flex;justify-content:space-between;font-size:12px"><span>🏦 RBC Chequing</span><span class="amount" style="font-size:12px;color:var(--t)">$12,400</span></div>
+              <div style="background:var(--sur2);border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;font-size:12px"><span>💰 EQ Bank HISA</span><span class="amount" style="font-size:12px;color:var(--t)">$85,000</span></div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -960,6 +1009,18 @@ function show(id, el) {
   document.querySelectorAll('.sid-item').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   el.classList.add('active');
+}
+
+function handleNotify() {
+  const email = document.getElementById('notify-email').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('notify-email').style.borderColor = 'var(--amber)';
+    document.getElementById('notify-email').focus();
+    return;
+  }
+  document.getElementById('notify-email').style.borderColor = 'var(--p)';
+  document.getElementById('notify-success').style.display = 'block';
+  document.querySelector('#p2a .btn-primary').style.display = 'none';
 }
 </script>
 </body>

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrive Finance — The trusted advisor I couldn't afford</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAFAF8;--sur:#FFF;--sur2:#F3F4F6;
+  --p:#15803D;--pd:#14532D;--pl:#DCFCE7;--p50:#F0FDF4;--p100:#D1FAE5;
+  --t:#111827;--tm:#6B7280;--tf:#9CA3AF;
+  --b:#E5E7EB;--b2:#F3F4F6;
+  --amber:#D97706;--abg:#FFFBEB;--ab:#FDE68A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--t);line-height:1.6}
+
+/* ── NAV ── */
+nav{background:var(--sur);border-bottom:1px solid var(--b);position:sticky;top:0;z-index:50}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--p);text-decoration:none}
+.logo span{color:var(--t);font-weight:400}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{font-size:14px;font-weight:500;color:var(--tm);text-decoration:none;transition:color .15s}
+.nav-links a:hover{color:var(--p)}
+.nav-ctas{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;padding:9px 18px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;transition:all .15s}
+.btn-primary{background:var(--p);color:#fff}.btn-primary:hover{background:var(--pd)}
+.btn-ghost{background:none;border:1.5px solid var(--b);color:var(--t)}.btn-ghost:hover{border-color:var(--p);color:var(--p)}
+.btn-lg{font-size:16px;padding:13px 28px;border-radius:10px}
+
+/* ── FHSA BANNER ── */
+.fhsa-banner{background:var(--abg);border-bottom:1px solid var(--ab);padding:10px 24px;text-align:center}
+.fhsa-banner-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.fhsa-banner p{font-size:13px;font-weight:600;color:var(--amber)}
+.fhsa-banner .days{font-family:'Geist Mono',monospace;font-size:16px;font-weight:500;color:var(--amber)}
+.fhsa-banner a{font-size:13px;font-weight:600;color:var(--amber);text-decoration:underline}
+
+/* ── HERO ── */
+.hero{max-width:1100px;margin:0 auto;padding:80px 24px 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-left{}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--pl);color:var(--pd);font-size:12px;font-weight:700;padding:4px 10px;border-radius:9999px;margin-bottom:20px}
+.hero-h1{font-family:'Fraunces',serif;font-size:52px;font-weight:700;line-height:1.08;color:var(--t);margin-bottom:20px}
+.hero-h1 em{color:var(--p);font-style:normal}
+.hero-sub{font-size:17px;color:var(--tm);line-height:1.7;margin-bottom:32px;max-width:480px}
+.hero-ctas{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hero-social{margin-top:28px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--tm)}
+.hero-avatars{display:flex}
+.av{width:28px;height:28px;border-radius:50%;border:2px solid #fff;background:var(--pl);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--pd);margin-left:-8px}
+.av:first-child{margin-left:0}
+
+/* hero right — mockup */
+.hero-right{position:relative}
+.mockup-card{background:var(--sur);border:1px solid var(--b);border-radius:16px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.08)}
+.mc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.mc-title{font-family:'Fraunces',serif;font-size:15px;font-weight:600;color:var(--t)}
+.mc-badge{background:var(--pl);color:var(--pd);font-size:11px;font-weight:700;padding:2px 8px;border-radius:9999px}
+.mc-score{text-align:center;margin-bottom:18px}
+.mc-score-num{font-family:'Geist Mono',monospace;font-size:44px;font-weight:500;color:var(--p);line-height:1}
+.mc-score-label{font-size:12px;color:var(--tm);margin-top:4px}
+.mc-accounts{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.mc-acct{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg);border-radius:8px;font-size:13px}
+.mc-acct-left{display:flex;align-items:center;gap:8px}
+.mc-acct-dot{width:8px;height:8px;border-radius:50%}
+.dot-green{background:var(--p)}
+.dot-amber{background:var(--amber)}
+.dot-gray{background:var(--tf)}
+.mc-acct-name{font-weight:600;color:var(--t)}
+.mc-acct-sub{font-size:11px;color:var(--tm)}
+.mc-acct-val{font-family:'Geist Mono',monospace;font-size:13px;font-weight:500;color:var(--p)}
+.mc-alert{background:var(--abg);border:1px solid var(--ab);border-radius:8px;padding:10px 12px;display:flex;gap:8px;align-items:flex-start}
+.mc-alert-icon{font-size:14px;flex-shrink:0}
+.mc-alert-text{font-size:12px;color:var(--amber);font-weight:600;line-height:1.4}
+
+/* floating cards */
+.float-card{position:absolute;background:var(--sur);border:1px solid var(--b);border-radius:10px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.08);font-size:12px}
+.fc-1{top:-20px;right:-20px;display:flex;align-items:center;gap:8px}
+.fc-1 .fc-icon{font-size:18px}
+.fc-1 .fc-label{font-weight:700;color:var(--t)}
+.fc-1 .fc-sub{color:var(--tm)}
+.fc-2{bottom:-16px;left:-20px;display:flex;align-items:center;gap:8px}
+.fc-2 .fc-icon{font-size:18px}
+.fc-2 .fc-label{font-weight:700;color:var(--p)}
+.fc-2 .fc-sub{color:var(--tm)}
+
+/* ── SOCIAL PROOF BAR ── */
+.proof-bar{background:var(--sur);border-top:1px solid var(--b);border-bottom:1px solid var(--b);padding:20px 24px}
+.proof-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-around;gap:24px;flex-wrap:wrap}
+.proof-item{text-align:center}
+.proof-num{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--p)}
+.proof-label{font-size:13px;color:var(--tm);margin-top:2px}
+
+/* ── WHO IT'S FOR ── */
+.section{max-width:1100px;margin:0 auto;padding:72px 24px}
+.section-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--p);margin-bottom:12px}
+.section-h2{font-family:'Fraunces',serif;font-size:38px;font-weight:700;color:var(--t);margin-bottom:16px;line-height:1.15}
+.section-sub{font-size:17px;color:var(--tm);max-width:560px;line-height:1.7;margin-bottom:48px}
+
+.personas{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.persona-card{background:var(--sur);border:1px solid var(--b);border-radius:14px;padding:24px;transition:box-shadow .2s,border-color .2s}
+.persona-card:hover{border-color:var(--p);box-shadow:0 4px 20px rgba(21,128,61,.08)}
+.persona-icon{font-size:32px;margin-bottom:14px}
+.persona-who{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--p);margin-bottom:6px}
+.persona-name{font-family:'Fraunces',serif;font-size:19px;font-weight:600;color:var(--t);margin-bottom:10px;line-height:1.25}
+.persona-story{font-size:13px;color:var(--tm);line-height:1.6;margin-bottom:16px}
+.persona-insights{display:flex;flex-direction:column;gap:6px}
+.insight{display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--t);font-weight:500}
+.insight-dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0}
+
+/* ── HOW IT WORKS ── */
+.how-bg{background:var(--sur)}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:8px}
+.step{text-align:center;padding:0 12px}
+.step-num{width:44px;height:44px;border-radius:50%;background:var(--pl);border:2px solid var(--p);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--p);margin:0 auto 16px}
+.step-icon{font-size:28px;margin-bottom:12px}
+.step-title{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--t);margin-bottom:8px}
+.step-desc{font-size:14px;color:var(--tm);line-height:1.6}
+
+/* ── STUDENT SPOTLIGHT ── */
+.student-section{background:linear-gradient(135deg,#F0FDF4 0%,#DCFCE7 100%);border:1px solid var(--p100);border-radius:20px;padding:48px;margin:0 24px}
+.student-inner{max-width:1100px;margin:0 auto}
+.student-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.student-tag{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--p);color:var(--pd);font-size:12px;font-weight:700;padding:4px 10px;border-radius:9999px;margin-bottom:16px}
+.student-h{font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:var(--pd);line-height:1.2;margin-bottom:16px}
+.student-body{font-size:15px;color:var(--pd);line-height:1.7;opacity:.85;margin-bottom:24px}
+.student-facts{display:flex;flex-direction:column;gap:12px}
+.student-fact{display:flex;align-items:flex-start;gap:10px;background:#fff;border-radius:10px;padding:12px 14px}
+.sf-icon{font-size:18px;flex-shrink:0}
+.sf-text{font-size:13px;color:var(--t);font-weight:500;line-height:1.4}
+.sf-text strong{color:var(--pd)}
+
+/* ── FEATURES ── */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feat{background:var(--sur);border:1px solid var(--b);border-radius:14px;padding:24px}
+.feat-icon{font-size:28px;margin-bottom:14px}
+.feat-title{font-family:'Fraunces',serif;font-size:17px;font-weight:600;color:var(--t);margin-bottom:8px}
+.feat-desc{font-size:13px;color:var(--tm);line-height:1.6}
+.feat-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:9999px;margin-top:12px}
+.feat-tag-cs{background:var(--abg);color:var(--amber);border:1px solid var(--ab)}
+.feat-tag-free{background:var(--pl);color:var(--pd)}
+.feat-tag-pro{background:#EFF6FF;color:#2563EB}
+
+/* ── PRICING ── */
+.pricing{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.price-card{background:var(--sur);border:1.5px solid var(--b);border-radius:14px;padding:28px;position:relative}
+.price-card.featured{border-color:var(--p);box-shadow:0 4px 24px rgba(21,128,61,.12)}
+.price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--p);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:9999px}
+.price-tier{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tm);margin-bottom:8px}
+.price-amount{display:flex;align-items:flex-end;gap:4px;margin-bottom:4px}
+.price-num{font-family:'Geist Mono',monospace;font-size:36px;font-weight:500;color:var(--t)}
+.price-period{font-size:14px;color:var(--tm);padding-bottom:4px}
+.price-desc{font-size:13px;color:var(--tm);margin-bottom:20px;min-height:36px}
+.price-divider{border:none;border-top:1px solid var(--b);margin-bottom:16px}
+.price-features{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.pf{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--t)}
+.pf-check{color:var(--p);font-size:14px;flex-shrink:0;margin-top:1px}
+
+/* ── TESTIMONIAL ── */
+.testimonial-section{background:var(--sur);border-top:1px solid var(--b);border-bottom:1px solid var(--b)}
+.testimonial{max-width:720px;margin:0 auto;text-align:center;padding:64px 24px}
+.quote-mark{font-family:'Fraunces',serif;font-size:72px;color:var(--pl);line-height:.6;margin-bottom:8px}
+.quote-text{font-family:'Fraunces',serif;font-size:22px;font-weight:500;color:var(--t);line-height:1.5;margin-bottom:24px;font-style:italic}
+.quote-author{display:flex;align-items:center;justify-content:center;gap:12px}
+.qa-av{width:40px;height:40px;border-radius:50%;background:var(--pl);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--pd)}
+.qa-name{font-size:14px;font-weight:700;color:var(--t);text-align:left}
+.qa-sub{font-size:12px;color:var(--tm)}
+
+/* ── CTA SECTION ── */
+.cta-section{max-width:1100px;margin:0 auto;padding:72px 24px;text-align:center}
+.cta-h2{font-family:'Fraunces',serif;font-size:42px;font-weight:700;color:var(--t);margin-bottom:16px;line-height:1.15}
+.cta-sub{font-size:17px;color:var(--tm);margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto}
+.cta-note{font-size:13px;color:var(--tf);margin-top:16px}
+
+/* ── FOOTER ── */
+footer{background:var(--t);padding:48px 24px 32px}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-logo{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:10px}
+.footer-tagline{font-size:13px;color:#9CA3AF;line-height:1.6}
+.footer-col h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#6B7280;margin-bottom:14px}
+.footer-col a{display:block;font-size:13px;color:#D1D5DB;text-decoration:none;margin-bottom:8px;transition:color .15s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid #374151;padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:12px;color:#6B7280}
+.footer-disclaimer{font-size:11px;color:#4B5563;max-width:600px;line-height:1.5}
+
+/* ── DIVIDER ── */
+.divider{max-width:1100px;margin:0 auto;border:none;border-top:1px solid var(--b)}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .personas,.features,.how-steps,.pricing{grid-template-columns:1fr}
+  .student-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- FHSA URGENCY BANNER -->
+<div class="fhsa-banner">
+  <div class="fhsa-banner-inner">
+    <p>⏰ FHSA deadline: <strong>December 31, 2026</strong> — <span class="days">223 days</span> left to open yours and save $8,000 in taxes</p>
+    <a href="onboarding.html">Check my eligibility →</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#">Arrive<span>Finance</span></a>
+    <div class="nav-links">
+      <a href="#who">Who it's for</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <div class="nav-ctas">
+      <a class="btn btn-ghost" href="#">Sign in</a>
+      <a class="btn btn-primary" href="onboarding.html">Get started free</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">🇨🇦 Built for newcomers to Canada</div>
+    <h1 class="hero-h1">The trusted advisor<br>I <em>couldn't afford.</em></h1>
+    <p class="hero-sub">Most newcomers lose $8,000 in tax savings in their first year without knowing it. Arrive Finance tells you exactly which accounts to open, in what order, before the deadline — for $20/month instead of $400/hr.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary btn-lg" href="onboarding.html">Get my free plan →</a>
+      <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
+    </div>
+    <div class="hero-social">
+      <div class="hero-avatars">
+        <div class="av">A</div>
+        <div class="av" style="background:#FEF3C7;color:#D97706">P</div>
+        <div class="av" style="background:#EFF6FF;color:#2563EB">M</div>
+        <div class="av" style="background:#FDF4FF;color:#9333EA">S</div>
+      </div>
+      &nbsp;Newcomers from 12+ countries trust Arrive Finance
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- Floating card 1 -->
+    <div class="float-card fc-1">
+      <div class="fc-icon">✅</div>
+      <div>
+        <div class="fc-label">FHSA opened</div>
+        <div class="fc-sub">$8,000 room secured</div>
+      </div>
+    </div>
+
+    <!-- Main mockup card -->
+    <div class="mockup-card">
+      <div class="mc-header">
+        <div class="mc-title">Your Arrive Score</div>
+        <div class="mc-badge">Updated today</div>
+      </div>
+      <div class="mc-score">
+        <div class="mc-score-num">74</div>
+        <div class="mc-score-label">out of 100 · Top 35% of 2024 newcomers</div>
+      </div>
+      <div class="mc-accounts">
+        <div class="mc-acct">
+          <div class="mc-acct-left">
+            <div class="mc-acct-dot dot-green"></div>
+            <div>
+              <div class="mc-acct-name">TFSA</div>
+              <div class="mc-acct-sub">$7,000 room available</div>
+            </div>
+          </div>
+          <div class="mc-acct-val">$7,000</div>
+        </div>
+        <div class="mc-acct">
+          <div class="mc-acct-left">
+            <div class="mc-acct-dot dot-green"></div>
+            <div>
+              <div class="mc-acct-name">FHSA</div>
+              <div class="mc-acct-sub">Open · $8,000 room</div>
+            </div>
+          </div>
+          <div class="mc-acct-val">$8,000</div>
+        </div>
+        <div class="mc-acct">
+          <div class="mc-acct-left">
+            <div class="mc-acct-dot dot-gray"></div>
+            <div>
+              <div class="mc-acct-name">RRSP</div>
+              <div class="mc-acct-sub">Available after first tax return</div>
+            </div>
+          </div>
+          <div class="mc-acct-val" style="color:var(--tf)">$0 now</div>
+        </div>
+      </div>
+      <div class="mc-alert">
+        <div class="mc-alert-icon">⚠️</div>
+        <div class="mc-alert-text">Invest your TFSA room before Dec 31 — sitting in cash loses ~5% annually vs. XEQT.</div>
+      </div>
+    </div>
+
+    <!-- Floating card 2 -->
+    <div class="float-card fc-2">
+      <div class="fc-icon">💰</div>
+      <div>
+        <div class="fc-label" style="color:var(--p)">$3,240 saved</div>
+        <div class="fc-sub">in tax savings this year</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROOF BAR -->
+<div class="proof-bar">
+  <div class="proof-inner">
+    <div class="proof-item">
+      <div class="proof-num">483K+</div>
+      <div class="proof-label">newcomers arrive each year</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">76%</div>
+      <div class="proof-label">fear making financial mistakes</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">$8,000</div>
+      <div class="proof-label">in FHSA room lost if you miss Dec 31</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">$20/mo</div>
+      <div class="proof-label">vs. $400/hr for a human advisor</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHO IT'S FOR -->
+<div class="section" id="who">
+  <div class="section-label">Who it's for</div>
+  <h2 class="section-h2">Built for every newcomer,<br>not just permanent residents.</h2>
+  <p class="section-sub">Whether you just landed with a PR card or you've been studying here for two years — the Canadian financial system has accounts waiting for you.</p>
+
+  <div class="personas">
+    <!-- PR -->
+    <div class="persona-card">
+      <div class="persona-icon">🏠</div>
+      <div class="persona-who">Permanent Resident</div>
+      <div class="persona-name">Just got PR. Savings sitting in a savings account.</div>
+      <div class="persona-story">You saved aggressively before immigrating. Now $80K is sitting in a high-interest savings account while you try to figure out RRSP vs TFSA vs FHSA — and you have no idea you're about to miss the Dec 31 FHSA deadline.</div>
+      <div class="persona-insights">
+        <div class="insight"><div class="insight-dot" style="background:var(--amber)"></div>FHSA deadline: Dec 31 of your first eligible year. Urgent.</div>
+        <div class="insight"><div class="insight-dot" style="background:var(--tf)"></div>RRSP room: $0 in year 1. Opens after your first tax return.</div>
+        <div class="insight"><div class="insight-dot" style="background:var(--p)"></div>TFSA: $7,000 this year. Open it today.</div>
+      </div>
+    </div>
+
+    <!-- Student -->
+    <div class="persona-card" style="border-color:var(--p);box-shadow:0 4px 20px rgba(21,128,61,.08)">
+      <div class="persona-icon">🎓</div>
+      <div class="persona-who" style="color:var(--p)">International Student</div>
+      <div class="persona-name">Two years in Canada. Zero accounts. "I thought I needed PR."</div>
+      <div class="persona-story">You don't need to be a permanent resident to open a TFSA or FHSA. If you've been in Canada for 2 years, you have $14,000 in TFSA room sitting unused. Most students don't know this — that's the mistake Arrive Finance prevents.</div>
+      <div class="persona-insights">
+        <div class="insight"><div class="insight-dot" style="background:var(--p)"></div>TFSA: Eligible from day 1 as a Canadian resident. Not PR-only.</div>
+        <div class="insight"><div class="insight-dot" style="background:var(--p)"></div>FHSA: Also eligible if you're a resident + first-time buyer.</div>
+        <div class="insight"><div class="insight-dot" style="background:var(--tf)"></div>RRSP: $0 until you file a Canadian tax return with earned income.</div>
+      </div>
+    </div>
+
+    <!-- Work permit -->
+    <div class="persona-card">
+      <div class="persona-icon">💼</div>
+      <div class="persona-who">Work Permit Holder</div>
+      <div class="persona-name">PGWP. Employed. No idea what to do with the paycheque.</div>
+      <div class="persona-story">You graduated, got a PGWP, and you're earning a real salary now. But your employer's payroll system deducted taxes and you have no RRSP to put them in — because no one told you about the year-1 rule. Arrive Finance explains exactly what's available to you right now.</div>
+      <div class="persona-insights">
+        <div class="insight"><div class="insight-dot" style="background:var(--p)"></div>TFSA: Eligible. Open it now and invest your savings.</div>
+        <div class="insight"><div class="insight-dot" style="background:var(--p)"></div>FHSA: Eligible if first-time buyer. Dec 31 deadline applies.</div>
+        <div class="insight"><div class="insight-dot" style="background:var(--amber)"></div>RRSP: 18% of last year's Canadian income — check your room.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STUDENT SPOTLIGHT -->
+<div style="max-width:1100px;margin:0 auto;padding:0 24px 72px">
+  <div class="student-section">
+    <div class="student-inner">
+      <div class="student-grid">
+        <div>
+          <div class="student-tag">🎓 Student scenario</div>
+          <h2 class="student-h">You've been in Canada 2 years. You have $14,000 in unused room.</h2>
+          <p class="student-body">International students are Canadian residents for tax purposes. That means the TFSA accumulates from your first year of residency — whether or not you have a PR card. Most students leave thousands in tax-free room untouched because no one told them they were eligible.</p>
+          <a class="btn btn-primary" href="onboarding.html" style="display:inline-flex">See what you're missing →</a>
+        </div>
+        <div class="student-facts">
+          <div class="student-fact">
+            <div class="sf-icon">📅</div>
+            <div class="sf-text">Arrived <strong>September 2024</strong> on a study permit → You have <strong>$7,000 in 2024 TFSA room</strong> + $7,000 in 2025 = <strong>$14,000 available today</strong></div>
+          </div>
+          <div class="student-fact">
+            <div class="sf-icon">🏡</div>
+            <div class="sf-text">Planning to stay in Canada long-term? <strong>Open your FHSA now</strong> — even as a student. Your 2024 room ($8,000) was locked in on Dec 31, 2024. Your 2025 room expires Dec 31, 2025.</div>
+          </div>
+          <div class="student-fact">
+            <div class="sf-icon">💼</div>
+            <div class="sf-text">Working part-time on campus? <strong>That income generates RRSP room</strong> — 18% of your Canadian earned income. Small but real, and it accumulates.</div>
+          </div>
+          <div class="student-fact">
+            <div class="sf-icon">🔄</div>
+            <div class="sf-text">Getting PR through PGWP → CEC? <strong>Your FHSA clock started the year you became a Canadian resident</strong> — not the year you got PR. Don't wait.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how-bg">
+<div class="section" id="how">
+  <div class="section-label">How it works</div>
+  <h2 class="section-h2">From "I have savings and no idea what to do"<br>to a personalized plan in 5 minutes.</h2>
+
+  <div class="how-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-icon">📋</div>
+      <div class="step-title">Tell us about yourself</div>
+      <div class="step-desc">Arrival date, immigration status, income, savings, and home-buying plans. Our 7-step wizard covers the questions a financial advisor would ask — in plain English (or हिंदी).</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-icon">🧠</div>
+      <div class="step-title">We calculate your exact situation</div>
+      <div class="step-desc">Our rules engine handles RRSP year-1 edge cases, TFSA room from your residency date, FHSA eligibility for students and PR holders, and the Dec 31 deadline — correctly, every time.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-icon">📊</div>
+      <div class="step-title">Get your plan and track it</div>
+      <div class="step-desc">A personalized account plan with exact steps. Then the Pro dashboard shows your financial health, Arrive Score, and AI advisor recommendations as you execute.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FEATURES -->
+<div class="section">
+  <div class="section-label">What you get</div>
+  <h2 class="section-h2">Everything. Not a watered-down version.</h2>
+
+  <div class="features">
+    <div class="feat">
+      <div class="feat-icon">🧭</div>
+      <div class="feat-title">Onboarding Wizard</div>
+      <div class="feat-desc">RRSP/TFSA/FHSA calculator with newcomer-specific rules. Handles students, work permit holders, and permanent residents correctly. Available in English and हिंदी.</div>
+      <div class="feat-tag feat-tag-free">✓ Free forever</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">💳</div>
+      <div class="feat-title">Financial Health Dashboard</div>
+      <div class="feat-desc">All your accounts in one place. Net worth trajectory. Goal tracking for home purchase, RESP, and retirement. Arrive Score — how you compare to newcomers like you.</div>
+      <div class="feat-tag feat-tag-pro">Pro · $20/mo</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🤖</div>
+      <div class="feat-title">AI Advisor</div>
+      <div class="feat-desc">Personalized recommendations based on your actual accounts and goals. Portfolio analysis vs. the TSX benchmark. Action Center with prioritized next steps.</div>
+      <div class="feat-tag feat-tag-pro">Pro · $20/mo</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🏦</div>
+      <div class="feat-title">Account Aggregation</div>
+      <div class="feat-desc">Connect your RBC, TD, Scotiabank, BMO accounts and see everything in one view. Your net worth, updated daily.</div>
+      <div class="feat-tag feat-tag-cs">Coming soon</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">⚡</div>
+      <div class="feat-title">Investment Execution</div>
+      <div class="feat-desc">One-tap guidance to buy XEQT, VGRO, or ZGRO in your Wealthsimple account — the exact ETFs advisors recommend for newcomers.</div>
+      <div class="feat-tag feat-tag-cs">Coming soon</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">👤</div>
+      <div class="feat-title">Advisor Directory</div>
+      <div class="feat-desc">Find a CFP who speaks Hindi, Punjabi, Mandarin, or Tagalog and understands the newcomer financial situation. When you need a human, we connect you to the right one.</div>
+      <div class="feat-tag feat-tag-cs">Coming soon</div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="how-bg">
+<div class="section" id="pricing">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-h2">Start free. Upgrade when you're ready.</h2>
+  <p class="section-sub">The onboarding wizard and your personalized plan are always free. Pro is for users who want the full financial health picture and AI guidance.</p>
+
+  <div class="pricing">
+    <div class="price-card">
+      <div class="price-tier">Free</div>
+      <div class="price-amount">
+        <div class="price-num">$0</div>
+        <div class="price-period">/month</div>
+      </div>
+      <div class="price-desc">Everything you need to open the right accounts before the deadline.</div>
+      <hr class="price-divider">
+      <div class="price-features">
+        <div class="pf"><div class="pf-check">✓</div>7-step onboarding wizard</div>
+        <div class="pf"><div class="pf-check">✓</div>RRSP / TFSA / FHSA calculator</div>
+        <div class="pf"><div class="pf-check">✓</div>Personalized account plan</div>
+        <div class="pf"><div class="pf-check">✓</div>FHSA deadline reminder</div>
+        <div class="pf"><div class="pf-check">✓</div>English + हिंदी</div>
+      </div>
+      <a class="btn btn-ghost" href="onboarding.html" style="width:100%;justify-content:center">Get started free</a>
+    </div>
+
+    <div class="price-card featured">
+      <div class="price-badge">Most popular</div>
+      <div class="price-tier">Pro</div>
+      <div class="price-amount">
+        <div class="price-num">$20</div>
+        <div class="price-period">/month</div>
+      </div>
+      <div class="price-desc">The full platform — every panel, AI advisor, and Arrive Score.</div>
+      <hr class="price-divider">
+      <div class="price-features">
+        <div class="pf"><div class="pf-check" style="color:var(--p)">✓</div>Everything in Free</div>
+        <div class="pf"><div class="pf-check" style="color:var(--p)">✓</div>Financial Health dashboard</div>
+        <div class="pf"><div class="pf-check" style="color:var(--p)">✓</div>AI Advisor + Action Center</div>
+        <div class="pf"><div class="pf-check" style="color:var(--p)">✓</div>Arrive Score + cohort rank</div>
+        <div class="pf"><div class="pf-check" style="color:var(--p)">✓</div>Goals tracking</div>
+        <div class="pf"><div class="pf-check" style="color:var(--p)">✓</div>WhatsApp FHSA reminder</div>
+      </div>
+      <a class="btn btn-primary" href="onboarding.html" style="width:100%;justify-content:center">Start Pro free for 14 days</a>
+    </div>
+
+    <div class="price-card">
+      <div class="price-tier">Premium</div>
+      <div class="price-amount">
+        <div class="price-num">$49</div>
+        <div class="price-period">/month</div>
+      </div>
+      <div class="price-desc">Everything in Pro, plus a specialist connection and guided execution.</div>
+      <hr class="price-divider">
+      <div class="price-features">
+        <div class="pf"><div class="pf-check">✓</div>Everything in Pro</div>
+        <div class="pf"><div class="pf-check">✓</div>CFP specialist connection</div>
+        <div class="pf"><div class="pf-check">✓</div>Investment execution guidance</div>
+        <div class="pf"><div class="pf-check">✓</div>Foreign asset support (T1135)</div>
+        <div class="pf"><div class="pf-check">✓</div>Hindi / Punjabi advisor match</div>
+      </div>
+      <a class="btn btn-ghost" href="onboarding.html" style="width:100%;justify-content:center">Coming soon — join waitlist</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TESTIMONIAL -->
+<div class="testimonial-section">
+  <div class="testimonial">
+    <div class="quote-mark">"</div>
+    <div class="quote-text">I paid $400 an hour to a financial advisor to set up my accounts and explain the system. Now I have the same guidance for $20 a month. I wish this had existed when I first arrived.</div>
+    <div class="quote-author">
+      <div class="qa-av">A</div>
+      <div>
+        <div class="qa-name">Avdhesh S.</div>
+        <div class="qa-sub">Product Support Engineer · India → Canada, 2023</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<div class="cta-section">
+  <h2 class="cta-h2">Your FHSA deadline is<br>December 31, 2026.</h2>
+  <p class="cta-sub">223 days. Start your free plan today — no credit card, no commitment. Your personalized account roadmap is ready in 5 minutes.</p>
+  <a class="btn btn-primary btn-lg" href="onboarding.html">Get my free plan →</a>
+  <div class="cta-note">Free forever. Pro at $20/month. Cancel anytime.</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Arrive Finance</div>
+        <div class="footer-tagline">Personalized financial education for newcomers to Canada. Not financial advice — the guidance that helps you understand and act.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#">Onboarding Wizard</a>
+        <a href="#">Financial Health</a>
+        <a href="#">AI Advisor</a>
+        <a href="#">FHSA Calculator</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="#">What is TFSA?</a>
+        <a href="#">FHSA guide</a>
+        <a href="#">Newcomer checklist</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Arrive Finance · arrive.finance</div>
+      <div class="footer-disclaimer">Arrive Finance provides personalized financial education, not regulated financial advice. For regulated advice, speak with a licensed financial advisor. Arrive Finance is not affiliated with IRCC, CRA, or any Canadian financial institution.</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
