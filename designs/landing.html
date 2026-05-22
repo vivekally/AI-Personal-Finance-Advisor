@@ -203,7 +203,7 @@ footer{background:var(--t);padding:48px 24px 32px}
 <!-- FHSA URGENCY BANNER -->
 <div class="fhsa-banner">
   <div class="fhsa-banner-inner">
-    <p>⏰ FHSA deadline: <strong>December 31, 2026</strong> — <span class="days">223 days</span> left to open yours and save $8,000 in taxes</p>
+    <p>⏰ FHSA deadline: <strong>December 31, 2026</strong> — <span class="days" id="fhsa-countdown">— days</span> left to lock in $8,000 of tax-advantaged room</p>
     <a href="onboarding.html">Check my eligibility →</a>
   </div>
 </div>
@@ -219,7 +219,7 @@ footer{background:var(--t);padding:48px 24px 32px}
     </div>
     <div class="nav-ctas">
       <a class="btn btn-ghost" href="#">Sign in</a>
-      <a class="btn btn-primary" href="onboarding.html">Get started free</a>
+      <a class="btn btn-primary" href="onboarding.html">Get my free plan →</a>
     </div>
   </div>
 </nav>
@@ -229,7 +229,7 @@ footer{background:var(--t);padding:48px 24px 32px}
   <div class="hero-left">
     <div class="hero-badge">🇨🇦 Built for newcomers to Canada</div>
     <h1 class="hero-h1">The trusted advisor<br>I <em>couldn't afford.</em></h1>
-    <p class="hero-sub">Most newcomers lose $8,000 in tax savings in their first year without knowing it. Arrive Finance tells you exactly which accounts to open, in what order, before the deadline — for $20/month instead of $400/hr.</p>
+    <p class="hero-sub">Most newcomers lose $8,000 of tax-advantaged FHSA room in their first year — and the $2,000+ in tax savings that comes with it. Arrive Finance tells you exactly which accounts to open, in what order, before the deadline — for $20/month instead of $400/hr.</p>
     <div class="hero-ctas">
       <a class="btn btn-primary btn-lg" href="onboarding.html">Get my free plan →</a>
       <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
@@ -263,7 +263,7 @@ footer{background:var(--t);padding:48px 24px 32px}
       </div>
       <div class="mc-score">
         <div class="mc-score-num">74</div>
-        <div class="mc-score-label">out of 100 · Top 35% of 2024 newcomers</div>
+        <div class="mc-score-label">out of 100 · 4 areas reviewed</div>
       </div>
       <div class="mc-accounts">
         <div class="mc-acct">
@@ -307,8 +307,8 @@ footer{background:var(--t);padding:48px 24px 32px}
     <div class="float-card fc-2">
       <div class="fc-icon">💰</div>
       <div>
-        <div class="fc-label" style="color:var(--p)">$3,240 saved</div>
-        <div class="fc-sub">in tax savings this year</div>
+        <div class="fc-label" style="color:var(--p)">$2,800 saved</div>
+        <div class="fc-sub">FHSA tax deduction · 35% rate</div>
       </div>
     </div>
   </div>
@@ -402,7 +402,7 @@ footer{background:var(--t);padding:48px 24px 32px}
           </div>
           <div class="student-fact">
             <div class="sf-icon">🏡</div>
-            <div class="sf-text">Planning to stay in Canada long-term? <strong>Open your FHSA now</strong> — even as a student. Your 2024 room ($8,000) was locked in on Dec 31, 2024. Your 2025 room expires Dec 31, 2025.</div>
+            <div class="sf-text">Planning to stay in Canada long-term? <strong>Open your FHSA now</strong> — even as a student. If you didn't open one by Dec 31, 2024, that year's $8,000 of room is <strong>gone forever</strong>. Your 2026 $8,000 expires Dec 31, 2026 — same rule.</div>
           </div>
           <div class="student-fact">
             <div class="sf-icon">💼</div>
@@ -480,7 +480,7 @@ footer{background:var(--t);padding:48px 24px 32px}
     <div class="feat">
       <div class="feat-icon">⚡</div>
       <div class="feat-title">Investment Execution</div>
-      <div class="feat-desc">One-tap guidance to buy XEQT, VGRO, or ZGRO in your Wealthsimple account — the exact ETFs advisors recommend for newcomers.</div>
+      <div class="feat-desc">One-tap guidance to buy popular index ETFs like XEQT, VGRO, or ZGRO in your Wealthsimple account — the funds newcomers commonly hold for long-term registered-account growth.</div>
       <div class="feat-tag feat-tag-cs">Coming soon</div>
     </div>
     <div class="feat">
@@ -515,7 +515,7 @@ footer{background:var(--t);padding:48px 24px 32px}
         <div class="pf"><div class="pf-check">✓</div>FHSA deadline reminder</div>
         <div class="pf"><div class="pf-check">✓</div>English + हिंदी</div>
       </div>
-      <a class="btn btn-ghost" href="onboarding.html" style="width:100%;justify-content:center">Get started free</a>
+      <a class="btn btn-ghost" href="onboarding.html" style="width:100%;justify-content:center">Get my free plan →</a>
     </div>
 
     <div class="price-card featured">
@@ -535,7 +535,7 @@ footer{background:var(--t);padding:48px 24px 32px}
         <div class="pf"><div class="pf-check" style="color:var(--p)">✓</div>Goals tracking</div>
         <div class="pf"><div class="pf-check" style="color:var(--p)">✓</div>WhatsApp FHSA reminder</div>
       </div>
-      <a class="btn btn-primary" href="onboarding.html" style="width:100%;justify-content:center">Start Pro free for 14 days</a>
+      <a class="btn btn-primary" href="onboarding.html" style="width:100%;justify-content:center">Start with Pro — $20/month</a>
     </div>
 
     <div class="price-card">
@@ -553,7 +553,12 @@ footer{background:var(--t);padding:48px 24px 32px}
         <div class="pf"><div class="pf-check">✓</div>Foreign asset support (T1135)</div>
         <div class="pf"><div class="pf-check">✓</div>Hindi / Punjabi advisor match</div>
       </div>
-      <a class="btn btn-ghost" href="onboarding.html" style="width:100%;justify-content:center">Coming soon — join waitlist</a>
+      <a class="btn btn-ghost" href="#" onclick="event.preventDefault();document.getElementById('premium-waitlist').classList.toggle('open')" style="width:100%;justify-content:center">Coming soon — join waitlist</a>
+      <div id="premium-waitlist" style="display:none;margin-top:10px" class="waitlist-form">
+        <input type="email" placeholder="your@email.com" style="width:100%;padding:9px 12px;border:1.5px solid var(--b);border-radius:8px;font-size:13px;outline:none;margin-bottom:6px" onfocus="this.style.borderColor='var(--p)'"/>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;padding:9px;font-size:13px" onclick="this.previousElementSibling.style.borderColor='var(--p)';this.textContent='✓ Added to waitlist'">Notify me when Premium launches</button>
+      </div>
+      <style>#premium-waitlist.open{display:block !important}</style>
     </div>
   </div>
 </div>
@@ -568,7 +573,7 @@ footer{background:var(--t);padding:48px 24px 32px}
       <div class="qa-av">A</div>
       <div>
         <div class="qa-name">Avdhesh S.</div>
-        <div class="qa-sub">Product Support Engineer · India → Canada, 2023</div>
+        <div class="qa-sub">Product Support Engineer · India → Canada, 2024</div>
       </div>
     </div>
   </div>
@@ -577,7 +582,7 @@ footer{background:var(--t);padding:48px 24px 32px}
 <!-- FINAL CTA -->
 <div class="cta-section">
   <h2 class="cta-h2">Your FHSA deadline is<br>December 31, 2026.</h2>
-  <p class="cta-sub">223 days. Start your free plan today — no credit card, no commitment. Your personalized account roadmap is ready in 5 minutes.</p>
+  <p class="cta-sub"><span id="cta-countdown">—</span> days. Start your free plan today — no credit card, no commitment. Your personalized account roadmap is ready in 5 minutes.</p>
   <a class="btn btn-primary btn-lg" href="onboarding.html">Get my free plan →</a>
   <div class="cta-note">Free forever. Pro at $20/month. Cancel anytime.</div>
 </div>
@@ -618,6 +623,24 @@ footer{background:var(--t);padding:48px 24px 32px}
     </div>
   </div>
 </footer>
+
+<script>
+// Dynamic FHSA deadline countdown — Dec 31 of current year
+(function(){
+  const now = new Date();
+  const year = now.getFullYear();
+  const dec31 = new Date(year, 11, 31, 23, 59, 59);
+  // If we're past Dec 31, roll to next year
+  const target = now > dec31 ? new Date(year + 1, 11, 31, 23, 59, 59) : dec31;
+  const days = Math.ceil((target - now) / 86400000);
+
+  const els = ['fhsa-countdown', 'cta-countdown'];
+  els.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = days + (id === 'fhsa-countdown' ? ' days' : '');
+  });
+})();
+</script>
 
 </body>
 </html>

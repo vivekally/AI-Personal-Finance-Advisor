@@ -264,7 +264,7 @@ input[type=range]{width:100%;accent-color:var(--p);height:4px}
   <!-- ─ 1A: ACCOUNT CALCULATOR ─ -->
   <div id="p1a" class="panel active">
     <div class="topbar">
-      <div><div class="topbar-title">RRSP / TFSA / FHSA Calculator</div><div class="topbar-sub">Onboarding · Step 1 of 3</div></div>
+      <div><div class="topbar-title">RRSP / TFSA / FHSA Calculator</div><div class="topbar-sub">Onboarding · Step 1 of 2</div></div>
       <div class="topbar-right"><span class="badge b-green">2026 arrival detected</span></div>
     </div>
     <div class="content">
@@ -272,40 +272,102 @@ input[type=range]{width:100%;accent-color:var(--p);height:4px}
         <!-- Left: inputs -->
         <div>
           <div class="tabs">
-            <button class="tab active">TFSA</button>
-            <button class="tab">FHSA</button>
-            <button class="tab">RRSP</button>
+            <button class="tab active" onclick="switchCalcTab('tfsa', this)">TFSA</button>
+            <button class="tab" onclick="switchCalcTab('fhsa', this)">FHSA</button>
+            <button class="tab" onclick="switchCalcTab('rrsp', this)">RRSP</button>
           </div>
-          <div class="card">
+
+          <!-- TFSA inputs -->
+          <div class="card calc-pane" id="calc-tfsa">
             <div class="card-title">Tax-Free Savings Account</div>
-            <div class="card-sub">Grows and withdraws tax-free. Room starts the year you become a Canadian resident.</div>
+            <div class="card-sub">Grows and withdraws tax-free. Room starts the year you became a Canadian resident.</div>
             <div class="field"><label>Arrival year</label><select><option>2026 (this year)</option><option>2025</option><option>2024 or earlier</option></select></div>
             <div class="field"><label>Current TFSA balance</label><input type="text" value="$0" /></div>
-            <div class="field"><label>How much can you contribute?</label><input type="text" value="$7,000" /></div>
+            <div class="field"><label>How much can you contribute this year?</label><input type="text" value="$7,000" /></div>
             <div class="field"><label>Expected annual return (%)</label><input type="text" value="7%" /></div>
             <div class="field"><label>Time horizon (years)</label><input type="text" value="25" /></div>
             <button class="btn-sm btn-primary" style="width:100%">Calculate →</button>
           </div>
+
+          <!-- FHSA inputs -->
+          <div class="card calc-pane" id="calc-fhsa" style="display:none">
+            <div class="card-title">First Home Savings Account</div>
+            <div class="card-sub">Deductible going in, tax-free coming out for a first-time home purchase. <strong style="color:var(--amber)">Must open before Dec 31 to bank that year's $8,000 of room.</strong></div>
+            <div class="field"><label>Are you a first-time home buyer?</label><select><option>Yes</option><option>No — ineligible for FHSA</option></select></div>
+            <div class="field"><label>Current FHSA balance</label><input type="text" value="$0" /></div>
+            <div class="field"><label>2026 contribution planned</label><input type="text" value="$8,000" /></div>
+            <div class="field"><label>Expected annual return (%)</label><input type="text" value="7%" /></div>
+            <div class="field"><label>Years until home purchase</label><input type="text" value="5" /></div>
+            <button class="btn-sm btn-primary" style="width:100%">Calculate →</button>
+          </div>
+
+          <!-- RRSP inputs -->
+          <div class="card calc-pane" id="calc-rrsp" style="display:none">
+            <div class="card-title">Registered Retirement Savings Plan</div>
+            <div class="card-sub">Tax-deductible contributions, tax-deferred growth, taxable on withdrawal. Room is 18% of prior-year Canadian earned income, unlocked after filing your first return.</div>
+            <div class="field"><label>Prior year Canadian earned income</label><input type="text" value="$0 (year 1 newcomer)" /></div>
+            <div class="field"><label>Marginal tax rate</label><select><option>30% (typical $60-100K)</option><option>20% (under $60K)</option><option>40% (over $150K)</option></select></div>
+            <div class="field"><label>Expected annual return (%)</label><input type="text" value="7%" /></div>
+            <div class="field"><label>Years until retirement</label><input type="text" value="34" /></div>
+            <button class="btn-sm btn-primary" disabled style="width:100%;opacity:.5;cursor:not-allowed">RRSP room unlocks after 2026 tax filing →</button>
+          </div>
         </div>
+
         <!-- Right: results -->
         <div>
-          <div class="card" style="margin-bottom:14px">
-            <div class="card-label">Your 2026 TFSA room</div>
-            <div class="amount amount-lg">$7,000</div>
-            <div style="font-size:12px;color:var(--tm);margin-top:4px">Resets every January 1st. Unused room carries forward permanently.</div>
-            <div class="prog-wrap" style="margin-top:12px">
-              <div class="prog-label"><span>Contributed</span><span>$0 / $7,000</span></div>
-              <div class="prog-track"><div class="prog-fill" style="width:0%"></div></div>
+          <!-- TFSA results -->
+          <div class="calc-result" id="result-tfsa">
+            <div class="card" style="margin-bottom:14px">
+              <div class="card-label">Your 2026 TFSA room</div>
+              <div class="amount amount-lg">$7,000</div>
+              <div style="font-size:12px;color:var(--tm);margin-top:4px">Resets every January 1st. Unused room carries forward permanently.</div>
+              <div class="prog-wrap" style="margin-top:12px">
+                <div class="prog-label"><span>Contributed</span><span>$0 / $7,000</span></div>
+                <div class="prog-track"><div class="prog-fill" style="width:0%"></div></div>
+              </div>
+            </div>
+            <div class="card" style="margin-bottom:14px">
+              <div class="card-label">Projected value at 65</div>
+              <div class="amount amount-lg" style="color:var(--pd)">$86,200</div>
+              <div style="font-size:12px;color:var(--tm);margin-top:4px">If you contribute $7,000/year at 7% return for 25 years.</div>
+            </div>
+            <div class="card" style="background:var(--abg);border-color:var(--ab)">
+              <div class="card-label" style="color:#92400E">⚠ RRSP notice</div>
+              <div style="font-size:13px;color:#78350F;line-height:1.5">Your RRSP room is <strong>$0</strong> until you file your first Canadian tax return (early 2027). FHSA and TFSA first — RRSP unlocks next year.</div>
             </div>
           </div>
-          <div class="card" style="margin-bottom:14px">
-            <div class="card-label">Projected value at 65</div>
-            <div class="amount amount-lg" style="color:var(--pd)">$86,200</div>
-            <div style="font-size:12px;color:var(--tm);margin-top:4px">If you contribute $7,000/year at 7% return for 25 years.</div>
+
+          <!-- FHSA results -->
+          <div class="calc-result" id="result-fhsa" style="display:none">
+            <div class="card" style="margin-bottom:14px;border:2px solid var(--amber);background:var(--abg)">
+              <div class="card-label" style="color:var(--amber)">⚠ Your 2026 FHSA room</div>
+              <div class="amount amount-lg" style="color:var(--amber)">$8,000</div>
+              <div style="font-size:12px;color:#78350F;margin-top:4px"><strong id="fhsa-days-remaining">— days</strong> until Dec 31, 2026. Open the account before then to lock in this year's room.</div>
+            </div>
+            <div class="card" style="margin-bottom:14px">
+              <div class="card-label">Tax savings on $8,000 contribution</div>
+              <div class="amount amount-lg" style="color:var(--p)">$2,400</div>
+              <div style="font-size:12px;color:var(--tm);margin-top:4px">At a 30% marginal rate. Higher income = more savings (up to ~$3,200 at 40%).</div>
+            </div>
+            <div class="card">
+              <div class="card-label">Projected value in 5 years</div>
+              <div class="amount amount-lg" style="color:var(--pd)">$48,200</div>
+              <div style="font-size:12px;color:var(--tm);margin-top:4px">$8,000/year for 5 years at 7%. Withdraw tax-free for first home — never repay.</div>
+            </div>
           </div>
-          <div class="card" style="background:var(--abg);border-color:var(--ab)">
-            <div class="card-label" style="color:#92400E">⚠ RRSP notice</div>
-            <div style="font-size:13px;color:#78350F;line-height:1.5">Your RRSP room is <strong>$0</strong> until you file your first Canadian tax return (early 2027). FHSA and TFSA first — RRSP unlocks next year.</div>
+
+          <!-- RRSP results -->
+          <div class="calc-result" id="result-rrsp" style="display:none">
+            <div class="card" style="background:var(--abg);border-color:var(--ab);margin-bottom:14px">
+              <div class="card-label" style="color:#92400E">⚠ Year 1 — RRSP not yet unlocked</div>
+              <div class="amount amount-lg" style="color:var(--amber)">$0</div>
+              <div style="font-size:13px;color:#78350F;margin-top:6px;line-height:1.5">Your RRSP room is 18% of <strong>prior-year</strong> Canadian earned income. As a 2026 arrival, your 2026 income generates room that unlocks <strong>after April 30, 2027</strong> when you file your first return.</div>
+            </div>
+            <div class="card">
+              <div class="card-label">Estimated future room (after 2027 filing)</div>
+              <div class="amount amount-lg" style="color:var(--p)">$15,300</div>
+              <div style="font-size:12px;color:var(--tm);margin-top:4px">Based on $85,000 estimated income × 18%. Confirm on CRA My Account.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -315,7 +377,7 @@ input[type=range]{width:100%;accent-color:var(--p);height:4px}
   <!-- ─ 1B: CREDIT SCORE ─ -->
   <div id="p1b" class="panel">
     <div class="topbar">
-      <div><div class="topbar-title">Credit Score & Education</div><div class="topbar-sub">Onboarding · Step 2 of 3</div></div>
+      <div><div class="topbar-title">Credit Score & Education</div><div class="topbar-sub">Onboarding · Step 2 of 2</div></div>
       <div class="topbar-right"><span class="badge b-amber">Score: 680 — Fair</span><button class="btn-sm btn-ghost">Refresh score</button></div>
     </div>
     <div class="content">
@@ -654,7 +716,7 @@ input[type=range]{width:100%;accent-color:var(--p);height:4px}
       <!-- ── SCENARIOS ── -->
       <div class="section-h">🔮 Prepare for Scenarios</div>
       <div class="sc-grid">
-        <div class="sc-card"><div class="sc-card-name">Job Loss</div><div class="sc-card-sub">Canada: 3–6 month EI benefit. How long does your emergency fund last?</div></div>
+        <div class="sc-card"><div class="sc-card-name">Job Loss</div><div class="sc-card-sub">Canada EI: 14–45 weeks based on hours worked + your region. How long does your emergency fund stretch?</div></div>
         <div class="sc-card"><div class="sc-card-name">Parental Leave</div><div class="sc-card-sub">EI parental benefits cover ~55% of income for up to 35 weeks. Model the gap.</div></div>
         <div class="sc-card"><div class="sc-card-name">Sabbatical / Career Break</div><div class="sc-card-sub">No EI. How long can you sustain your lifestyle without income?</div></div>
         <div class="sc-card"><div class="sc-card-name">Return to Home Country</div><div class="sc-card-sub">TFSA / FHSA are Canadian accounts. What happens if you leave permanently?</div></div>
@@ -718,8 +780,8 @@ input[type=range]{width:100%;accent-color:var(--p);height:4px}
   <!-- ─ 2C: BEST PRACTICES ─ -->
   <div id="p2c" class="panel">
     <div class="topbar">
-      <div><div class="topbar-title">Canadian Finance Best Practices</div><div class="topbar-sub">Your financial health score</div></div>
-      <div class="topbar-right"><div class="amount amount-md" style="color:var(--amber)">6 / 10</div></div>
+      <div><div class="topbar-title">Canadian Finance Best Practices</div><div class="topbar-sub">Newcomer checklist · 6 of 10 items complete</div></div>
+      <div class="topbar-right"><div class="amount" style="font-size:14px;color:var(--tm);font-weight:600">6 / 10</div></div>
     </div>
     <div class="content">
       <div class="row row-2" style="gap:16px">
@@ -747,7 +809,7 @@ input[type=range]{width:100%;accent-color:var(--p);height:4px}
           </div>
           <div class="card" style="background:var(--p50);border-color:#BBF7D0">
             <div class="card-label" style="color:var(--pd)">Canadian vs. your home country</div>
-            <div style="font-size:13px;color:var(--t);line-height:1.6">Canada's registered accounts (RRSP/TFSA/FHSA) are unusually powerful vs. most countries. India's PPF/EPF equivalent — but with the FHSA being unique globally: deductible going in AND tax-free coming out for a home purchase.</div>
+            <div style="font-size:13px;color:var(--t);line-height:1.6">Canada's registered accounts are more generous than India's PPF/EPF in most cases. The <strong>FHSA</strong> — deductible going in <em>and</em> tax-free coming out for a first home — is unusually powerful even by international standards (the UK's Lifetime ISA is the closest equivalent).</div>
           </div>
         </div>
       </div>
@@ -757,10 +819,10 @@ input[type=range]{width:100%;accent-color:var(--p);height:4px}
   <!-- ─ 3A: AI ANALYSIS ─ -->
   <div id="p3a" class="panel">
     <div class="topbar">
-      <div><div class="topbar-title">Action Center</div><div class="topbar-sub">AI analysis · May 21, 2026 · 4 areas reviewed</div></div>
+      <div><div class="topbar-title">Action Center</div><div class="topbar-sub">AI analysis · <span id="ai-analysis-date">today</span> · 4 areas reviewed</div></div>
       <div class="topbar-right">
         <div class="arrive-score">Arrive Score <span>68</span><span style="color:var(--tm);font-weight:400">/100</span></div>
-        <button class="btn-sm btn-primary" onclick="show('p3b',document.querySelectorAll('.sid-item')[7])">Talk to specialist →</button>
+        <button class="btn-sm btn-primary" onclick="show('p3b',document.querySelector('[onclick*=\"p3b\"]'))">Talk to specialist →</button>
       </div>
     </div>
     <div class="content">
@@ -942,8 +1004,8 @@ input[type=range]{width:100%;accent-color:var(--p);height:4px}
   <!-- ─ 3C: EXECUTE PLAN ─ -->
   <div id="p3c" class="panel">
     <div class="topbar">
-      <div><div class="topbar-title">Execute Plan</div><div class="topbar-sub">Wealthsimple integration · Mutual funds & indexes only</div></div>
-      <div class="topbar-right"><span class="badge b-green">✓ Wealthsimple connected</span><button class="btn-sm btn-ghost">Manage connections</button></div>
+      <div><div class="topbar-title">Execute Plan</div><div class="topbar-sub">Brokerage integration · Mutual funds & indexes only</div></div>
+      <div class="topbar-right"><span class="badge b-amber">🔗 Coming Soon — pending legal review</span></div>
     </div>
     <div class="content">
       <div class="row row-2" style="gap:20px">
@@ -983,12 +1045,12 @@ input[type=range]{width:100%;accent-color:var(--p);height:4px}
           </div>
         </div>
         <div>
-          <div class="section-h">🏦 Connected platforms</div>
-          <div class="card" style="margin-bottom:12px">
-            <div class="list-item"><div class="li-left"><div class="li-icon li-icon-green">✓</div><div><div class="li-name">Wealthsimple</div><div class="li-sub">TFSA · Read + execute · Connected May 2026</div></div></div><span class="badge b-green">Active</span></div>
-            <div class="list-item"><div class="li-left"><div class="li-icon li-icon-green">✓</div><div><div class="li-name">Questrade</div><div class="li-sub">FHSA · Read + execute · Connected May 2026</div></div></div><span class="badge b-green">Active</span></div>
-            <div class="list-item" style="opacity:.5"><div class="li-left"><div class="li-icon li-icon-gray">○</div><div><div class="li-name">RBC Direct Investing</div><div class="li-sub">RRSP (available after 2027 filing)</div></div></div><span class="badge b-gray">Not yet</span></div>
-            <div class="list-item" style="cursor:pointer"><div class="li-left"><div class="li-icon li-icon-blue">+</div><div><div class="li-name" style="color:var(--p)">Connect another platform</div><div class="li-sub">CIBC Investor's Edge, TD Direct, etc.</div></div></div></div>
+          <div class="section-h">🏦 Brokerage connections (Coming Soon)</div>
+          <div class="card" style="margin-bottom:12px;background:var(--abg);border-color:var(--ab)">
+            <div style="font-size:12px;color:#92400E;line-height:1.55;margin-bottom:10px"><strong>Pending legal review.</strong> Brokerage connections via SnapTrade are in legal review (IIROC/CSA order-execution obligations). Once cleared, you'll be able to link Wealthsimple, Questrade, and others — review trades and confirm in one tap.</div>
+            <div class="list-item" style="opacity:.5"><div class="li-left"><div class="li-icon li-icon-gray">○</div><div><div class="li-name">Wealthsimple</div><div class="li-sub">TFSA — read + execute (pending)</div></div></div><span class="badge b-amber">Pending</span></div>
+            <div class="list-item" style="opacity:.5"><div class="li-left"><div class="li-icon li-icon-gray">○</div><div><div class="li-name">Questrade</div><div class="li-sub">FHSA — read + execute (pending)</div></div></div><span class="badge b-amber">Pending</span></div>
+            <div class="list-item" style="opacity:.5"><div class="li-left"><div class="li-icon li-icon-gray">○</div><div><div class="li-name">RBC Direct Investing</div><div class="li-sub">RRSP (after 2027 filing)</div></div></div><span class="badge b-gray">Not yet</span></div>
           </div>
 
           <div class="section-h">📋 Execution history</div>
@@ -1008,7 +1070,7 @@ function show(id, el) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.sid-item').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  el.classList.add('active');
+  if (el) el.classList.add('active');
 }
 
 function handleNotify() {
@@ -1022,6 +1084,33 @@ function handleNotify() {
   document.getElementById('notify-success').style.display = 'block';
   document.querySelector('#p2a .btn-primary').style.display = 'none';
 }
+
+// Calculator tab switching
+function switchCalcTab(which, btn) {
+  document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  ['tfsa', 'fhsa', 'rrsp'].forEach(name => {
+    document.getElementById('calc-' + name).style.display = (name === which) ? 'block' : 'none';
+    document.getElementById('result-' + name).style.display = (name === which) ? 'block' : 'none';
+  });
+}
+
+// Dynamic dates + FHSA countdown
+(function(){
+  const now = new Date();
+  const year = now.getFullYear();
+  const dec31 = new Date(year, 11, 31, 23, 59, 59);
+  const days = Math.ceil((dec31 - now) / 86400000);
+
+  // AI analysis date (e.g. "May 22, 2026")
+  const dateStr = now.toLocaleDateString('en-CA', { month: 'long', day: 'numeric', year: 'numeric' });
+  const dateEl = document.getElementById('ai-analysis-date');
+  if (dateEl) dateEl.textContent = dateStr;
+
+  // FHSA days remaining (in calculator pane)
+  const fhsaDaysEl = document.getElementById('fhsa-days-remaining');
+  if (fhsaDaysEl) fhsaDaysEl.textContent = days + ' days';
+})();
 </script>
 </body>
 </html>

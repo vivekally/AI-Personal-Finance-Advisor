@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arrive Finance — Get Your Free Plan</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#FAFAF8;--sur:#FFF;--sur2:#F3F4F6;
@@ -142,10 +142,9 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
 .si-body{font-size:13px;color:#9A3412;line-height:1.6}
 .si-body strong{font-weight:700;color:#7C2D12}
 
-/* lang toggle */
-.lang-toggle{display:flex;gap:8px;margin-bottom:28px}
-.lang-btn{padding:7px 16px;border-radius:8px;border:1.5px solid var(--b);background:var(--sur);font-size:13px;font-weight:600;color:var(--tm);cursor:pointer;transition:all .15s}
-.lang-btn.active{border-color:var(--p);color:var(--p);background:var(--p50)}
+/* Devanagari typography — applied to any [lang="hi"] element */
+[lang="hi"]{font-family:'Noto Sans Devanagari','Plus Jakarta Sans',sans-serif}
+.devanagari{font-family:'Noto Sans Devanagari','Plus Jakarta Sans',sans-serif}
 
 @media(max-width:768px){
   .wizard-wrap{grid-template-columns:1fr}
@@ -223,7 +222,7 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
     </div>
 
     <div class="wiz-sidebar-footer">
-      <div class="security-note">🔒 Bank-level security. We never store banking credentials.</div>
+      <div class="security-note">🔒 Your information is encrypted and never sold. 🇨🇦 Stored in Canada.</div>
     </div>
   </div>
 
@@ -237,11 +236,6 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
       <h2 class="wiz-step-h">Choose your language</h2>
       <p class="wiz-step-sub">Arrive Finance is available in English and हिंदी. We're adding Punjabi and Mandarin soon.</p>
 
-      <div class="lang-toggle">
-        <button class="lang-btn active" onclick="selectLang('en', this)">🇨🇦 English</button>
-        <button class="lang-btn" onclick="selectLang('hi', this)">🇮🇳 हिंदी</button>
-      </div>
-
       <div class="options-2">
         <div class="option selected" onclick="selectOption(this, 'lang', 'en')">
           <div class="opt-icon">🇨🇦</div>
@@ -253,8 +247,8 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
         <div class="option" onclick="selectOption(this, 'lang', 'hi')">
           <div class="opt-icon">🇮🇳</div>
           <div>
-            <div class="opt-title">हिंदी</div>
-            <div class="opt-sub">पूरा प्लेटफॉर्म हिंदी में</div>
+            <div class="opt-title devanagari" lang="hi">हिंदी</div>
+            <div class="opt-sub devanagari" lang="hi">पूरा प्लेटफॉर्म हिंदी में</div>
             <div class="opt-tag tag-insight">✓ Available now</div>
           </div>
         </div>
@@ -355,8 +349,8 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
             <option value="2026">2026</option><option value="2025">2025</option>
             <option value="2024">2024</option><option value="2023">2023</option>
             <option value="2022">2022</option><option value="2021">2021</option>
-            <option value="2020">2020</option><option value="2019">2019</option>
-            <option value="2018">2018</option><option value="2017">2017</option>
+            <option value="2020">2020</option>
+            <option value="earlier">Earlier than 2020</option>
           </select>
         </div>
       </div>
@@ -477,12 +471,12 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
       <p class="wiz-step-sub">Select all that apply. Your goals determine which accounts to prioritize and in what order.</p>
 
       <div class="options">
-        <div class="option selected" onclick="toggleGoal(this, 'home')">
+        <div class="option" onclick="toggleGoal(this, 'home')">
           <div class="opt-icon">🏡</div>
           <div>
             <div class="opt-title">First home in Canada</div>
             <div class="opt-sub">Planning to buy property — FHSA and Home Buyers' Plan (RRSP) both apply</div>
-            <div class="opt-tag tag-alert">⚠ FHSA deadline: December 31, 2026</div>
+            <div class="opt-tag tag-alert">⚠ FHSA deadline: December 31</div>
           </div>
         </div>
         <div class="option" onclick="toggleGoal(this, 'retirement')">
@@ -511,8 +505,8 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
           <div class="opt-icon">✈️</div>
           <div>
             <div class="opt-title">Possible return to home country</div>
-            <div class="opt-sub">TFSA accounts must be closed on departure — plan accordingly</div>
-            <div class="opt-tag tag-alert">TFSA implications if you stop being a Canadian resident</div>
+            <div class="opt-sub">You'll keep the account, but cannot contribute while a non-resident (1%/month penalty on excess contributions)</div>
+            <div class="opt-tag tag-alert">TFSA / FHSA non-resident rules apply</div>
           </div>
         </div>
       </div>
@@ -590,8 +584,14 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
         <div class="form-group" style="max-width:360px;margin:12px auto 0">
           <input type="email" class="form-input" placeholder="Enter your email to get started">
         </div>
-        <button class="btn btn-primary btn-lg" style="margin-top:12px" onclick="window.location.href='platform-mockup.html'">Start 14-day free trial →</button>
-        <div class="pw-note">No credit card required. Cancel anytime. Free plan stays free forever.</div>
+        <button class="btn btn-primary btn-lg" style="margin-top:12px" onclick="window.location.href='platform-mockup.html'">Start with Pro — $20/month →</button>
+        <div class="pw-note">Free plan stays free forever. Cancel anytime.</div>
+      </div>
+
+      <!-- Back / restart nav on results -->
+      <div class="wiz-nav" style="margin-top:24px">
+        <button class="btn btn-ghost" onclick="prev(6)">← Edit my answers</button>
+        <a class="btn btn-ghost" href="onboarding.html" style="text-decoration:none">↻ Start over</a>
       </div>
 
     </div>
@@ -600,7 +600,7 @@ nav{background:var(--sur);border-bottom:1px solid var(--b);padding:0 24px;height
 </div><!-- end wizard-wrap -->
 
 <script>
-let state = { lang:'en', status:'pr', income:'0', savings:'10k', goals:['home'] };
+let state = { lang:'en', status:'pr', income:'0', savings:'10k', goals:[] };
 let currentStep = 0;
 const totalSteps = 7;
 
@@ -654,27 +654,51 @@ function toggleGoal(el, goal) {
   else state.goals.push(goal);
 }
 
-function selectLang(lang, btn) {
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  state.lang = lang;
+// Historical TFSA annual contribution limits (CRA)
+const TFSA_LIMITS = {
+  2009: 5000, 2010: 5000, 2011: 5000, 2012: 5000,
+  2013: 5500, 2014: 5500, 2015: 10000, 2016: 5500,
+  2017: 5500, 2018: 5500, 2019: 6000, 2020: 6000,
+  2021: 6000, 2022: 6000, 2023: 6500, 2024: 7000,
+  2025: 7000, 2026: 7000
+};
+const FHSA_ANNUAL = 8000;
+const CURRENT_YEAR = new Date().getFullYear();
+
+function calcTFSARoom(arrivalYear) {
+  // Sum annual limits from arrival year to current year
+  let total = 0;
+  for (let y = arrivalYear; y <= CURRENT_YEAR; y++) {
+    total += (TFSA_LIMITS[y] || 7000);
+  }
+  return total;
 }
 
 function updateArrivalInsight() {
   const m = parseInt(document.getElementById('arrivalMonth').value);
-  const y = parseInt(document.getElementById('arrivalYear').value);
-  if (!m || !y) return;
+  const yRaw = document.getElementById('arrivalYear').value;
+  if (!m || !yRaw) return;
+  const y = yRaw === 'earlier' ? 2019 : parseInt(yRaw);
   const el = document.getElementById('arrival-insight');
-  const currentYear = 2026;
-  const yearsInCA = currentYear - y;
-  const tfsaRoom = Math.min(yearsInCA + 1, 7) * 7000; // simplified
+  const yearsInCA = CURRENT_YEAR - y;
+  const tfsaRoom = calcTFSARoom(y);
   const fhsaUrgent = y >= 2025;
+
+  // Days remaining to Dec 31 of current year
+  const dec31 = new Date(CURRENT_YEAR, 11, 31, 23, 59, 59);
+  const daysToFHSA = Math.ceil((dec31 - new Date()) / 86400000);
 
   let html = '';
   if (fhsaUrgent) {
-    html += `<div class="alert-box"><div class="ib-icon">⚠️</div><div class="ab-text"><strong>FHSA is urgent for you.</strong> You arrived in ${y} — your first eligible FHSA year's room (${y === 2026 ? '$8,000' : '$8,000 × 2 years = $16,000'}) expires December 31, 2026 if you haven't opened an account yet. This is your most time-sensitive action.</div></div>`;
+    const fhsaMsg = y === CURRENT_YEAR
+      ? `Your <strong>${CURRENT_YEAR} FHSA room ($8,000)</strong> expires <strong>Dec 31, ${CURRENT_YEAR}</strong> — <strong>${daysToFHSA} days</strong> away.`
+      : `If you didn't open an FHSA in ${y}, that $8,000 of room is permanently gone. Your <strong>${CURRENT_YEAR} room ($8,000)</strong> expires <strong>Dec 31, ${CURRENT_YEAR}</strong> — <strong>${daysToFHSA} days</strong> away.`;
+    html += `<div class="alert-box"><div class="ib-icon">⚠️</div><div class="ab-text"><strong>FHSA is urgent for you.</strong> ${fhsaMsg} This is your most time-sensitive action.</div></div>`;
   }
-  html += `<div class="insight-box"><div class="ib-icon">💡</div><div class="ib-text">Based on your arrival date: you have approximately <strong>$${tfsaRoom.toLocaleString()} in TFSA room</strong> available. ${yearsInCA === 0 ? 'You arrived this year — your full 2026 room ($7,000) is available.' : `${yearsInCA + 1} years of room has accumulated.`}</div></div>`;
+  const roomMsg = yearsInCA === 0
+    ? `You arrived this year — your full ${CURRENT_YEAR} room ($${TFSA_LIMITS[CURRENT_YEAR].toLocaleString()}) is available.`
+    : `${yearsInCA + 1} years of room has accumulated since you became a Canadian resident.`;
+  html += `<div class="insight-box"><div class="ib-icon">💡</div><div class="ib-text">Based on your arrival date: you have approximately <strong>$${tfsaRoom.toLocaleString()} in TFSA room</strong> available. ${roomMsg}</div></div>`;
   el.innerHTML = html;
   el.style.display = 'block';
 }
@@ -727,14 +751,23 @@ function buildResults() {
   // Build action list
   const actions = [];
 
+  // Compute current TFSA room from arrival year (or default to current-year limit)
+  const arrivalYearRaw = document.getElementById('arrivalYear').value;
+  const arrivalYear = arrivalYearRaw === 'earlier' ? 2019 : (parseInt(arrivalYearRaw) || CURRENT_YEAR);
+  const tfsaRoomTotal = calcTFSARoom(arrivalYear);
+
+  // Days to Dec 31
+  const dec31 = new Date(CURRENT_YEAR, 11, 31, 23, 59, 59);
+  const daysToFHSA = Math.ceil((dec31 - new Date()) / 86400000);
+
   // Most urgent: FHSA
   if (s.goals.includes('home')) {
     actions.push({
       num: 1,
-      title: 'Open your FHSA before December 31, 2026',
-      desc: 'This is your most urgent action. Opening the account before Dec 31 locks in $8,000 of contribution room — even if you don\'t contribute money yet. Missing this deadline loses the room permanently.',
+      title: `Open your FHSA before December 31, ${CURRENT_YEAR}`,
+      desc: 'This is your most urgent action. Opening the account before Dec 31 lets $8,000 of contribution room start accumulating — even if you don\'t contribute money yet. Miss this deadline and that year\'s $8,000 of room is permanently gone.',
       badge: 'badge-urgent',
-      badgeText: '⚠ 223 days left'
+      badgeText: `⚠ ${daysToFHSA} days left`
     });
   }
 
@@ -742,7 +775,7 @@ function buildResults() {
   actions.push({
     num: actions.length + 1,
     title: 'Open a TFSA and invest your savings',
-    desc: 'You have $7,000 of tax-free room this year. Money in a TFSA grows tax-free. Don\'t leave it in a savings account at 3% — consider XEQT or VGRO for long-term growth at ~8% average.',
+    desc: `You have approximately $${tfsaRoomTotal.toLocaleString()} of tax-free room. Money in a TFSA grows tax-free. Many newcomers move cash into low-cost index ETFs like XEQT or VGRO — talk to a CFP or review our Best Practices before choosing what's right for you. Historical equity returns: ~6–7% long-term average.`,
     badge: 'badge-now',
     badgeText: 'Do this now'
   });
