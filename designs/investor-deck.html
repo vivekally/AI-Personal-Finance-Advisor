@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrive Finance — Investor Deck · 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --p:#15803D; --pd:#14532D; --pl:#DCFCE7; --p50:#F0FDF4;
+  --dark:#0F2419; --dark2:#162D1F; --dark3:#1A3526;
+  --bg:#FAFAF8; --sur:#FFF; --b:#E5E7EB;
+  --t:#111827; --tm:#6B7280; --tf:#9CA3AF;
+  --amber:#D97706; --abg:#FFFBEB; --ab:#FDE68A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Plus Jakarta Sans',sans-serif}
+
+/* ── DECK SHELL ── */
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden;background:#000}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  opacity:0;visibility:hidden;
+  transition:opacity .4s ease, transform .4s ease;
+  transform:translateX(60px);
+  will-change:transform,opacity;
+}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0)}
+.slide.exit{opacity:0;transform:translateX(-60px)}
+
+/* ── NAV ── */
+.nav{position:fixed;bottom:28px;right:32px;z-index:100;display:flex;align-items:center;gap:14px}
+.nav-count{font-size:12px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.06em;min-width:40px;text-align:center}
+.nav-btn{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;backdrop-filter:blur(8px)}
+.nav-btn:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5)}
+.nav-btn:disabled{opacity:.25;cursor:not-allowed}
+
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--p);transition:width .4s ease;z-index:101}
+
+/* ── LOGO CHIP ── */
+.logo-chip{display:inline-flex;align-items:center;gap:6px;font-family:'Fraunces',serif;font-size:15px;font-weight:700}
+.logo-chip-sm{font-size:13px}
+
+/* ── TYPE SYSTEM ── */
+.headline{font-family:'Fraunces',serif;font-weight:700;line-height:1.1}
+.hl-72{font-size:clamp(44px,5.5vw,72px)}
+.hl-56{font-size:clamp(36px,4.2vw,56px)}
+.hl-44{font-size:clamp(28px,3.2vw,44px)}
+.hl-36{font-size:clamp(24px,2.6vw,36px)}
+.hl-28{font-size:clamp(20px,2vw,28px)}
+.hl-22{font-size:22px}
+.body-lg{font-size:clamp(15px,1.3vw,18px);line-height:1.65}
+.body-md{font-size:clamp(13px,1.1vw,15px);line-height:1.6}
+.body-sm{font-size:13px;line-height:1.55}
+.mono{font-family:'Geist Mono',monospace;font-variant-numeric:tabular-nums}
+.label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em}
+
+/* ── COLORS ── */
+.green{color:var(--p)}.amber{color:var(--amber)}.muted{color:rgba(255,255,255,.55)}.muted-dark{color:var(--tm)}
+.white{color:#fff}
+
+/* ── LAYOUTS ── */
+.pad{padding:56px 72px}
+.pad-lg{padding:64px 80px}
+.cols-2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.cols-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px}
+.cols-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:24px}
+.v-center{display:flex;flex-direction:column;justify-content:center}
+.h-space{display:flex;align-items:center;justify-content:space-between}
+
+/* ── CARDS ── */
+.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:24px}
+.card-light{background:#fff;border:1px solid var(--b);border-radius:14px;padding:24px}
+.card-green{background:var(--p50);border:1px solid #BBF7D0;border-radius:14px;padding:24px}
+.card-amber{background:var(--abg);border:1px solid var(--ab);border-radius:14px;padding:20px}
+.card-dark{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px}
+
+/* ── STAT BLOCKS ── */
+.stat{text-align:left}
+.stat-num{font-family:'Geist Mono',monospace;font-weight:500;line-height:1}
+.stat-64{font-size:clamp(40px,4.8vw,64px)}
+.stat-48{font-size:clamp(32px,3.6vw,48px)}
+.stat-36{font-size:clamp(26px,2.6vw,36px)}
+.stat-label{font-size:12px;font-weight:600;letter-spacing:.04em;margin-top:6px}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:9999px}
+.badge-green{background:var(--pl);color:var(--pd)}
+.badge-amber{background:var(--abg);color:var(--amber);border:1px solid var(--ab)}
+.badge-white{background:rgba(255,255,255,.12);color:#fff}
+.badge-dark{background:rgba(0,0,0,.3);color:rgba(255,255,255,.7)}
+
+/* ── DIVIDERS ── */
+.rule{height:1px;background:rgba(255,255,255,.1);margin:20px 0}
+.rule-dark{height:1px;background:var(--b);margin:16px 0}
+
+/* ── PROGRESS BARS ── */
+.prog{height:6px;background:rgba(255,255,255,.1);border-radius:9999px;overflow:hidden;margin-top:6px}
+.prog-fill{height:100%;border-radius:9999px;background:var(--p)}
+.prog-fill-amber{height:100%;border-radius:9999px;background:var(--amber)}
+
+/* ── TABLE ── */
+.comp-table{width:100%;border-collapse:collapse;font-size:13px}
+.comp-table th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tm);padding:8px 12px;border-bottom:2px solid var(--b);text-align:left}
+.comp-table td{padding:10px 12px;border-bottom:1px solid var(--b);color:var(--t);vertical-align:top}
+.comp-table tr.arrive td{background:var(--p50);font-weight:600;color:var(--pd)}
+.comp-table .yes{color:var(--p);font-weight:700}
+.comp-table .no{color:var(--tf)}
+.comp-table .partial{color:var(--amber);font-weight:600}
+
+/* ── TIMELINE ── */
+.timeline{display:flex;gap:0;position:relative}
+.timeline::before{content:'';position:absolute;top:16px;left:16px;right:16px;height:2px;background:rgba(255,255,255,.12)}
+.tl-step{flex:1;position:relative;padding-top:36px;text-align:center}
+.tl-dot{width:32px;height:32px;border-radius:50%;border:2px solid rgba(255,255,255,.2);background:var(--dark);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:1}
+.tl-dot.done{background:var(--p);border-color:var(--p);color:#fff}
+.tl-dot.now{background:var(--amber);border-color:var(--amber);color:#fff}
+
+/* ── SLIDE BACKGROUNDS ── */
+.bg-dark{background:var(--dark)}
+.bg-dark2{background:var(--dark2)}
+.bg-light{background:var(--bg)}
+.bg-white{background:#fff}
+.bg-split-dark{background:linear-gradient(135deg, var(--dark) 0%, #0d1f13 100%)}
+
+/* ── CHANNEL PILLS ── */
+.pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.8);font-size:12px;font-weight:600;padding:5px 13px;border-radius:9999px}
+.pill-green{background:var(--p50);border:1px solid #BBF7D0;color:var(--pd);font-size:12px;font-weight:600;padding:5px 13px;border-radius:9999px}
+
+/* ── FUNNEL ── */
+.funnel-step{padding:12px 20px;border-radius:10px;margin-bottom:8px;font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+
+/* ── SLIDE-SPECIFIC ── */
+/* S1: Cover */
+#s1{background:linear-gradient(145deg,#0a1a0f 0%,var(--dark) 40%,#112318 100%)}
+#s1 .hero-text{max-width:680px}
+#s1 .grid-bg{position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 48px,#fff 48px,#fff 49px),repeating-linear-gradient(90deg,transparent,transparent 48px,#fff 48px,#fff 49px);pointer-events:none}
+#s1 .accent-circle{position:absolute;right:-60px;top:-80px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(21,128,61,.18) 0%,transparent 70%);pointer-events:none}
+
+/* S3: FHSA moment */
+#s3 .fhsa-hero{background:linear-gradient(135deg,#1a0a00 0%,#2d1500 100%);border:1px solid rgba(217,119,6,.2);border-radius:16px;padding:36px 40px;text-align:center}
+
+/* S5: product */
+#s5{background:var(--bg)}
+.mockup-frame{background:#fff;border:1px solid var(--b);border-radius:12px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.mockup-bar{height:28px;background:#F3F4F6;border-bottom:1px solid var(--b);display:flex;align-items:center;padding:0 10px;gap:5px}
+.mockup-dot{width:8px;height:8px;border-radius:50%}
+
+/* S7: Traction */
+#s7{background:var(--dark)}
+
+/* S10: ask */
+#s10{background:linear-gradient(150deg,#0a1a0f 0%,#0d2016 60%,#0a1a0f 100%)}
+
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+  <div class="progress-bar" id="progress"></div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 1 — COVER
+  ══════════════════════════════════════════ -->
+  <div class="slide active" id="s1">
+    <div class="grid-bg"></div>
+    <div class="accent-circle"></div>
+    <div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:1">
+
+      <div class="h-space">
+        <div class="logo-chip white">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+        <div style="display:flex;gap:10px">
+          <span class="badge badge-white">Confidential</span>
+          <span class="badge badge-white">May 2026</span>
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <div class="label" style="color:rgba(21,128,61,.8);margin-bottom:18px">Personal Finance OS · Canada</div>
+        <div class="headline hl-72 white" style="margin-bottom:24px">The financial operating system every newcomer to Canada needs.</div>
+        <div class="body-lg" style="color:rgba(255,255,255,.6);max-width:560px;margin-bottom:36px">
+          483,000 immigrants arrive every year. 76% fear making a financial mistake. No product exists to guide them through it — until now.
+        </div>
+        <div style="display:flex;gap:16px;align-items:center">
+          <div style="font-size:14px;color:rgba(255,255,255,.45)">arrive.finance</div>
+          <div style="width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.25)"></div>
+          <div style="font-size:14px;color:rgba(255,255,255,.45)">Pre-seed · 2026</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:48px">
+        <div class="stat">
+          <div class="stat-num stat-48 white">483K</div>
+          <div class="stat-label" style="color:rgba(255,255,255,.4)">Newcomers / year</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,.1)"></div>
+        <div class="stat">
+          <div class="stat-num stat-48 white">76%</div>
+          <div class="stat-label" style="color:rgba(255,255,255,.4)">Fear financial mistakes</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,.1)"></div>
+        <div class="stat">
+          <div class="stat-num stat-48" style="color:var(--p)">$8,000</div>
+          <div class="stat-label" style="color:rgba(255,255,255,.4)">Lost silently on Dec 31</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 2 — THE PROBLEM
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s2">
+    <div style="flex:1;display:flex;background:var(--bg)">
+
+      <!-- Left: dark panel -->
+      <div style="width:42%;background:var(--dark);padding:56px 48px;display:flex;flex-direction:column;justify-content:space-between">
+        <div class="logo-chip white logo-chip-sm">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+        <div>
+          <div class="label" style="color:rgba(255,255,255,.4);margin-bottom:14px">The Problem</div>
+          <div class="headline hl-44 white" style="margin-bottom:20px">Canada's financial system is invisible to the people who need it most.</div>
+          <div class="body-md" style="color:rgba(255,255,255,.55);margin-bottom:32px">
+            Newcomers arrive with savings, ambition, and zero context. They face unfamiliar account types, hidden deadlines, and a $9.81 trillion advisory industry that wasn't built for them.
+          </div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="mono stat-36 white" style="margin-bottom:4px">76%</div>
+            <div class="body-sm" style="color:rgba(255,255,255,.5)">of newcomers fear making a financial mistake — TD Bank survey, 2025</div>
+          </div>
+          <div class="card">
+            <div class="mono stat-36 white" style="margin-bottom:4px">55%</div>
+            <div class="body-sm" style="color:rgba(255,255,255,.5)">find managing Canadian finances difficult — FCAC</div>
+          </div>
+        </div>
+        <div class="body-sm" style="color:rgba(255,255,255,.25)">"The majority of banks' new customers are immigrants." — Globe and Mail</div>
+      </div>
+
+      <!-- Right: 4 paths -->
+      <div style="flex:1;padding:56px 48px;display:flex;flex-direction:column;justify-content:center">
+        <div class="label muted-dark" style="margin-bottom:20px">What Newcomers Actually Do</div>
+        <div class="headline hl-28" style="color:var(--t);margin-bottom:28px">Four broken paths to financial setup.</div>
+
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:16px;align-items:flex-start;padding:16px;background:#fff;border:1px solid var(--b);border-radius:12px">
+            <div style="width:44px;height:44px;border-radius:10px;background:#F3F4F6;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">💬</div>
+            <div style="flex:1">
+              <div style="font-weight:700;font-size:14px;color:var(--t);margin-bottom:3px">Facebook / WhatsApp groups <span style="font-size:12px;color:var(--tm);font-weight:400">— 40% of newcomers</span></div>
+              <div class="body-sm muted-dark">10 conflicting answers → give up. Sometimes dangerously wrong (wrong account types, missed deadlines).</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;padding:16px;background:#fff;border:1px solid var(--b);border-radius:12px">
+            <div style="width:44px;height:44px;border-radius:10px;background:#F3F4F6;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">😶</div>
+            <div style="flex:1">
+              <div style="font-weight:700;font-size:14px;color:var(--t);margin-bottom:3px">Paralysis / do nothing <span style="font-size:12px;color:var(--tm);font-weight:400">— 25%</span></div>
+              <div class="body-sm muted-dark">Wait 1–2 years. TFSA room expires. FHSA deadline passes. Savings sit in a 2% chequing account.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;padding:16px;background:#fff;border:1px solid var(--b);border-radius:12px">
+            <div style="width:44px;height:44px;border-radius:10px;background:#F3F4F6;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🏦</div>
+            <div style="flex:1">
+              <div style="font-weight:700;font-size:14px;color:var(--t);margin-bottom:3px">Bank branch visit <span style="font-size:12px;color:var(--tm);font-weight:400">— 15%</span></div>
+              <div class="body-sm muted-dark">Walk out with a TFSA in a GIC at 3.5% and believe the problem is solved. It isn't.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;padding:16px;background:var(--p50);border:1px solid #BBF7D0;border-radius:12px">
+            <div style="width:44px;height:44px;border-radius:10px;background:#BBF7D0;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">👤</div>
+            <div style="flex:1">
+              <div style="font-weight:700;font-size:14px;color:var(--pd);margin-bottom:3px">Hire a human advisor <span style="font-size:12px;color:var(--p);font-weight:400">— 20% ("the Avdhesh path")</span></div>
+              <div class="body-sm" style="color:var(--pd)">$1,000–$2,000/year for basic setup. Real outcome — but only for those who can afford it.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 2b — THE ACCESS PROBLEM
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s2b">
+    <div style="flex:1;display:flex;flex-direction:column;background:var(--bg);padding:56px 72px">
+
+      <div class="h-space" style="margin-bottom:32px">
+        <div>
+          <div class="label muted-dark" style="margin-bottom:6px">The Access Problem</div>
+          <div class="headline hl-44" style="color:var(--t)">Millions of Canadians are underserved by the existing financial system.</div>
+        </div>
+        <div class="logo-chip logo-chip-sm" style="color:var(--p)">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+      </div>
+
+      <div class="cols-2" style="flex:1;gap:56px">
+        <div class="v-center">
+          <div style="background:var(--dark);border-radius:16px;padding:32px;margin-bottom:20px">
+            <div class="label" style="color:rgba(255,255,255,.35);margin-bottom:12px">The Mission</div>
+            <div class="headline hl-36 white" style="margin-bottom:16px;line-height:1.2">"Build something for someone the current system ignores."</div>
+            <div class="body-md" style="color:rgba(255,255,255,.55)">Canada's financial advisory industry manages $9.81 trillion in AUM — built for people who are already wealthy, already fluent, already here. Newcomers are none of these things. They are the fastest-growing customer segment and the most systematically underserved.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="card-green">
+              <div class="mono stat-36 green" style="margin-bottom:4px">38%</div>
+              <div class="body-sm" style="color:var(--pd)">of newcomers have little or no understanding of Canadian banking — vs. 25% of the general population</div>
+              <div style="font-size:10px;color:var(--p);margin-top:8px;font-weight:700">Source: FCAC / Canada.ca</div>
+            </div>
+            <div class="card-green">
+              <div class="mono stat-36 green" style="margin-bottom:4px">483K</div>
+              <div class="body-sm" style="color:var(--pd)">newcomers arrive in Canada every year — underserved from day one, for as long as the system stays unchanged</div>
+              <div style="font-size:10px;color:var(--p);margin-top:8px;font-weight:700">Source: IRCC Annual Report 2025</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="v-center">
+          <div style="font-size:15px;font-weight:700;color:var(--t);margin-bottom:16px">Who the current system ignores:</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:#fff;border:1px solid var(--b);border-radius:12px">
+              <div style="font-size:24px;flex-shrink:0">🌏</div>
+              <div>
+                <div style="font-weight:700;font-size:14px;color:var(--t);margin-bottom:3px">Newcomers from India, Philippines, China, Nigeria</div>
+                <div class="body-sm muted-dark">Non-native English speakers navigating RRSP, TFSA, FHSA for the first time. No existing product is built for their specific entry year, immigration status, or language.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:#fff;border:1px solid var(--b);border-radius:12px">
+              <div style="font-size:24px;flex-shrink:0">🎓</div>
+              <div>
+                <div style="font-weight:700;font-size:14px;color:var(--t);margin-bottom:3px">International students with savings but no PR</div>
+                <div class="body-sm muted-dark">TFSA and FHSA are available to them based on Canadian tax residency — not PR status. Almost no product surfaces this. $14,000+ of room sits unused.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:#fff;border:1px solid var(--b);border-radius:12px">
+              <div style="font-size:24px;flex-shrink:0">💼</div>
+              <div>
+                <div style="font-weight:700;font-size:14px;color:var(--t);margin-bottom:3px">Skilled workers with $50K–$200K in savings</div>
+                <div class="body-sm muted-dark">High-income professionals who can't justify $1,000–$2,000/year for a human advisor and don't know enough to navigate the system alone. The largest underserved segment.</div>
+              </div>
+            </div>
+            <div style="background:var(--p50);border:1px solid #BBF7D0;border-radius:10px;padding:14px 16px">
+              <span style="font-size:13px;font-weight:700;color:var(--pd)">Arrive Finance's starting point:</span>
+              <span class="body-sm" style="color:var(--pd);margin-left:6px">We start with newcomers — the most acutely underserved. But the playbook extends to any underserved Canadian the current system ignores.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 3 — THE FHSA MOMENT
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s3">
+    <div style="flex:1;display:flex;flex-direction:column;background:var(--dark);padding:56px 72px">
+
+      <div class="h-space" style="margin-bottom:40px">
+        <div class="label" style="color:rgba(255,255,255,.35)">The Urgency Hook</div>
+        <div class="logo-chip white logo-chip-sm">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+      </div>
+
+      <div class="cols-2" style="flex:1;gap:64px">
+        <div class="v-center">
+          <div class="headline hl-44 white" style="margin-bottom:20px">$8,000 of tax room expires on December 31st.</div>
+          <div class="body-lg" style="color:rgba(255,255,255,.55);margin-bottom:32px">The FHSA — First Home Savings Account — gives every newcomer $8,000/year of tax-advantaged room. It must be opened before December 31st of the first eligible year or that room is gone forever.</div>
+          <div class="body-md" style="color:rgba(255,255,255,.45);margin-bottom:28px">Most newcomers have never heard of it. None of the banks surface it proactively. No generic finance app handles the newcomer eligibility edge cases correctly.</div>
+          <div style="display:flex;gap:16px">
+            <div class="card" style="flex:1">
+              <div class="mono stat-36 amber">$8,000</div>
+              <div class="body-sm" style="color:rgba(255,255,255,.5);margin-top:4px">Annual room, expires Dec 31</div>
+            </div>
+            <div class="card" style="flex:1">
+              <div class="mono stat-36 white">$40,000</div>
+              <div class="body-sm" style="color:rgba(255,255,255,.5);margin-top:4px">Lifetime maximum</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="v-center">
+          <div class="fhsa-hero" style="margin-bottom:20px">
+            <div style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:6px;text-transform:uppercase;letter-spacing:.07em">⏰ FHSA Deadline Alert</div>
+            <div class="headline hl-36" style="color:#fff;margin-bottom:8px">December 31, 2026</div>
+            <div class="mono" style="font-size:64px;font-weight:500;color:var(--amber);line-height:1">223</div>
+            <div style="font-size:14px;color:rgba(255,255,255,.5);margin-top:4px">days remaining to open your account</div>
+            <div class="rule" style="margin:20px 0"></div>
+            <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.6">If you arrived in 2026 and don't open your FHSA before December 31st, <strong style="color:#fff">you permanently lose $8,000 of tax room.</strong> The contribution deduction ($2,800+ in tax savings at 35% marginal rate) is also gone.</div>
+          </div>
+          <div class="card-dark" style="border-color:rgba(21,128,61,.3)">
+            <div style="font-size:13px;font-weight:700;color:var(--p);margin-bottom:6px">The aha moment for students</div>
+            <div class="body-sm" style="color:rgba(255,255,255,.5)">International students are eligible for TFSA and FHSA based on Canadian tax residency — not PR status. A student who arrived 2 years ago has <strong style="color:#fff">$14,000 in unused TFSA room</strong> they don't know about.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 4 — THE SOLUTION
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s4">
+    <div style="flex:1;display:flex;flex-direction:column;background:var(--bg);padding:56px 72px">
+
+      <div class="h-space" style="margin-bottom:10px">
+        <div class="label muted-dark">The Solution</div>
+        <div class="logo-chip logo-chip-sm" style="color:var(--p)">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+      </div>
+      <div class="headline hl-44" style="color:var(--t);margin-bottom:8px">Your financial guide from day one in Canada.</div>
+      <div class="body-lg muted-dark" style="margin-bottom:36px;max-width:620px">Not a robo-advisor. Not a budgeting app. A personal finance OS purpose-built for the newcomer's actual situation — year of arrival, immigration status, account sequencing, language.</div>
+
+      <div class="cols-3" style="flex:1;align-items:stretch">
+
+        <div class="card-light" style="display:flex;flex-direction:column;border-top:3px solid var(--p)">
+          <div style="font-size:28px;margin-bottom:14px">🧭</div>
+          <div class="headline hl-22" style="color:var(--t);margin-bottom:8px">Onboard</div>
+          <div class="body-md muted-dark" style="flex:1;margin-bottom:16px">7-step wizard tailored to your immigration status, income, and goals. Tells you exactly what to open, in what order, and why. Works for PR, Work Permit, and International Students.</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="font-size:12px;color:var(--t);font-weight:600">✓ RRSP / TFSA / FHSA rules engine</div>
+            <div style="font-size:12px;color:var(--t);font-weight:600">✓ Year-1 edge cases handled correctly</div>
+            <div style="font-size:12px;color:var(--t);font-weight:600">✓ Hindi language support (v1)</div>
+          </div>
+        </div>
+
+        <div class="card-light" style="display:flex;flex-direction:column;border-top:3px solid #2563EB">
+          <div style="font-size:28px;margin-bottom:14px">📊</div>
+          <div class="headline hl-22" style="color:var(--t);margin-bottom:8px">Track</div>
+          <div class="body-md muted-dark" style="flex:1;margin-bottom:16px">All accounts in one view — TFSA, FHSA, RRSP, chequing, HISA. Net worth trajectory. Arrive Score 0–100. Alerts when cash sits uninvested in registered accounts.</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="font-size:12px;color:var(--t);font-weight:600">✓ Flinks bank aggregation (open banking)</div>
+            <div style="font-size:12px;color:var(--t);font-weight:600">✓ Portfolio XIRR vs TSX benchmark</div>
+            <div style="font-size:12px;color:var(--t);font-weight:600">✓ Goals + net worth trajectory</div>
+          </div>
+        </div>
+
+        <div class="card-light" style="display:flex;flex-direction:column;border-top:3px solid var(--amber)">
+          <div style="font-size:28px;margin-bottom:14px">⚡</div>
+          <div class="headline hl-22" style="color:var(--t);margin-bottom:8px">Optimize</div>
+          <div class="body-md muted-dark" style="flex:1;margin-bottom:16px">AI Action Center surfaces specific, actionable steps. Book a licensed CFP who speaks your language. One-tap index ETF execution via SnapTrade when ready.</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="font-size:12px;color:var(--t);font-weight:600">✓ AI advisor with newcomer context</div>
+            <div style="font-size:12px;color:var(--t);font-weight:600">✓ CPA/CFA directory (Hindi/Punjabi/Mandarin)</div>
+            <div style="font-size:12px;color:var(--amber);font-weight:600">◎ SnapTrade execution (pending legal)</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 5 — PRODUCT
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s5">
+    <div style="flex:1;display:flex;flex-direction:column;background:#F1F5F9;padding:48px 64px">
+
+      <div class="h-space" style="margin-bottom:28px">
+        <div>
+          <div class="label muted-dark" style="margin-bottom:4px">The Product</div>
+          <div class="headline hl-36" style="color:var(--t)">Built and designed. Ready to ship.</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <span class="badge badge-green">Design complete</span>
+          <span class="badge" style="background:var(--pl);color:var(--pd)">Prototypes live</span>
+        </div>
+      </div>
+
+      <div class="cols-3" style="flex:1;align-items:stretch;gap:20px">
+
+        <!-- Landing page mockup -->
+        <div class="mockup-frame">
+          <div class="mockup-bar">
+            <div class="mockup-dot" style="background:#FF5F57"></div>
+            <div class="mockup-dot" style="background:#FFBD2E"></div>
+            <div class="mockup-dot" style="background:#28C840"></div>
+            <div style="flex:1;text-align:center;font-size:10px;color:#9CA3AF">arrive.finance</div>
+          </div>
+          <div style="padding:14px;background:var(--dark);height:280px;overflow:hidden">
+            <div style="text-align:center;padding:10px 0 8px">
+              <div style="font-size:7px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">⏰ 223 days until FHSA deadline · Dec 31, 2026</div>
+              <div style="font-family:'Fraunces',serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:4px">The financial guide every newcomer needs.</div>
+              <div style="font-size:7px;color:rgba(255,255,255,.5);margin-bottom:8px">From your first day in Canada to your first home.</div>
+              <div style="display:flex;gap:6px;justify-content:center">
+                <div style="background:var(--p);color:#fff;font-size:7px;font-weight:700;padding:4px 10px;border-radius:5px">Get started free</div>
+                <div style="border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);font-size:7px;font-weight:600;padding:4px 10px;border-radius:5px">See how it works</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin:10px 0">
+              <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:6px;text-align:center"><div style="font-size:7px;font-weight:600;color:#fff">🍁 PR</div><div style="font-size:6px;color:rgba(255,255,255,.4);margin-top:2px">Full room</div></div>
+              <div style="background:rgba(21,128,61,.2);border:1px solid rgba(21,128,61,.3);border-radius:6px;padding:6px;text-align:center"><div style="font-size:7px;font-weight:600;color:#4ADE80">🎓 Student</div><div style="font-size:6px;color:rgba(255,255,255,.5);margin-top:2px">Eligible now</div></div>
+              <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:6px;text-align:center"><div style="font-size:7px;font-weight:600;color:#fff">💼 Work Permit</div><div style="font-size:6px;color:rgba(255,255,255,.4);margin-top:2px">Full access</div></div>
+            </div>
+            <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:8px">
+              <div style="font-size:7px;font-weight:700;color:var(--p);margin-bottom:4px">🎓 For International Students</div>
+              <div style="font-size:6px;color:rgba(255,255,255,.5)">A student who arrived 2 years ago has $14,000 in unused TFSA room — no PR required.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Onboarding wizard mockup -->
+        <div class="mockup-frame">
+          <div class="mockup-bar">
+            <div class="mockup-dot" style="background:#FF5F57"></div>
+            <div class="mockup-dot" style="background:#FFBD2E"></div>
+            <div class="mockup-dot" style="background:#28C840"></div>
+            <div style="flex:1;text-align:center;font-size:10px;color:#9CA3AF">arrive.finance/start</div>
+          </div>
+          <div style="padding:14px;background:var(--bg);height:280px;overflow:hidden">
+            <div style="text-align:center;margin-bottom:10px">
+              <div style="display:flex;justify-content:center;gap:3px;margin-bottom:8px">
+                <div style="width:16px;height:3px;border-radius:2px;background:var(--p)"></div>
+                <div style="width:16px;height:3px;border-radius:2px;background:var(--p)"></div>
+                <div style="width:16px;height:3px;border-radius:2px;background:var(--b)"></div>
+                <div style="width:16px;height:3px;border-radius:2px;background:var(--b)"></div>
+                <div style="width:16px;height:3px;border-radius:2px;background:var(--b)"></div>
+                <div style="width:16px;height:3px;border-radius:2px;background:var(--b)"></div>
+                <div style="width:16px;height:3px;border-radius:2px;background:var(--b)"></div>
+              </div>
+              <div style="font-family:'Fraunces',serif;font-size:11px;font-weight:700;color:var(--t);margin-bottom:3px">What's your immigration status?</div>
+              <div style="font-size:7px;color:var(--tm)">We'll calculate your exact contribution room</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <div style="background:#fff;border:1px solid var(--b);border-radius:6px;padding:7px 10px;font-size:8px;font-weight:600;color:var(--t)">🍁 Permanent Resident or Citizen</div>
+              <div style="background:#fff;border:1px solid var(--b);border-radius:6px;padding:7px 10px;font-size:8px;font-weight:600;color:var(--t)">💼 Work Permit Holder (PGWP / LMIA)</div>
+              <div style="background:var(--p50);border:2px solid var(--p);border-radius:6px;padding:7px 10px">
+                <div style="font-size:8px;font-weight:700;color:var(--pd)">🎓 International Student (Study Permit)</div>
+                <div style="background:rgba(21,128,61,.1);border-radius:4px;padding:4px 6px;margin-top:4px;font-size:6px;color:var(--pd)">✓ You can open TFSA & FHSA right now — no PR required</div>
+              </div>
+              <div style="background:#fff;border:1px solid var(--b);border-radius:6px;padding:7px 10px;font-size:8px;font-weight:600;color:var(--t)">↩ Returning Canadian Citizen</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Platform mockup -->
+        <div class="mockup-frame">
+          <div class="mockup-bar">
+            <div class="mockup-dot" style="background:#FF5F57"></div>
+            <div class="mockup-dot" style="background:#FFBD2E"></div>
+            <div class="mockup-dot" style="background:#28C840"></div>
+            <div style="flex:1;text-align:center;font-size:10px;color:#9CA3AF">arrive.finance/app</div>
+          </div>
+          <div style="display:flex;height:280px;overflow:hidden">
+            <div style="width:60px;background:#fff;border-right:1px solid var(--b);padding:8px 0;font-size:8px">
+              <div style="padding:4px 6px;color:var(--p);font-weight:700;font-size:7px">Arrive</div>
+              <div style="height:1px;background:var(--b);margin:4px 0"></div>
+              <div style="padding:4px 6px;background:var(--p50);color:var(--p);font-size:7px;font-weight:600">📊 Calc</div>
+              <div style="padding:4px 6px;color:var(--tm);font-size:7px">⭐ Credit</div>
+              <div style="padding:4px 6px;color:var(--tm);font-size:7px">👤 Find</div>
+              <div style="height:1px;background:var(--b);margin:4px 0"></div>
+              <div style="padding:4px 6px;color:var(--tm);font-size:7px">🏦 Money</div>
+              <div style="padding:4px 6px;color:var(--tm);font-size:7px">🎯 Goals</div>
+              <div style="padding:4px 6px;color:var(--tm);font-size:7px">✅ Habits</div>
+              <div style="height:1px;background:var(--b);margin:4px 0"></div>
+              <div style="padding:4px 6px;color:var(--tm);font-size:7px">🔍 Advisor</div>
+              <div style="padding:4px 6px;color:var(--tm);font-size:7px">👤 Talk</div>
+              <div style="padding:4px 6px;color:var(--tm);font-size:7px">⚡ Execute</div>
+            </div>
+            <div style="flex:1;padding:8px;background:var(--bg)">
+              <div style="font-size:8px;font-weight:700;color:var(--t);margin-bottom:6px">RRSP / TFSA / FHSA Calculator</div>
+              <div style="background:var(--abg);border:1px solid var(--ab);border-radius:5px;padding:5px;margin-bottom:6px;font-size:6px;color:#92400E;font-weight:600">⚠ RRSP room is $0 until your 2026 tax return is filed. FHSA and TFSA first.</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+                <div style="background:#fff;border:1px solid var(--b);border-radius:5px;padding:6px">
+                  <div style="font-size:6px;color:var(--tm);font-weight:600;text-transform:uppercase">2026 TFSA Room</div>
+                  <div style="font-family:'Geist Mono',monospace;font-size:13px;font-weight:500;color:var(--p)">$7,000</div>
+                </div>
+                <div style="background:#fff;border:1px solid var(--b);border-radius:5px;padding:6px">
+                  <div style="font-size:6px;color:var(--tm);font-weight:600;text-transform:uppercase">FHSA Room</div>
+                  <div style="font-family:'Geist Mono',monospace;font-size:13px;font-weight:500;color:var(--p)">$8,000</div>
+                </div>
+              </div>
+              <div style="background:#fff;border:1px solid var(--b);border-radius:5px;padding:6px;margin-top:5px">
+                <div style="font-size:6px;color:var(--tm);font-weight:600;text-transform:uppercase;margin-bottom:3px">Projected Value at 65</div>
+                <div style="font-family:'Geist Mono',monospace;font-size:13px;font-weight:500;color:var(--pd)">$86,200</div>
+                <div style="font-size:6px;color:var(--tm)">$7,000/yr at 7% for 25 years</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:16px;font-size:12px;color:var(--tm)">Landing page · Onboarding wizard · 9-panel platform · All prototypes built and deployed</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 6 — MARKET SIZE
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s6">
+    <div style="flex:1;display:flex;flex-direction:column;background:var(--dark);padding:56px 72px">
+
+      <div class="h-space" style="margin-bottom:36px">
+        <div>
+          <div class="label" style="color:rgba(255,255,255,.35);margin-bottom:6px">Market Size</div>
+          <div class="headline hl-44 white">A massive market with no purpose-built solution.</div>
+        </div>
+        <div class="logo-chip white logo-chip-sm">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;flex:1">
+
+        <!-- TAM/SAM/SOM -->
+        <div class="v-center">
+          <div style="display:flex;flex-direction:column;gap:16px">
+
+            <div style="display:flex;gap:16px;align-items:center">
+              <div style="width:72px;height:72px;border-radius:50%;background:rgba(21,128,61,.15);border:2px solid rgba(21,128,61,.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--p);flex-shrink:0">TAM</div>
+              <div>
+                <div class="mono" style="font-size:32px;font-weight:500;color:#fff">$116M</div>
+                <div class="body-sm" style="color:rgba(255,255,255,.45);margin-top:2px">483K newcomers/yr × $240/yr — if all newcomers subscribed</div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:16px;align-items:center;padding-left:20px">
+              <div style="width:56px;height:56px;border-radius:50%;background:rgba(21,128,61,.2);border:2px solid rgba(21,128,61,.4);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--p);flex-shrink:0">SAM</div>
+              <div>
+                <div class="mono" style="font-size:26px;font-weight:500;color:#fff">$36M</div>
+                <div class="body-sm" style="color:rgba(255,255,255,.45);margin-top:2px">150K tech-forward newcomers in GTA/Vancouver × $240/yr</div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:16px;align-items:center;padding-left:40px">
+              <div style="width:44px;height:44px;border-radius:50%;background:var(--p);border:2px solid var(--p);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">SOM</div>
+              <div>
+                <div class="mono" style="font-size:22px;font-weight:500;color:var(--p)">$240K ARR</div>
+                <div class="body-sm" style="color:rgba(255,255,255,.45);margin-top:2px">Year 1 target: 1,000 users × $240/yr</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Supporting stats -->
+        <div class="v-center">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="card">
+              <div class="mono stat-36 white" style="margin-bottom:4px">$9.81T</div>
+              <div class="body-sm" style="color:rgba(255,255,255,.5)">Canadian financial advisory market (AUM) projected 2025 — Statista</div>
+            </div>
+            <div class="card">
+              <div class="mono stat-36 white" style="margin-bottom:4px">483,600</div>
+              <div class="body-sm" style="color:rgba(255,255,255,.5)">Permanent residents admitted in 2024 — IRCC Annual Report 2025. 395,000 planned for 2025.</div>
+            </div>
+            <div class="card" style="border-color:rgba(21,128,61,.3)">
+              <div style="font-size:11px;font-weight:700;color:var(--p);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">The Globe and Mail</div>
+              <div class="body-sm" style="color:rgba(255,255,255,.55);font-style:italic">"The majority of banks' new customers are immigrants — even more so than young adults or clients switching financial institutions."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 7 — TRACTION
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s7">
+    <div style="flex:1;display:flex;background:var(--bg)">
+
+      <!-- Left: dark panel with traction headline -->
+      <div style="width:44%;background:var(--dark);padding:56px 48px;display:flex;flex-direction:column;justify-content:space-between">
+        <div class="logo-chip white logo-chip-sm">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+        <div>
+          <div class="label" style="color:rgba(255,255,255,.35);margin-bottom:14px">Traction</div>
+          <div class="headline hl-44 white" style="margin-bottom:20px">We have our first paying customer.</div>
+          <div class="body-md" style="color:rgba(255,255,255,.55);margin-bottom:28px">Avdhesh Singh — Product Support Engineer. Arrived from India. Saved $100K in 2 years. Paid $20 by Interac on the first demo. No prompting, no discounts.</div>
+          <div style="background:rgba(21,128,61,.1);border:1px solid rgba(21,128,61,.25);border-radius:12px;padding:20px">
+            <div style="font-size:12px;font-style:italic;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:12px">"A one-stop solution where I can see my entire financial health from different accounts and investments and goals, and the system can help me plan my finances better."</div>
+            <div style="font-size:12px;font-weight:700;color:var(--p)">— Avdhesh Singh, Beta User #1</div>
+          </div>
+        </div>
+        <div>
+          <div class="mono" style="font-size:52px;font-weight:500;color:var(--p)">$20</div>
+          <div class="body-sm" style="color:rgba(255,255,255,.4)">Interac transfer. First revenue. Business validated.</div>
+        </div>
+      </div>
+
+      <!-- Right: what we've built -->
+      <div style="flex:1;padding:56px 48px;display:flex;flex-direction:column;justify-content:center">
+        <div class="label muted-dark" style="margin-bottom:16px">What's Built</div>
+        <div class="headline hl-28" style="color:var(--t);margin-bottom:24px">Production-quality design system. Full prototypes. PRD complete.</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:12px;align-items:center;padding:14px 16px;background:#fff;border:1px solid var(--b);border-radius:10px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;flex-shrink:0">✓</div>
+            <div><div style="font-size:13px;font-weight:700;color:var(--t)">arrive.finance domain purchased</div><div class="body-sm muted-dark">Live domain, ready to launch</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;padding:14px 16px;background:#fff;border:1px solid var(--b);border-radius:10px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;flex-shrink:0">✓</div>
+            <div><div style="font-size:13px;font-weight:700;color:var(--t)">Landing page + onboarding wizard prototypes</div><div class="body-sm muted-dark">Student scenario, dynamic TFSA/FHSA calculations, 7-step wizard with JS state machine</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;padding:14px 16px;background:#fff;border:1px solid var(--b);border-radius:10px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;flex-shrink:0">✓</div>
+            <div><div style="font-size:13px;font-weight:700;color:var(--t)">9-panel platform mockup (design complete)</div><div class="body-sm muted-dark">All panels designed: Calculator, Credit, Directory, Accounts, Goals, Best Practices, AI Advisor, Specialist, Execute</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;padding:14px 16px;background:#fff;border:1px solid var(--b);border-radius:10px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;flex-shrink:0">✓</div>
+            <div><div style="font-size:13px;font-weight:700;color:var(--t)">Full PRD written (14 sections, rules engine spec)</div><div class="body-sm muted-dark">RRSP/TFSA/FHSA rules, CASL compliance, PIPEDA, tech stack, build sequence</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;padding:14px 16px;background:#fff;border:1px solid var(--b);border-radius:10px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;flex-shrink:0">✓</div>
+            <div><div style="font-size:13px;font-weight:700;color:var(--t)">Flinks API application submitted</div><div class="body-sm muted-dark">Canadian-first open banking aggregator. 1–2 week approval.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 8 — COMPETITION
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s8">
+    <div style="flex:1;display:flex;flex-direction:column;background:var(--bg);padding:48px 64px">
+
+      <div class="h-space" style="margin-bottom:24px">
+        <div>
+          <div class="label muted-dark" style="margin-bottom:4px">Competitive Landscape</div>
+          <div class="headline hl-36" style="color:var(--t)">Same AI. Built for the newcomer's actual situation.</div>
+        </div>
+        <div class="logo-chip logo-chip-sm" style="color:var(--p)">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+      </div>
+
+      <div style="flex:1;overflow:auto">
+        <table class="comp-table" style="width:100%">
+          <thead>
+            <tr>
+              <th style="width:160px">Product</th>
+              <th>Newcomer-specific logic</th>
+              <th>RRSP year-1 = $0</th>
+              <th>FHSA deadline alert</th>
+              <th>Hindi / multilingual</th>
+              <th>Advisor directory</th>
+              <th>Bank aggregation</th>
+              <th>AI recommendations</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="arrive">
+              <td>✦ Arrive Finance</td>
+              <td class="yes">✓ Purpose-built</td>
+              <td class="yes">✓ Correct</td>
+              <td class="yes">✓ Dec 31 alert</td>
+              <td class="yes">✓ Hindi v1</td>
+              <td class="yes">✓ With language filter</td>
+              <td class="yes">✓ Flinks</td>
+              <td class="yes">✓ Newcomer context</td>
+            </tr>
+            <tr>
+              <td>Thrive (early access)</td>
+              <td class="no">✗ Generic Canadian</td>
+              <td class="no">✗ Not handled</td>
+              <td class="no">✗ Missing</td>
+              <td class="no">✗ English only</td>
+              <td class="no">✗ None</td>
+              <td class="yes">✓ Plaid</td>
+              <td class="partial">◎ Generic</td>
+            </tr>
+            <tr>
+              <td>Wealthsimple</td>
+              <td class="partial">◎ Landing page only</td>
+              <td class="no">✗ Not handled</td>
+              <td class="no">✗ Missing</td>
+              <td class="no">✗ English only</td>
+              <td class="no">✗ None</td>
+              <td class="partial">◎ Within WS only</td>
+              <td class="no">✗ No advisor AI</td>
+            </tr>
+            <tr>
+              <td>Wealthi AI</td>
+              <td class="no">✗ Generic Canadian</td>
+              <td class="no">✗ Not handled</td>
+              <td class="no">✗ Missing</td>
+              <td class="no">✗ English only</td>
+              <td class="no">✗ None</td>
+              <td class="yes">✓ 5,000+ institutions</td>
+              <td class="partial">◎ Q&amp;A only</td>
+            </tr>
+            <tr>
+              <td>Bank apps (RBC/TD)</td>
+              <td class="no">✗ Not newcomer-focused</td>
+              <td class="no">✗ Not handled</td>
+              <td class="no">✗ Missing</td>
+              <td class="partial">◎ Some languages</td>
+              <td class="partial">◎ Own advisors only</td>
+              <td class="partial">◎ Own accounts only</td>
+              <td class="no">✗ None</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:var(--p50);border:1px solid #BBF7D0;border-radius:10px;padding:14px 18px;margin-top:16px">
+        <span style="font-size:13px;font-weight:700;color:var(--pd)">Our moat:</span>
+        <span class="body-sm" style="color:var(--pd);margin-left:6px">Newcomer-specific rules (RRSP year-1, FHSA Dec 31, student eligibility, T1135 thresholds) are impossible to bolt on from a generalist app. They require ground-up architecture decisions. Thrive cannot retrofit this without a full rebuild.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 9 — REGULATORY TAILWIND
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s9">
+    <div style="flex:1;display:flex;flex-direction:column;background:var(--dark);padding:56px 72px">
+
+      <div class="h-space" style="margin-bottom:32px">
+        <div>
+          <div class="label" style="color:rgba(255,255,255,.35);margin-bottom:6px">Regulatory Tailwind</div>
+          <div class="headline hl-44 white">Open banking just arrived in Canada.</div>
+        </div>
+        <div class="badge badge-green" style="font-size:12px;padding:5px 12px">Royal Assent: March 26, 2026</div>
+      </div>
+
+      <div class="cols-2" style="flex:1;gap:48px">
+        <div class="v-center">
+          <div class="body-lg" style="color:rgba(255,255,255,.65);margin-bottom:28px">Canada's Consumer-Driven Banking Act received Royal Assent on March 26, 2026. The Big Six banks must now share customer data via official API.</div>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:28px">
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="width:32px;height:32px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0">✓</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">Phase 1 — Read access (Now)</div>
+                <div class="body-sm" style="color:rgba(255,255,255,.5)">Banks must share account data via API. Flinks is live. Arrive Finance can aggregate all major Canadian bank accounts today.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:rgba(255,255,255,.6);flex-shrink:0">2</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:3px">Phase 2 — Write access (mid-2027)</div>
+                <div class="body-sm" style="color:rgba(255,255,255,.5)">Payment initiation, account switching. Enables Arrive Finance to become the financial command layer.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="width:32px;height:32px;border-radius:50%;background:rgba(217,119,6,.2);border:2px solid rgba(217,119,6,.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--amber);flex-shrink:0">3</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:3px">Real Time Rail — Q3 2026</div>
+                <div class="body-sm" style="color:rgba(255,255,255,.5)">Instant payments infrastructure. Canada joins the modern payment era.</div>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="border-color:rgba(21,128,61,.3)">
+            <div style="font-size:13px;font-weight:700;color:var(--p);margin-bottom:6px">What this means for Arrive Finance</div>
+            <div class="body-sm" style="color:rgba(255,255,255,.55)">Build now on Flinks (Phase 1). Official bank APIs upgrade the connection quality in Phase 2 without requiring a product rebuild. <strong style="color:#fff">Arrive Finance is positioned exactly at the inflection point.</strong></div>
+          </div>
+        </div>
+
+        <div class="v-center">
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:32px;text-align:center;margin-bottom:20px">
+            <div class="label" style="color:rgba(255,255,255,.35);margin-bottom:12px">Mandatory participants</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+              <div class="card" style="padding:14px;text-align:center"><div style="font-size:12px;font-weight:700;color:#fff">RBC</div></div>
+              <div class="card" style="padding:14px;text-align:center"><div style="font-size:12px;font-weight:700;color:#fff">TD</div></div>
+              <div class="card" style="padding:14px;text-align:center"><div style="font-size:12px;font-weight:700;color:#fff">BMO</div></div>
+              <div class="card" style="padding:14px;text-align:center"><div style="font-size:12px;font-weight:700;color:#fff">Scotiabank</div></div>
+              <div class="card" style="padding:14px;text-align:center"><div style="font-size:12px;font-weight:700;color:#fff">CIBC</div></div>
+              <div class="card" style="padding:14px;text-align:center"><div style="font-size:12px;font-weight:700;color:#fff">National</div></div>
+            </div>
+          </div>
+          <div class="card-dark" style="text-align:center;padding:24px">
+            <div class="mono stat-36 white" style="margin-bottom:6px">5.59%</div>
+            <div class="body-sm" style="color:rgba(255,255,255,.5)">North America financial advisory CAGR through 2031 — Mordor Intelligence</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 9b — THE BANK ACQUISITION PLAY
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s9b">
+    <div style="flex:1;display:flex;flex-direction:column;background:var(--dark);padding:56px 72px">
+
+      <div class="h-space" style="margin-bottom:32px">
+        <div>
+          <div class="label" style="color:rgba(255,255,255,.35);margin-bottom:6px">The Partnership Angle</div>
+          <div class="headline hl-44 white">We're not competing with banks. We're their best customer acquisition tool.</div>
+        </div>
+        <div class="logo-chip white logo-chip-sm">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+      </div>
+
+      <div class="cols-2" style="flex:1;gap:56px">
+        <div class="v-center">
+
+          <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:32px;margin-bottom:20px">
+            <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">The Wedge — Globe and Mail</div>
+            <div style="font-size:19px;font-weight:300;color:#fff;line-height:1.55;font-style:italic;margin-bottom:20px">"Banks' #1 source of new customers is immigrants — more than young adults or clients switching financial institutions."</div>
+            <div style="height:1px;background:rgba(255,255,255,.1);margin-bottom:20px"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div>
+                <div class="mono" style="font-size:32px;font-weight:500;color:#fff">4 in 10</div>
+                <div class="body-sm" style="color:rgba(255,255,255,.45);margin-top:4px">newcomers don't understand the system they're putting their savings into</div>
+                <div style="font-size:10px;font-weight:700;color:var(--p);margin-top:8px">Source: FCAC / Canada.ca</div>
+              </div>
+              <div>
+                <div class="mono" style="font-size:32px;font-weight:500;color:var(--p)">483K</div>
+                <div class="body-sm" style="color:rgba(255,255,255,.45);margin-top:4px">new potential bank customers arriving every year — each needing an account on day one</div>
+                <div style="font-size:10px;font-weight:700;color:var(--p);margin-top:8px">Source: IRCC Annual Report 2025</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="border-color:rgba(21,128,61,.3)">
+            <div style="font-size:13px;font-weight:700;color:var(--p);margin-bottom:8px">Why banks struggle with this segment</div>
+            <div class="body-sm" style="color:rgba(255,255,255,.55)">RBC and TD have newcomer bundles — but they are product-first, not education-first. A newcomer who doesn't understand the difference between a TFSA, RRSP, and FHSA can't make informed decisions at a branch. <strong style="color:#fff">They need education before they can become customers.</strong></div>
+          </div>
+
+        </div>
+
+        <div class="v-center">
+          <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:16px">How Arrive Finance becomes a bank acquisition channel:</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0">1</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">Educated, ready-to-open customers</div>
+                <div class="body-sm" style="color:rgba(255,255,255,.5)">A newcomer who completes the Arrive wizard knows exactly what account to open and where. They arrive at RBC already decided — no branch education needed. Higher conversion, lower CAC for the bank.</div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0">2</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">White-label or referral API (Year 2+)</div>
+                <div class="body-sm" style="color:rgba(255,255,255,.5)">Banks can pay a per-referred-account fee for every newcomer we route their way. A B2B revenue layer on top of our $20/month SaaS. <strong style="color:#fff">One bank pilot covers a full year of infrastructure.</strong></div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0">3</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px">Open banking makes the handoff seamless</div>
+                <div class="body-sm" style="color:rgba(255,255,255,.5)">Consumer-Driven Banking Act (Royal Assent March 2026) enables Arrive Finance to sit between newcomer and bank — we educate, the bank executes, the newcomer keeps both relationships. Nobody loses.</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="margin-top:16px;background:rgba(21,128,61,.1);border:1px solid rgba(21,128,61,.25);border-radius:10px;padding:16px">
+            <div style="font-size:12px;font-weight:700;color:var(--p);margin-bottom:4px">Comparable precedent</div>
+            <div class="body-sm" style="color:rgba(255,255,255,.5)">NerdWallet became a $1B+ company routing informed consumers to financial products. Arrive Finance applies the same model — purpose-built for newcomers to Canada, at the exact moment open banking infrastructure arrives.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 10 — BUSINESS MODEL
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s10b">
+    <div style="flex:1;display:flex;flex-direction:column;background:var(--bg);padding:48px 64px">
+
+      <div class="h-space" style="margin-bottom:24px">
+        <div>
+          <div class="label muted-dark" style="margin-bottom:4px">Business Model</div>
+          <div class="headline hl-36" style="color:var(--t)">SaaS subscription. Three tiers. Clear path to $20K MRR.</div>
+        </div>
+        <div class="logo-chip logo-chip-sm" style="color:var(--p)">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px">
+
+        <div class="card-light" style="border-top:3px solid var(--b)">
+          <div class="label muted-dark" style="margin-bottom:8px">Free Tier</div>
+          <div class="mono" style="font-size:32px;font-weight:500;color:var(--t);margin-bottom:4px">$0</div>
+          <div class="body-sm muted-dark" style="margin-bottom:12px">Lead generation + viral hook</div>
+          <div class="rule-dark"></div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div class="body-sm" style="color:var(--t)">✓ FHSA deadline tool</div>
+            <div class="body-sm" style="color:var(--t)">✓ RRSP/TFSA/FHSA calculator</div>
+            <div class="body-sm" style="color:var(--t)">✓ Personalized account plan (preview)</div>
+            <div class="body-sm" style="color:var(--tm)">— No full platform access</div>
+          </div>
+        </div>
+
+        <div class="card-light" style="border-top:3px solid var(--p);box-shadow:0 4px 24px rgba(21,128,61,.12)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div class="label" style="color:var(--p)">Pro</div>
+            <span class="badge badge-green">Most popular</span>
+          </div>
+          <div class="mono" style="font-size:32px;font-weight:500;color:var(--p);margin-bottom:2px">$20<span style="font-size:16px;color:var(--tm)">/mo</span></div>
+          <div class="body-sm" style="color:var(--p);margin-bottom:12px">$15/mo founding member offer</div>
+          <div class="rule-dark"></div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div class="body-sm" style="color:var(--t)">✓ Everything in Free</div>
+            <div class="body-sm" style="color:var(--t)">✓ All My Money (Flinks aggregation)</div>
+            <div class="body-sm" style="color:var(--t)">✓ Goals + net worth trajectory</div>
+            <div class="body-sm" style="color:var(--t)">✓ AI Action Center + Arrive Score</div>
+            <div class="body-sm" style="color:var(--t)">✓ WhatsApp FHSA deadline alerts</div>
+            <div class="body-sm" style="color:var(--t)">✓ Specialist bookings (1 per month)</div>
+          </div>
+        </div>
+
+        <div class="card-light" style="border-top:3px solid var(--amber)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div class="label" style="color:var(--amber)">Premium</div>
+            <span class="badge badge-amber">Waitlist</span>
+          </div>
+          <div class="mono" style="font-size:32px;font-weight:500;color:var(--t);margin-bottom:4px">$49<span style="font-size:16px;color:var(--tm)">/mo</span></div>
+          <div class="body-sm muted-dark" style="margin-bottom:12px">High-savings newcomers</div>
+          <div class="rule-dark"></div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div class="body-sm" style="color:var(--t)">✓ Everything in Pro</div>
+            <div class="body-sm" style="color:var(--t)">✓ SnapTrade execution guidance</div>
+            <div class="body-sm" style="color:var(--t)">✓ Priority specialist access</div>
+            <div class="body-sm" style="color:var(--amber)">◎ Pending legal clearance</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px">
+        <div style="text-align:center;padding:16px;background:#fff;border:1px solid var(--b);border-radius:10px">
+          <div class="mono" style="font-size:24px;font-weight:500;color:var(--p)">$240</div>
+          <div class="body-sm muted-dark" style="margin-top:4px">Annual revenue per user (Pro)</div>
+        </div>
+        <div style="text-align:center;padding:16px;background:#fff;border:1px solid var(--b);border-radius:10px">
+          <div class="mono" style="font-size:24px;font-weight:500;color:var(--t)">~$40</div>
+          <div class="body-sm muted-dark" style="margin-top:4px">Estimated CAC (community channels)</div>
+        </div>
+        <div style="text-align:center;padding:16px;background:#fff;border:1px solid var(--b);border-radius:10px">
+          <div class="mono" style="font-size:24px;font-weight:500;color:var(--t)">6:1</div>
+          <div class="body-sm muted-dark" style="margin-top:4px">LTV:CAC (Year 1 estimate)</div>
+        </div>
+        <div style="text-align:center;padding:16px;background:var(--p50);border:1px solid #BBF7D0;border-radius:10px">
+          <div class="mono" style="font-size:24px;font-weight:500;color:var(--p)">$20K</div>
+          <div class="body-sm" style="color:var(--pd);margin-top:4px">Target MRR at Month 12</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 11 — GO-TO-MARKET
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s11">
+    <div style="flex:1;display:flex;flex-direction:column;background:var(--dark);padding:56px 72px">
+
+      <div class="h-space" style="margin-bottom:32px">
+        <div>
+          <div class="label" style="color:rgba(255,255,255,.35);margin-bottom:6px">Go-To-Market</div>
+          <div class="headline hl-44 white">The FHSA tool is the distribution strategy.</div>
+        </div>
+        <div class="logo-chip white logo-chip-sm">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+      </div>
+
+      <div class="cols-2" style="flex:1;gap:48px">
+        <div class="v-center">
+          <div class="card" style="margin-bottom:14px;border-color:rgba(217,119,6,.3);background:rgba(217,119,6,.05)">
+            <div style="font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">Viral Wedge — Week 1</div>
+            <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:6px">Free FHSA deadline calculator at arrive.finance/fhsa</div>
+            <div class="body-sm" style="color:rgba(255,255,255,.55)">Shared in newcomer Facebook groups with one question: "Do you know your FHSA deadline?" Email capture → Loops.so drip → wizard CTA → $20/month. Seasonal urgency (Dec 31) is inherently viral.</div>
+          </div>
+          <div class="card" style="margin-bottom:14px">
+            <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:8px">3-Email Conversion Drip (Loops.so)</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;gap:10px;font-size:12px"><span style="color:var(--p);font-weight:700;width:50px;flex-shrink:0">Day 0</span><span style="color:rgba(255,255,255,.6)">FHSA deadline + what it means → wizard CTA</span></div>
+              <div style="display:flex;gap:10px;font-size:12px"><span style="color:var(--p);font-weight:700;width:50px;flex-shrink:0">Day 4</span><span style="color:rgba(255,255,255,.6)">"What's your TFSA room right now?" → wizard CTA</span></div>
+              <div style="display:flex;gap:10px;font-size:12px"><span style="color:var(--amber);font-weight:700;width:50px;flex-shrink:0">Day 10</span><span style="color:rgba(255,255,255,.6)">Founding member offer: $15/month → Stripe</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div style="font-size:13px;font-weight:700;color:var(--p);margin-bottom:8px">WhatsApp reminder (December)</div>
+            <div class="body-sm" style="color:rgba(255,255,255,.55)">Opt-in during onboarding wizard. Dec 14 cron job sends FHSA deadline reminder via Twilio. South Asian newcomers live in WhatsApp — this is the highest-open-rate channel that exists.</div>
+          </div>
+        </div>
+
+        <div class="v-center">
+          <div class="label" style="color:rgba(255,255,255,.35);margin-bottom:16px">Channel Roadmap</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="funnel-step" style="background:rgba(21,128,61,.15);border:1px solid rgba(21,128,61,.25)">
+              <span style="color:#fff">📱 FHSA tool + newcomer Facebook groups</span>
+              <span class="badge badge-green">Month 1–2</span>
+            </div>
+            <div class="funnel-step" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)">
+              <span style="color:rgba(255,255,255,.8)">💬 Reddit r/PersonalFinanceCanada</span>
+              <span class="badge badge-white">Month 2–3</span>
+            </div>
+            <div class="funnel-step" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)">
+              <span style="color:rgba(255,255,255,.8)">🏢 Settlement agencies (ACCES, COSTI)</span>
+              <span class="badge badge-white">Month 4–5</span>
+            </div>
+            <div class="funnel-step" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)">
+              <span style="color:rgba(255,255,255,.8)">🔗 Referral mechanic (invite 3 = 3 months free)</span>
+              <span class="badge badge-white">Month 6+</span>
+            </div>
+            <div class="funnel-step" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)">
+              <span style="color:rgba(255,255,255,.8)">🔍 SEO: "RRSP newcomer Canada," "FHSA eligibility"</span>
+              <span class="badge badge-white">Month 7–9</span>
+            </div>
+            <div class="funnel-step" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)">
+              <span style="color:rgba(255,255,255,.8)">👩‍💼 CPA/CFA directory referrals + B2B API</span>
+              <span class="badge badge-white">Month 10–12</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 12 — ROADMAP
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s12">
+    <div style="flex:1;display:flex;flex-direction:column;background:var(--bg);padding:48px 64px">
+
+      <div class="h-space" style="margin-bottom:28px">
+        <div>
+          <div class="label muted-dark" style="margin-bottom:4px">Build Roadmap</div>
+          <div class="headline hl-36" style="color:var(--t)">13 weeks to 10 paying users. 12 months to $20K MRR.</div>
+        </div>
+        <div class="logo-chip logo-chip-sm" style="color:var(--p)">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:24px">
+        <div style="text-align:center;padding:14px 8px;background:var(--p50);border:1px solid #BBF7D0;border-radius:10px;position:relative">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--p);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 8px">✓</div>
+          <div style="font-size:11px;font-weight:700;color:var(--pd)">Now</div>
+          <div style="font-size:10px;color:var(--p);margin-top:3px">$20 revenue · Domain · Prototypes · PRD</div>
+        </div>
+        <div style="text-align:center;padding:14px 8px;background:#fff;border:2px solid var(--amber);border-radius:10px">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--amber);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 8px">1</div>
+          <div style="font-size:11px;font-weight:700;color:var(--t)">Week 1</div>
+          <div style="font-size:10px;color:var(--tm);margin-top:3px">FHSA deadline tool live · 50 email signups</div>
+        </div>
+        <div style="text-align:center;padding:14px 8px;background:#fff;border:1px solid var(--b);border-radius:10px">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--b);font-size:11px;font-weight:700;color:var(--t);display:flex;align-items:center;justify-content:center;margin:0 auto 8px">2–4</div>
+          <div style="font-size:11px;font-weight:700;color:var(--t)">Weeks 2–4</div>
+          <div style="font-size:10px;color:var(--tm);margin-top:3px">Rules engine · TypeScript + Vitest · i18n scaffold</div>
+        </div>
+        <div style="text-align:center;padding:14px 8px;background:#fff;border:1px solid var(--b);border-radius:10px">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--b);font-size:11px;font-weight:700;color:var(--t);display:flex;align-items:center;justify-content:center;margin:0 auto 8px">5–6</div>
+          <div style="font-size:11px;font-weight:700;color:var(--t)">Weeks 5–6</div>
+          <div style="font-size:10px;color:var(--tm);margin-top:3px">Auth + DB + Wizard + Hindi + WhatsApp opt-in</div>
+        </div>
+        <div style="text-align:center;padding:14px 8px;background:#fff;border:1px solid var(--b);border-radius:10px">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--b);font-size:11px;font-weight:700;color:var(--t);display:flex;align-items:center;justify-content:center;margin:0 auto 8px">7–8</div>
+          <div style="font-size:11px;font-weight:700;color:var(--t)">Weeks 7–8</div>
+          <div style="font-size:10px;color:var(--tm);margin-top:3px">Stripe $20/mo · Drip · <strong>10 beta users</strong></div>
+        </div>
+        <div style="text-align:center;padding:14px 8px;background:#fff;border:1px solid var(--b);border-radius:10px">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--b);font-size:11px;font-weight:700;color:var(--t);display:flex;align-items:center;justify-content:center;margin:0 auto 8px">9–12</div>
+          <div style="font-size:11px;font-weight:700;color:var(--t)">Weeks 9–12</div>
+          <div style="font-size:10px;color:var(--tm);margin-top:3px">Flinks · AI Advisor · Arrive Score · Directory</div>
+        </div>
+        <div style="text-align:center;padding:14px 8px;background:var(--dark);border-radius:10px">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--p);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 8px">12M</div>
+          <div style="font-size:11px;font-weight:700;color:#fff">Month 12</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:3px">1,000 users · $20K MRR · YC S2027</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="background:#fff;border:1px solid var(--b);border-radius:10px;padding:16px">
+          <div style="font-size:12px;font-weight:700;color:var(--t);margin-bottom:10px">Month-by-month growth path</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--tm)">Month 3–4</span><span style="font-weight:600;color:var(--t)">30 users — email list → paid conversion + Reddit</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--tm)">Month 4–5</span><span style="font-weight:600;color:var(--t)">75 users — settlement agency outreach</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--tm)">Month 5–6</span><span style="font-weight:600;color:var(--t)">150 users — newcomer Facebook groups</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--tm)">Month 6–7</span><span style="font-weight:600;color:var(--t)">300 users — referral mechanic live</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--tm)">Month 10–12</span><span style="font-weight:600;color:var(--p)">1,000 users — directory + B2B pilot</span></div>
+          </div>
+        </div>
+        <div style="background:var(--p50);border:1px solid #BBF7D0;border-radius:10px;padding:16px">
+          <div style="font-size:12px;font-weight:700;color:var(--pd);margin-bottom:10px">Week 8 hold decision</div>
+          <div class="body-sm" style="color:var(--pd)">If fewer than 5 paying users after 2 weeks at $20/month, stop Week 9+ investment and revisit scope before proceeding. No building in the dark.</div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #BBF7D0">
+            <div style="font-size:12px;font-weight:700;color:var(--pd)">YC S2027 target</div>
+            <div class="body-sm" style="color:var(--p)">1,000 users · $20K MRR · Flinks live · SnapTrade executing · settlement agency pilots running</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 13 — THE ASK
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s13">
+    <div style="flex:1;display:flex;flex-direction:column;background:linear-gradient(145deg,#0a1a0f 0%,var(--dark) 40%,#112318 100%);padding:56px 72px;position:relative;overflow:hidden">
+      <div style="position:absolute;right:-80px;bottom:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(21,128,61,.12) 0%,transparent 70%);pointer-events:none"></div>
+
+      <div class="h-space" style="margin-bottom:40px">
+        <div class="logo-chip white">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrive Finance
+        </div>
+        <span class="badge badge-white">Pre-seed · 2026</span>
+      </div>
+
+      <div class="cols-2" style="flex:1;gap:64px">
+        <div class="v-center">
+          <div class="label" style="color:rgba(255,255,255,.35);margin-bottom:14px">The Ask</div>
+          <div class="headline hl-56 white" style="margin-bottom:20px">Raising<br><span style="color:var(--p)">[●●●]</span></div>
+          <div class="body-lg" style="color:rgba(255,255,255,.55);margin-bottom:32px">To build the product and get to 1,000 paying newcomers and $20K MRR by Month 12.</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:8px">
+              <span style="font-size:13px;font-weight:600;color:#fff">Engineering (rules engine, platform)</span>
+              <span class="badge badge-dark">40%</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:8px">
+              <span style="font-size:13px;font-weight:600;color:#fff">Growth + community (FHSA tool, GTM)</span>
+              <span class="badge badge-dark">30%</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:8px">
+              <span style="font-size:13px;font-weight:600;color:#fff">Legal + compliance (fintech lawyer, CASL)</span>
+              <span class="badge badge-dark">15%</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:8px">
+              <span style="font-size:13px;font-weight:600;color:#fff">Infrastructure + ops</span>
+              <span class="badge badge-dark">15%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="v-center">
+          <div class="label" style="color:rgba(255,255,255,.35);margin-bottom:16px">12-Month Milestones</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(21,128,61,.2);border:1.5px solid rgba(21,128,61,.4);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--p);flex-shrink:0">1</div>
+              <div><div style="font-size:13px;font-weight:700;color:#fff">Week 8: 10 paying users · $200 MRR</div><div class="body-sm" style="color:rgba(255,255,255,.4);margin-top:2px">Go / no-go decision point. Validates pricing and demand.</div></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(21,128,61,.2);border:1.5px solid rgba(21,128,61,.4);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--p);flex-shrink:0">2</div>
+              <div><div style="font-size:13px;font-weight:700;color:#fff">Month 3: 50 email signups → 30 paid users</div><div class="body-sm" style="color:rgba(255,255,255,.4);margin-top:2px">FHSA tool email list converting. First retention data.</div></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(21,128,61,.2);border:1.5px solid rgba(21,128,61,.4);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--p);flex-shrink:0">3</div>
+              <div><div style="font-size:13px;font-weight:700;color:#fff">Month 6: 100 users · $2K MRR · Flinks live</div><div class="body-sm" style="color:rgba(255,255,255,.4);margin-top:2px">Real bank data in the platform. Full AI advisor operational.</div></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(21,128,61,.2);border:1.5px solid rgba(21,128,61,.4);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--p);flex-shrink:0">4</div>
+              <div><div style="font-size:13px;font-weight:700;color:#fff">Month 12: 1,000 users · $20K MRR</div><div class="body-sm" style="color:rgba(255,255,255,.4);margin-top:2px">Referral mechanic live. Settlement agency partners. YC S2027 application.</div></div>
+            </div>
+          </div>
+
+          <div style="margin-top:28px;padding:20px;background:rgba(21,128,61,.1);border:1px solid rgba(21,128,61,.25);border-radius:12px">
+            <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:6px">Why invest now?</div>
+            <div class="body-sm" style="color:rgba(255,255,255,.55)">Consumer-Driven Banking Act just received Royal Assent. Canada is building the infrastructure. 483,000 newcomers arrive every year with no guide. We have the design, the PRD, the first paying customer, and the domain. The window to be first is open — not forever.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       SLIDE — APPENDIX: SOURCES
+  ══════════════════════════════════════════ -->
+  <div class="slide" id="s_appendix">
+    <div style="flex:1;display:flex;flex-direction:column;background:var(--bg);padding:44px 72px;overflow:hidden">
+
+      <div style="margin-bottom:22px">
+        <div class="label muted-dark" style="margin-bottom:5px">Appendix</div>
+        <div class="headline hl-36" style="color:var(--t)">Sources &amp; Fact Verification</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;flex:1;overflow:hidden">
+
+        <!-- Left column -->
+        <div style="display:flex;flex-direction:column;gap:9px;overflow:auto">
+          <div style="font-size:12px;font-weight:700;color:var(--pd);padding-bottom:7px;border-bottom:2px solid var(--p)">Primary Market Data</div>
+
+          <div style="padding:11px 14px;background:#fff;border:1px solid var(--b);border-radius:8px">
+            <div style="font-size:12px;font-weight:700;color:var(--t)">483,600 permanent residents admitted (2024)</div>
+            <div class="body-sm muted-dark" style="margin:2px 0">IRCC Annual Report to Parliament on Immigration 2025</div>
+            <a href="https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/annual-report-parliament-immigration-2025.html" style="font-size:10px;color:var(--p);word-break:break-all;text-decoration:none">canada.ca › ircc › annual-report-parliament-immigration-2025</a>
+          </div>
+
+          <div style="padding:11px 14px;background:#fff;border:1px solid var(--b);border-radius:8px">
+            <div style="font-size:12px;font-weight:700;color:var(--t)">76% fear financial mistakes · 55% find it difficult</div>
+            <div class="body-sm muted-dark" style="margin:2px 0">TD Bank Survey — reported via FCAC Building Better Financial Futures Challenge 2022</div>
+            <a href="https://www.canada.ca/en/financial-consumer-agency/programs/research/2022-building-better-financial-futures-challenge/helping-canada-immigrants-strengthen-financial-knowledge.html" style="font-size:10px;color:var(--p);word-break:break-all;text-decoration:none">canada.ca › fcac › helping-canada-immigrants-financial-knowledge</a>
+          </div>
+
+          <div style="padding:11px 14px;background:#fff;border:1px solid var(--b);border-radius:8px">
+            <div style="font-size:12px;font-weight:700;color:var(--t)">38% of newcomers have little/no understanding of Canadian banking (vs. 25% general population)</div>
+            <div class="body-sm muted-dark" style="margin:2px 0">Financial Consumer Agency of Canada (FCAC) / Canada.ca</div>
+            <a href="https://www.canada.ca/en/financial-consumer-agency.html" style="font-size:10px;color:var(--p);word-break:break-all;text-decoration:none">canada.ca › financial-consumer-agency</a>
+          </div>
+
+          <div style="padding:11px 14px;background:#fff;border:1px solid var(--b);border-radius:8px">
+            <div style="font-size:12px;font-weight:700;color:var(--t)">"Banks' #1 new customer source is immigrants" — Globe and Mail</div>
+            <div class="body-sm muted-dark" style="margin:2px 0">Cited as secondary source in market research. Print article — no direct URL available.</div>
+          </div>
+
+          <div style="padding:11px 14px;background:#fff;border:1px solid var(--b);border-radius:8px">
+            <div style="font-size:12px;font-weight:700;color:var(--t)">$9.81 trillion Canadian financial advisory market (AUM) projected 2025</div>
+            <div class="body-sm muted-dark" style="margin:2px 0">Statista — Financial Advisory Market Canada</div>
+            <a href="https://www.statista.com/outlook/fmo/wealth-management/financial-advisory/canada" style="font-size:10px;color:var(--p);word-break:break-all;text-decoration:none">statista.com › outlook › financial-advisory › canada</a>
+          </div>
+
+          <div style="padding:11px 14px;background:#fff;border:1px solid var(--b);border-radius:8px">
+            <div style="font-size:12px;font-weight:700;color:var(--t)">5.59% CAGR — North America financial advisory through 2031</div>
+            <div class="body-sm muted-dark" style="margin:2px 0">Mordor Intelligence (subscription report)</div>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div style="display:flex;flex-direction:column;gap:9px;overflow:auto">
+          <div style="font-size:12px;font-weight:700;color:var(--pd);padding-bottom:7px;border-bottom:2px solid var(--p)">Regulatory, Competitive &amp; Product Facts</div>
+
+          <div style="padding:11px 14px;background:#fff;border:1px solid var(--b);border-radius:8px">
+            <div style="font-size:12px;font-weight:700;color:var(--t)">Consumer-Driven Banking Act — Royal Assent March 26, 2026</div>
+            <div class="body-sm muted-dark" style="margin:2px 0">Flinks blog · DLA Piper legal analysis</div>
+            <a href="https://www.flinks.com/blog/open-banking-canada-2026-launch-fintech-institutions" style="font-size:10px;color:var(--p);word-break:break-all;text-decoration:none">flinks.com › blog › open-banking-canada-2026</a>
+          </div>
+
+          <div style="padding:11px 14px;background:#fff;border:1px solid var(--b);border-radius:8px">
+            <div style="font-size:12px;font-weight:700;color:var(--t)">Thrive — AI co-pilot, RRSP/TFSA/FHSA, early access 2025</div>
+            <div class="body-sm muted-dark" style="margin:2px 0">Not newcomer-specific; no RRSP year-1 logic; English only — verified by product review</div>
+            <a href="https://www.thethriveapp.net/" style="font-size:10px;color:var(--p);text-decoration:none">thethriveapp.net</a>
+          </div>
+
+          <div style="padding:11px 14px;background:#fff;border:1px solid var(--b);border-radius:8px">
+            <div style="font-size:12px;font-weight:700;color:var(--t)">Wealthsimple — 0.4–0.5%/yr managed investing fee structure</div>
+            <div class="body-sm muted-dark" style="margin:2px 0">Core 0.5% / Premium (≥$100K) 0.4% / Generation (≥$500K) 0.2–0.4%</div>
+            <a href="https://www.wealthsimple.com/en-ca/pricing" style="font-size:10px;color:var(--p);text-decoration:none">wealthsimple.com › en-ca › pricing</a>
+          </div>
+
+          <div style="padding:11px 14px;background:#fff;border:1px solid var(--b);border-radius:8px">
+            <div style="font-size:12px;font-weight:700;color:var(--t)">Wealthi AI — 5,000+ institutions aggregation</div>
+            <a href="https://getwealthi.ai/solutions/personal-finance-app-canada" style="font-size:10px;color:var(--p);text-decoration:none">getwealthi.ai › solutions › personal-finance-app-canada</a>
+          </div>
+
+          <div style="padding:11px 14px;background:#fff;border:1px solid var(--b);border-radius:8px">
+            <div style="font-size:12px;font-weight:700;color:var(--t)">FP Canada Planner Directory — no newcomer/language filter (confirmed)</div>
+            <a href="https://www.fpcanada.ca/planner-directory" style="font-size:10px;color:var(--p);text-decoration:none">fpcanada.ca › planner-directory</a>
+          </div>
+
+          <div style="padding:11px 14px;background:var(--abg);border:1px solid var(--ab);border-radius:8px">
+            <div style="font-size:12px;font-weight:700;color:#92400E">⚠ Illustrative Data — Requires Primary Research Validation</div>
+            <div class="body-sm" style="color:#78350F;margin-top:4px">Slide 3 newcomer behaviour percentages (40% Facebook groups, 25% paralysis / do nothing, 15% bank branch, 20% hire advisor) are illustrative estimates based on FCAC survey data patterns. They are not directly cited in primary research. These will be replaced with validated data from planned user interviews (Week 0–1).</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- ── NAVIGATION ── -->
+<nav class="nav">
+  <button class="nav-btn" id="btn-prev" onclick="prevSlide()" disabled>←</button>
+  <div class="nav-count" id="nav-count">1 / 13</div>
+  <button class="nav-btn" id="btn-next" onclick="nextSlide()">→</button>
+</nav>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let current = 0;
+
+function updateUI() {
+  document.getElementById('nav-count').textContent = `${current + 1} / ${total}`;
+  document.getElementById('btn-prev').disabled = current === 0;
+  document.getElementById('btn-next').disabled = current === total - 1;
+  document.getElementById('progress').style.width = `${((current + 1) / total) * 100}%`;
+}
+
+function goTo(n) {
+  if (n < 0 || n >= total) return;
+  const prev = slides[current];
+  prev.classList.remove('active');
+  prev.classList.add('exit');
+  setTimeout(() => prev.classList.remove('exit'), 420);
+  current = n;
+  slides[current].classList.add('active');
+  updateUI();
+}
+
+function nextSlide() { goTo(current + 1); }
+function prevSlide() { goTo(current - 1); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSlide(); }
+});
+
+// Swipe support
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 60) { dx < 0 ? nextSlide() : prevSlide(); }
+});
+
+updateUI();
+</script>
+</body>
+</html>
