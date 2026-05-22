@@ -16,7 +16,7 @@ Arrive Finance is a personal finance OS for immigrants arriving in Canada. It gu
 
 **Core insight:** The FHSA deadline (Dec 31 of the first eligible year) is the most financially costly mistake most newcomers make — $8,000/year of tax-advantaged room lost silently. Arrive Finance exists to prevent that mistake and become the financial operating layer for a newcomer's first 1–5 years in Canada.
 
-**Current state:** Design approved, prototypes built (`platform-mockup.html`, `landing.html`, `onboarding.html`), one paying beta user (Avdhesh Singh, $20/month Interac). Domain: arrive.finance.
+**Current state:** Design approved, prototypes built (`platform-mockup.html`, `landing.html`, `onboarding.html`), one paying beta user (Shweta Singh, $20/month Interac). Domain: arrive.finance.
 
 ---
 
@@ -27,12 +27,12 @@ Immigrants arriving in Canada save aggressively and invest poorly. They face a c
 - Unfamiliar tax-advantaged accounts (RRSP/TFSA/FHSA) with year-1 edge cases that advisors routinely get wrong
 - No local financial network; advice comes from Facebook/WhatsApp groups (conflicting, often wrong)
 - The FHSA — uniquely powerful, uniquely invisible — expires silently on Dec 31 of year 1
-- Human advisors cost $200–400/hr; most newcomers can't afford repeated sessions
+- Human advisors cost $100–150/hr; most newcomers can't afford repeated sessions
 - Wealthsimple and other self-serve platforms assume baseline knowledge newcomers don't have
 
 **The majority path (80%):** Ask in newcomer groups → conflicting advice → paralysis → wait 1–2 years → walk into bank → GIC at 3.5% → believe problem is solved.
 
-**The motivated path (20%, "Avdhesh"):** Hire human advisor ($1,000–2,000/year) for basic setup; return for every major decision.
+**The motivated path (20%, "Shweta"):** Hire human advisor ($1,000–2,000/year) for basic setup; return for every major decision.
 
 ---
 
@@ -50,7 +50,7 @@ Immigrants arriving in Canada save aggressively and invest poorly. They face a c
 
 ### 3.2 Lead User
 
-**Avdhesh Singh** — Product Support Engineer, India → Canada arrival 2024. Saved $100K in two years. Attempted Wealthsimple (abandoned). Hired human advisor ($400/hr, multiple sessions). Paid $20/month for Arrive Finance on first demo. Exact quote: *"A one-stop solution where I can see my entire financial health from different accounts and investments and goals, and the system can help me plan my finances better."*
+**Shweta Singh** — Product Support Engineer, India → Canada arrival 2024. Saved $100K in two years. Attempted Wealthsimple (abandoned). Hired human advisor ($150/hr, multiple sessions). Paid $20/month for Arrive Finance on first demo. Exact quote: *"A one-stop solution where I can see my entire financial health from different accounts and investments and goals, and the system can help me plan my finances better."*
 
 ### 3.3 Secondary: International Student
 
@@ -487,12 +487,12 @@ The rules engine is the core of the product. Errors in contribution room calcula
 
 These must happen before any production code ships:
 
-1. **Avdhesh $20 conversation** ✅ — DONE. Payment received. Business validated.
+1. **Shweta $20 conversation** ✅ — DONE. Payment received. Business validated.
 2. **Flinks API access application** — Apply immediately. 1–2 week approval. Blocks Week 9–10 if deferred.
 3. **Fintech lawyer scoping call** — Before wizard UI is designed (Week 3 gate). Confirm "education not advice" framing. ~$600–1,000 / 2 hours. If framing fails legal review, wizard output format must change before wizard UI is built.
 4. **CASL compliance review** — Before WhatsApp opt-in is built (Week 5–6). Draft consent language; confirm double opt-in flow.
 5. **Data residency decision** — Turso ca-central-1, AES-256 for Flinks tokens. Document in engineering spec before any DB schema is written.
-6. **Co-founder decision** — Before Week 1. If Avdhesh or others contribute work: written equity/vesting agreement BEFORE any work is done.
+6. **Co-founder decision** — Before Week 1. If Shweta or others contribute work: written equity/vesting agreement BEFORE any work is done.
 
 ---
 
@@ -500,7 +500,7 @@ These must happen before any production code ships:
 
 | Week | What Ships | Owner |
 |---|---|---|
-| 0 | Avdhesh $20 + Flinks API application + Lawyer call booked | Human |
+| 0 | Shweta $20 + Flinks API application + Lawyer call booked | Human |
 | 1 | FHSA deadline tool (free, email capture, Loops.so trigger) | CC-primary |
 | 2–4 | Rules engine (RRSP/TFSA/FHSA TypeScript, Vitest tests) + react-i18next scaffold | CC-primary |
 | Week 3 gate | Fintech lawyer call COMPLETED before wizard output screen is designed | Human |
@@ -518,7 +518,7 @@ These must happen before any production code ships:
 
 | # | Question | Owner | Deadline |
 |---|---|---|---|
-| 1 | Co-founder decision: solo vs. Avdhesh or other technical co-founder? | Vivek | Week 1 |
+| 1 | Co-founder decision: solo vs. Shweta or other technical co-founder? | Vivek | Week 1 |
 | 2 | Fintech lawyer: who to engage? Book scoping call. | Vivek | Before Week 5 |
 | 3 | Flinks API: application submitted? | Vivek | Immediate |
 | 4 | Plaid Canada coverage: does Plaid cover TD, Scotiabank, RBC, BMO adequately if Flinks has gaps? | Research | Before Week 9 |

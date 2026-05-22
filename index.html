@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrive Finance — Prototypes & Investor Materials</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAFAF8;--sur:#FFF;
+  --p:#15803D;--pd:#14532D;--pl:#DCFCE7;--p50:#F0FDF4;
+  --t:#111827;--tm:#6B7280;--tf:#9CA3AF;
+  --b:#E5E7EB;
+  --amber:#D97706;--abg:#FFFBEB;--ab:#FDE68A;
+  --dark-hero:linear-gradient(145deg,#0a1a0f 0%,#0F2419 40%,#112318 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--t);min-height:100vh}
+
+.hero{background:var(--dark-hero);padding:64px 24px 48px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 48px,#fff 48px,#fff 49px),repeating-linear-gradient(90deg,transparent,transparent 48px,#fff 48px,#fff 49px);pointer-events:none}
+.hero::after{content:'';position:absolute;right:-80px;top:-100px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(21,128,61,.22) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:960px;margin:0 auto;position:relative;z-index:1}
+.logo-chip{display:inline-flex;align-items:center;gap:8px;font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:32px}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(36px,5vw,52px);font-weight:700;line-height:1.1;color:#fff;margin-bottom:18px}
+.hero h1 em{color:#86EFAC;font-style:normal}
+.hero p{font-size:17px;color:rgba(255,255,255,.7);line-height:1.6;max-width:620px;margin-bottom:32px}
+.hero-stats{display:flex;gap:36px;flex-wrap:wrap;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}
+.stat-num{font-family:'Geist Mono',monospace;font-size:28px;font-weight:500;color:#fff;line-height:1}
+.stat-num-green{color:#86EFAC}
+.stat-label{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+
+.container{max-width:960px;margin:0 auto;padding:48px 24px}
+.section-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--p);margin-bottom:10px}
+.section-h{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--t);margin-bottom:28px;line-height:1.15}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:40px}
+.card{background:var(--sur);border:1px solid var(--b);border-radius:14px;padding:24px;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.card:hover{border-color:var(--p);box-shadow:0 8px 24px rgba(21,128,61,.1);transform:translateY(-2px)}
+.card-icon{font-size:32px;margin-bottom:14px;display:inline-block;background:var(--p50);width:54px;height:54px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid #BBF7D0}
+.card-title{font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:var(--t);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.card-desc{font-size:14px;color:var(--tm);line-height:1.55;margin-bottom:14px}
+.card-meta{font-size:12px;color:var(--p);font-weight:600;display:flex;align-items:center;gap:6px}
+.badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:3px 8px;border-radius:9999px;text-transform:uppercase;letter-spacing:.06em}
+.b-green{background:var(--pl);color:var(--pd)}
+.b-amber{background:var(--abg);color:var(--amber);border:1px solid var(--ab)}
+
+.doc-list{background:var(--sur);border:1px solid var(--b);border-radius:14px;padding:8px}
+.doc-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-radius:10px;text-decoration:none;color:inherit;transition:background .12s}
+.doc-item:hover{background:var(--p50)}
+.doc-item + .doc-item{border-top:1px solid var(--b)}
+.doc-left{display:flex;align-items:center;gap:12px}
+.doc-icon{font-size:18px;width:36px;text-align:center}
+.doc-title{font-size:14px;font-weight:600;color:var(--t)}
+.doc-sub{font-size:12px;color:var(--tm);margin-top:2px}
+.doc-arrow{font-size:14px;color:var(--tf)}
+
+footer{text-align:center;padding:32px 24px;border-top:1px solid var(--b);background:var(--sur);font-size:12px;color:var(--tm)}
+footer a{color:var(--p);text-decoration:none;font-weight:600}
+
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="logo-chip">
+      <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Arrive Finance
+    </div>
+    <h1>The financial operating system every<br>newcomer to Canada <em>needs.</em></h1>
+    <p>This is the prototype showcase: live HTML mockups of the landing page, the 7-step onboarding wizard, the full 9-panel authenticated platform, and the 19-slide investor deck. All built and ready for review.</p>
+    <div class="hero-stats">
+      <div><div class="stat-num">483K</div><div class="stat-label">newcomers / year</div></div>
+      <div><div class="stat-num">76%</div><div class="stat-label">fear financial mistakes</div></div>
+      <div><div class="stat-num stat-num-green">$20</div><div class="stat-label">first paying customer</div></div>
+      <div><div class="stat-num stat-num-green">10</div><div class="stat-label">languages planned</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+  <div class="section-label">Live Prototypes</div>
+  <div class="section-h">Click any prototype to open it.</div>
+
+  <div class="grid">
+    <a href="designs/landing.html" class="card">
+      <div class="card-icon">🌐</div>
+      <div class="card-title">Landing Page <span class="badge b-green">Live</span></div>
+      <div class="card-desc">arrive.finance marketing site — FHSA urgency banner, personas (PR / Student / Work Permit), tax-advantage breakdown, pricing, testimonial. Dark mode toggle in corner.</div>
+      <div class="card-meta">Open landing.html →</div>
+    </a>
+
+    <a href="designs/onboarding.html" class="card">
+      <div class="card-icon">🧭</div>
+      <div class="card-title">Onboarding Wizard <span class="badge b-green">Live</span></div>
+      <div class="card-desc">7-step wizard: 10-language selector → immigration status → arrival date → income → savings → goals → personalized account plan with tax savings highlighted.</div>
+      <div class="card-meta">Open onboarding.html →</div>
+    </a>
+
+    <a href="designs/platform-mockup.html" class="card">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Platform (9 panels) <span class="badge b-green">Live</span></div>
+      <div class="card-desc">Full authenticated platform: RRSP/TFSA/FHSA calculator, credit education, advisor directory, goals, AI advisor with Arrive Score, specialist booking, execute plan.</div>
+      <div class="card-meta">Open platform-mockup.html →</div>
+    </a>
+
+    <a href="designs/investor-deck.html" class="card">
+      <div class="card-icon">🎯</div>
+      <div class="card-title">Investor Deck (19 slides)</div>
+      <div class="card-desc">Full presentation with keyboard navigation (← →): Problem, Access Problem, FHSA Moment, Solution, Market, Traction, Competition, Regulatory Tailwind, Bank Acquisition Play, Business Model, GTM, Roadmap, The Ask + 4 appendix slides.</div>
+      <div class="card-meta">Open investor-deck.html →</div>
+    </a>
+  </div>
+
+  <div class="section-label">Project Documentation</div>
+  <div class="section-h">Source documents and research.</div>
+
+  <div class="doc-list">
+    <a href="README.md" class="doc-item">
+      <div class="doc-left">
+        <div class="doc-icon">📘</div>
+        <div>
+          <div class="doc-title">README.md</div>
+          <div class="doc-sub">Project overview, repository structure, design system, business model, tech stack</div>
+        </div>
+      </div>
+      <div class="doc-arrow">→</div>
+    </a>
+    <a href="PRD.md" class="doc-item">
+      <div class="doc-left">
+        <div class="doc-icon">📋</div>
+        <div>
+          <div class="doc-title">PRD.md</div>
+          <div class="doc-sub">Product Requirements Document — 14 sections, RRSP/TFSA/FHSA rules engine spec, CASL compliance</div>
+        </div>
+      </div>
+      <div class="doc-arrow">→</div>
+    </a>
+    <a href="DESIGN.md" class="doc-item">
+      <div class="doc-left">
+        <div class="doc-icon">🎨</div>
+        <div>
+          <div class="doc-title">DESIGN.md</div>
+          <div class="doc-sub">Design system — typography (Fraunces / Plus Jakarta Sans / Geist Mono), color tokens, i18n typography for Hindi / Punjabi / Mandarin / Arabic scripts</div>
+        </div>
+      </div>
+      <div class="doc-arrow">→</div>
+    </a>
+    <a href="Deep_Research.md" class="doc-item">
+      <div class="doc-left">
+        <div class="doc-icon">🔍</div>
+        <div>
+          <div class="doc-title">Deep_Research.md</div>
+          <div class="doc-sub">Canadian market research — TAM, competitive landscape, regulatory tailwind, IRCC + FCAC data citations</div>
+        </div>
+      </div>
+      <div class="doc-arrow">→</div>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Arrive Finance · <a href="https://github.com/vivekally/AI-Personal-Finance-Advisor">GitHub</a> · Personalized financial education, not regulated advice.
+</footer>
+
+</body>
+</html>

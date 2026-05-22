@@ -3,7 +3,7 @@
 **The financial operating system every newcomer to Canada needs.**
 
 > *"A one-stop solution where I can see my entire financial health from different accounts and investments and goals, and the system can help me plan my finances better."*
-> — Avdhesh Singh, Beta User #1 (paid $20 on the first demo)
+> — Shweta Singh, Beta User #1 (paid $20 on the first demo)
 
 ---
 
@@ -57,7 +57,7 @@ Arrive Finance is a personal finance OS for immigrants arriving in Canada. It gu
 | Investor deck (16 slides) | ✅ Built |
 | Product Requirements Document (PRD) | ✅ Complete (14 sections) |
 | Deep market research | ✅ Complete |
-| Beta user #1 — Avdhesh Singh | ✅ $20/month Interac |
+| Beta user #1 — Shweta Singh | ✅ $20/month Interac |
 | Flinks API application | ✅ Submitted (1–2 week approval) |
 | Rules engine (TypeScript) | 🔜 Week 3–4 |
 | Auth + DB (Clerk + Turso) | 🔜 Week 5–6 |
@@ -96,7 +96,7 @@ The arrive.finance marketing page. Key features:
 - Three persona cards: Permanent Resident, International Student (highlighted — TFSA/FHSA eligible without PR), Work Permit
 - Student spotlight: "$14,000 in unused TFSA room — no PR required"
 - Pricing: Free / Pro $20/mo / Premium $49/mo
-- Avdhesh testimonial
+- Shweta testimonial
 - "Personalized financial education, not financial advice" disclaimer
 
 ### `designs/onboarding.html`

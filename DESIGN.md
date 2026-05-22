@@ -1,7 +1,7 @@
 # Design System — Arrive Finance
 
 ## Product Context
-- **What this is:** A web-first onboarding wizard that takes a newcomer immigrant from "I have savings and no idea what to do" to a personalized RRSP/TFSA/FHSA plan — the same guidance a $400/hr advisor would give, for $20/month.
+- **What this is:** A web-first onboarding wizard that takes a newcomer immigrant from "I have savings and no idea what to do" to a personalized RRSP/TFSA/FHSA plan — the same guidance a $150/hr advisor would give, for $20/month.
 - **Who it's for:** Immigrants to Canada in their first 1–3 years. Employed, $50k–$200k in savings, unfamiliar with the Canadian financial system, high anxiety about making irreversible mistakes. Often non-native English speakers (primary: Hindi, Punjabi, Mandarin, Tagalog).
 - **Space/industry:** Personal finance / fintech / newcomer settlement
 - **Project type:** Web app — multi-step onboarding wizard + plan output screen
