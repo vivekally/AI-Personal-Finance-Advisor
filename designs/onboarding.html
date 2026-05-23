@@ -32,6 +32,11 @@
 [data-theme="dark"] .step-item.active{background:#0B2616}
 [data-theme="dark"] .results-header{background:linear-gradient(135deg,#0B2616 0%,#143820 100%);border-color:#1F4A2E}
 [data-theme="dark"] .results-greeting,[data-theme="dark"] .results-h,[data-theme="dark"] .results-sub{color:#BBF7D0}
+[data-theme="dark"] .step-circle{background:var(--sur2);border-color:var(--b);color:var(--tf)}
+[data-theme="dark"] .student-insight{background:#2A1A0A;border-color:#5C3D14}
+[data-theme="dark"] .si-title{color:#FBBF24}
+[data-theme="dark"] .si-body{color:#FDE68A}
+[data-theme="dark"] .si-body strong{color:#FEF3C7}
 
 /* Theme toggle button */
 .theme-toggle{position:fixed;bottom:20px;right:20px;z-index:200;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--b);background:var(--sur);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:all .15s}
@@ -710,7 +715,7 @@ function toggleTheme(){
 (function(){
   let saved;
   try { saved = localStorage.getItem('arrive-theme'); } catch(e){}
-  if (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) saved = 'dark';
+  if (!saved) saved = 'dark';
   if (saved === 'dark') {
     document.documentElement.setAttribute('data-theme','dark');
     const btn = document.getElementById('theme-toggle');

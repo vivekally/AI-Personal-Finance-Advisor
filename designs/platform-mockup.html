@@ -27,6 +27,10 @@
 [data-theme="dark"] .tab.active{background:#0B2616;color:#86EFAC}
 [data-theme="dark"] .topbar-title,[data-theme="dark"] .card-title,[data-theme="dark"] .li-name{color:#F3F4F6}
 [data-theme="dark"] .sid-item:hover,[data-theme="dark"] .sid-item.active{background:#0B2616;color:#86EFAC}
+[data-theme="dark"] .b-blue{background:#1E3A5F;color:#93C5FD}
+[data-theme="dark"] .li-icon-blue{background:#1E3A5F}
+[data-theme="dark"] .recommendation{border-color:rgba(21,128,61,.35)}
+[data-theme="dark"] .gauge-marker{background:var(--bg);border-color:var(--p)}
 
 /* Theme toggle */
 .theme-toggle{position:fixed;bottom:20px;right:20px;z-index:200;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--b);background:var(--sur);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:all .15s}
@@ -1096,7 +1100,7 @@ function toggleTheme(){
 (function(){
   let saved;
   try { saved = localStorage.getItem('arrive-theme'); } catch(e){}
-  if (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) saved = 'dark';
+  if (!saved) saved = 'dark';
   if (saved === 'dark') {
     document.documentElement.setAttribute('data-theme','dark');
     setTimeout(()=>{const btn=document.getElementById('theme-toggle');if(btn)btn.textContent='☀️';},0);

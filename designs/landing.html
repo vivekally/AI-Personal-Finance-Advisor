@@ -30,6 +30,7 @@
 [data-theme="dark"] .student-section{background:linear-gradient(135deg,#0B2616 0%,#143820 100%);border-color:#1F4A2E}
 [data-theme="dark"] .student-h,[data-theme="dark"] .student-body{color:#BBF7D0}
 [data-theme="dark"] .student-fact{background:#13201A}
+[data-theme="dark"] .student-tag{background:rgba(21,128,61,.2);border-color:rgba(21,128,61,.4);color:#86EFAC}
 
 /* Theme toggle button */
 .theme-toggle{position:fixed;bottom:20px;right:20px;z-index:200;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--b);background:var(--sur);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:all .15s}
@@ -707,7 +708,7 @@ function toggleTheme() {
 (function(){
   let saved;
   try { saved = localStorage.getItem('arrive-theme'); } catch(e){}
-  if (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) saved = 'dark';
+  if (!saved) saved = 'dark';
   if (saved === 'dark') {
     document.documentElement.setAttribute('data-theme', 'dark');
     const btn = document.getElementById('theme-toggle');
