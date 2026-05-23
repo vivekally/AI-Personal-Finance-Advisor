@@ -1,3 +1,7 @@
 .DS_Store
 .gstack/
 .gbrain-source
+.claude/
+scripts/node_modules/
+scripts/bun.lockb
+arrive-finance-demo.mp4

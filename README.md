@@ -54,7 +54,10 @@ Arrive Finance is a personal finance OS for immigrants arriving in Canada. It gu
 | Landing page prototype | ✅ Built |
 | Onboarding wizard prototype (7-step) | ✅ Built |
 | Platform mockup (9 panels) | ✅ Built |
-| Investor deck (16 slides) | ✅ Built |
+| Hackathon deck (10 slides) | ✅ Built — Builder Sprint Toronto 2026 |
+| Investor deck (19 slides) | ✅ Built |
+| Demo video (1m 27s) | ✅ Built — `arrive-finance-demo-final.mp4` |
+| Hackathon deck PPTX | ✅ Built — `arrive-finance-hackathon.pptx` |
 | Product Requirements Document (PRD) | ✅ Complete (14 sections) |
 | Deep market research | ✅ Complete |
 | Beta user #1 — Shweta Singh | ✅ $20/month Interac |
@@ -70,20 +73,26 @@ Arrive Finance is a personal finance OS for immigrants arriving in Canada. It gu
 
 ```
 /
-├── README.md                   ← This file
-├── PRD.md                      ← Full Product Requirements Document (14 sections)
-├── DESIGN.md                   ← Design system: typography, color, spacing, i18n
-├── Deep_Research.md            ← Canadian market research + competitive analysis
-├── CLAUDE.md                   ← AI agent instructions and skill routing
+├── README.md                        ← This file
+├── PRD.md                           ← Full Product Requirements Document (14 sections)
+├── DESIGN.md                        ← Design system: typography, color, spacing, i18n
+├── Deep_Research.md                 ← Canadian market research + competitive analysis
+├── CLAUDE.md                        ← AI agent instructions and skill routing
+├── arrive-finance-hackathon.pptx    ← Hackathon deck exported as PowerPoint
+├── arrive-finance-demo-final.mp4    ← 1m 27s demo video with narration
+├── scripts/
+│   ├── make-pptx.ts                 ← Puppeteer + pptxgenjs: HTML → PPTX
+│   └── make-demo-video.ts           ← Puppeteer + ffmpeg: HTML → MP4
 └── designs/
-    ├── landing.html            ← arrive.finance landing page (live prototype)
-    ├── onboarding.html         ← 7-step onboarding wizard (JS state machine)
-    ├── platform-mockup.html    ← Full 9-panel platform (authenticated app)
-    ├── investor-deck.html      ← 16-slide investor presentation
-    ├── finalized.html          ← Finalized wizard flow (early version)
-    ├── variant-a.html          ← Design exploration: Advisor's Office
-    ├── variant-b.html          ← Design exploration: Clean Authority ← chosen direction
-    └── variant-c.html          ← Design exploration: Modern Warm
+    ├── landing.html                 ← arrive.finance landing page (live prototype)
+    ├── onboarding.html              ← 7-step onboarding wizard (JS state machine)
+    ├── platform-mockup.html         ← Full 9-panel platform (authenticated app)
+    ├── hackathon-deck.html          ← 10-slide Builder Sprint Toronto 2026 deck
+    ├── investor-deck.html           ← 19-slide investor presentation
+    ├── finalized.html               ← Finalized wizard flow (early version)
+    ├── variant-a.html               ← Design exploration: Advisor's Office
+    ├── variant-b.html               ← Design exploration: Clean Authority ← chosen direction
+    └── variant-c.html               ← Design exploration: Modern Warm
 ```
 
 ---
@@ -127,8 +136,21 @@ Full 9-panel authenticated platform:
 | **Specialist** | Book a licensed CFP who speaks your language |
 | **Execute** | SnapTrade integration for one-tap ETF execution (pending legal clearance) |
 
+### `designs/hackathon-deck.html`
+10-slide HTML presentation for Builder Sprint Toronto 2026 · Challenge #3 (The Access Problem). Keyboard navigation (← →), PDF download button, swipe support. Slides:
+1. Cover
+2. The Access Problem
+3. Meet Shweta *(one real person, what the access problem cost her)*
+4. The Solution
+5. YC Validates the Market *(Gustaf Alströmer's exact RFS quote)*
+6. Responsible AI & Trust by Design
+7. User Experience & Inclusivity *(10-language plan, multi-script)*
+8. Why Now + What Nobody Else is Building
+9. Path Forward *(timeline + unit economics)*
+10. The Ask
+
 ### `designs/investor-deck.html`
-16-slide HTML investor presentation with keyboard navigation (← →), swipe support, CSS transitions, and progress bar. Slides:
+19-slide HTML investor presentation with keyboard navigation (← →), swipe support, CSS transitions, and progress bar. Slides:
 1. Cover
 2. The Problem
 3. The Access Problem *(Millions underserved by the current system)*
