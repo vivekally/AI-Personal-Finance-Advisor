@@ -2,6 +2,7 @@
 .gstack/
 .gbrain-source
 .claude/
+.sources/
 scripts/node_modules/
 scripts/bun.lockb
 arrive-finance-demo.mp4
