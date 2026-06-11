@@ -5,4 +5,8 @@
 .sources/
 scripts/node_modules/
 scripts/bun.lockb
+Arrive Finance - Demo Prep/node_modules/
+Arrive Finance - Demo Prep/bun.lock
 arrive-finance-demo.mp4
+*.mp4
+*.pptx
