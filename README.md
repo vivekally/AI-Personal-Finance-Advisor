@@ -77,12 +77,17 @@ Arrive Finance is a personal finance OS for immigrants arriving in Canada. It gu
 ├── PRD.md                           ← Full Product Requirements Document (14 sections)
 ├── DESIGN.md                        ← Design system: typography, color, spacing, i18n
 ├── Deep_Research.md                 ← Canadian market research + competitive analysis
-├── CLAUDE.md                        ← AI agent instructions and skill routing
 ├── arrive-finance-hackathon.pptx    ← Hackathon deck exported as PowerPoint
 ├── arrive-finance-demo-final.mp4    ← 1m 27s demo video with narration
 ├── scripts/
 │   ├── make-pptx.ts                 ← Puppeteer + pptxgenjs: HTML → PPTX
 │   └── make-demo-video.ts           ← Puppeteer + ffmpeg: HTML → MP4
+├── docs/
+│   ├── tutorial-getting-started.md  ← Set up and run locally
+│   ├── reference-prototypes.md      ← Complete prototype reference
+│   ├── reference-architecture.md    ← Planned Next.js + Supabase architecture
+│   ├── howto-build-scripts.md       ← Generate PPTX, video, QA docs
+│   └── explanation-rules-engine.md  ← RRSP/TFSA/FHSA rules engine design
 └── designs/
     ├── landing.html                 ← arrive.finance landing page (live prototype)
     ├── onboarding.html              ← 7-step onboarding wizard (JS state machine)
@@ -279,6 +284,18 @@ Arrive Finance builds on Flinks today (Phase 1). Official bank APIs upgrade conn
 Full source citations and methodology are in [`Deep_Research.md`](./Deep_Research.md) and the [Appendix slide of the investor deck](./designs/investor-deck.html).
 
 Key sources: IRCC Annual Report 2025 · FCAC / Canada.ca · TD Bank Survey (via FCAC) · Statista · Mordor Intelligence · Globe and Mail · Flinks blog · DLA Piper · FP Canada Planner Directory.
+
+---
+
+## Developer Documentation
+
+| Document | Type | Description |
+|----------|------|-------------|
+| [Getting started](docs/tutorial-getting-started.md) | Tutorial | Clone, run prototypes locally, understand the project |
+| [Prototype reference](docs/reference-prototypes.md) | Reference | Complete map of every HTML prototype and its features |
+| [Build scripts](docs/howto-build-scripts.md) | How-to | Generate PPTX, demo video, and QA documents |
+| [Architecture](docs/reference-architecture.md) | Reference | Planned Next.js + Supabase stack, data model, build phases |
+| [Rules engine design](docs/explanation-rules-engine.md) | Explanation | Why the RRSP/TFSA/FHSA logic handles newcomer edge cases |
 
 ---
 
