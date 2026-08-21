@@ -142,7 +142,7 @@ const competitorRows = [
     cell("Arrive Finance", { bold: true, width: colWidths[0], fill: "DCFCE7" }),
     cell("Personal finance OS for newcomers to Canada. Onboard → Track → Optimize.", { width: colWidths[1], fill: "DCFCE7" }),
     cell("Newcomer-specific rules engine (RRSP year-1=$0, FHSA Dec 31, TFSA from tax residency). 10-language plan. Specialist directory with language filter. Human-in-the-loop AI advice. Built on Flinks (NBC-owned, regulated).", { width: colWidths[2], fill: "DCFCE7" }),
-    cell("Pre-revenue beyond $20 Shweta. Need to ship rules engine + wizard + Stripe to reach 10 paying users. Brokerage execution deferred pending IIROC review.", { width: colWidths[3], fill: "DCFCE7" }),
+    cell("Pre-revenue — Aman G's $20/month is a verbal commitment, not collected. Need to ship rules engine + wizard + Stripe to reach 10 paying users. Brokerage execution deferred pending IIROC review.", { width: colWidths[3], fill: "DCFCE7" }),
   ]}),
 ];
 
@@ -205,21 +205,21 @@ const doc = new Document({
       new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun({ text: "1. The Pitch — Three Lengths", bold: true, font: "Arial" })] }),
 
       new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun({ text: "The 30-Second Pitch", bold: true, font: "Arial" })] }),
-      p("483,000 newcomers arrive in Canada every year. 76% fear making a financial mistake. 38% don't understand the banking system. The first paying customer paid $20 on the first demo. Arrive Finance is the personal finance OS purpose-built for that moment — RRSP, TFSA, FHSA, in 10 languages, with the rules nobody else codifies. We're live in week one of the new open banking regime — Royal Assent March 26, 2026 — and we're the compliant migration path for the 9 million Canadians whose screen-scraping apps just became illegal."),
+      p("483,000 newcomers arrive in Canada every year. 76% fear making a financial mistake. 38% don't understand the banking system. Our first design partner offered $20/month unprompted on the first demo — verbal, not yet collected. Arrive Finance is the personal finance OS purpose-built for that moment — RRSP, TFSA, FHSA, in 10 languages, with the rules nobody else codifies. We ship on Flinks — regulated, National Bank-backed — as Canada's open banking framework phases in: Royal Assent March 26, 2026, draft regulations June 27, 2026, read access phasing in through 2027. The screen-scraping prohibition is legislated but not yet in force; when it commences we are already the compliant path."),
 
       new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun({ text: "The 60-Second Pitch", bold: true, font: "Arial" })] }),
-      p("Shweta Singh arrived from India in 2024, saved $100,000 over two years, and earned $0 in tax-advantaged growth. Her $14,000 of TFSA room expired silently. Her 2024 FHSA $8,000 is gone forever. She paid $600 to four CFPs just to understand what accounts she was eligible to open. She's one of 483,000 this year — 97.3% of Canada's entire 2024 population growth came from immigration."),
-      p("Arrive Finance is the financial OS we built for her. A 7-step onboarding wizard that knows the rules generic finance apps can't retrofit: RRSP year-1 = $0, TFSA accumulates from tax residency not PR, FHSA dies on December 31. Ten-language plan. Specialist directory with a language filter. Built on Flinks — 80% owned by National Bank — so we ride regulated infrastructure, not screen scraping (which the new Consumer-Driven Banking Act just made an offence)."),
-      p("Pre-seed. Prototypes live at vivekally.github.io. Shweta paid $20 on the first demo. We're targeting YC S2027 — and YC's own May 2025 RFS by Gustaf Alströmer is asking founders to build exactly this."),
+      p("Aman G arrived from India in 2024, saved $100,000 over two years, and earned $0 in tax-advantaged growth. His $14,000 of TFSA room sat untouched. His 2024 FHSA $8,000 never came into existence. He paid $600 to four CFPs just to understand what accounts he was eligible to open. He's one of 380,000 this year — 97.3% of Canada's entire 2024 population growth came from immigration."),
+      p("Arrive Finance is the financial OS we are building for him. A 7-step onboarding wizard that knows the rules generic finance apps can't retrofit: RRSP year-1 = $0, TFSA accumulates from tax residency not PR, FHSA dies on December 31. Ten-language plan. Specialist directory with a language filter. Built on Flinks — 80% owned by National Bank — so we ride regulated infrastructure, not screen scraping (which the new Consumer-Driven Banking Act legislates against, though that prohibition is not yet in force)."),
+      p("Pre-seed and pre-revenue. Prototypes live at vivekally.github.io. Aman G offered $20/month unprompted on the first demo — verbal, not yet collected. We're targeting YC S2027 — and YC's own May 2025 RFS by Gustaf Alströmer is asking founders to build exactly this."),
 
       new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun({ text: "The 3-Minute Pitch — Story Arc", bold: true, font: "Arial" })] }),
-      bullet("Open with Shweta. Real name, real loss. $14K TFSA gone, $8K FHSA gone, $600 spent just to learn what to open."),
-      bullet("Zoom out: she's 1 of 483,000 a year — and 97.3% of Canada's total population growth comes from this exact cohort. Immigration is THE growth story, not a side story."),
+      bullet("Open with Aman G. Real person, real loss. $14K TFSA untouched, $8K FHSA forfeited, $600 spent just to learn what to open."),
+      bullet("Zoom out: he's 1 of 380,000 a year under the 2026-2028 Levels Plan, on top of 2.1M already here on study/work permits — and 97.3% of Canada's total population growth comes from this exact cohort. Immigration is THE growth story, not a side story."),
       bullet("The problem nobody else solves: generic apps assume you already know what a TFSA is. Banks sell their own products. Newcomers are stuck."),
       bullet("Our wedge: ground-up rules engine for newcomer edge cases (RRSP year-1=$0, FHSA Dec 31 deadline, tax-residency-based eligibility for students). Impossible to bolt onto Mint/YNAB/Wealthsimple."),
       bullet("Trust architecture: education not advice, human-in-the-loop CFP review, PIPEDA-compliant data residency, Flinks (NBC-owned) for aggregation."),
       bullet("Why now: Consumer-Driven Banking Act Royal Assent March 26, 2026. Screen scraping now illegal. AI cost curve makes $20/month viable. India is the dominant source country (47% of Express Entry ITAs)."),
-      bullet("Traction: Shweta paid $20 by Interac on the first demo. 7-step wizard + landing + platform mockup all live. Targeting 10 paying users by Week 8, 1,000 users / $20K MRR / YC S2027 application by month 12."),
+      bullet("Traction: Aman G offered $20/month unprompted on the first demo — verbal commitment, not yet collected. 7-step wizard + landing + platform mockup all live. Targeting 10 paying users by Week 8, 1,000 users / $20K MRR / YC S2027 application by month 12."),
       bullet("Ask: try the prototype, connect us with newcomer communities, settlement agencies, and CFPs who speak Hindi or Mandarin."),
 
       // ─── 2. Anticipated Judge Q&A ───
@@ -260,7 +260,7 @@ const doc = new Document({
 
       // Q7
       new Paragraph({ heading: HeadingLevel.HEADING_3, children: [new TextRun({ text: "Q7. Why are you the team to build this?", bold: true, font: "Arial" })] }),
-      p("Built by a newcomer for newcomers. The founder lived the access problem. The first paying customer (Shweta) is not a synthetic persona — she paid $20 by Interac on the first demo, no prompting, no discount. That's the strongest possible signal that we understand the pain point because we've lived it."),
+      p("Built by a newcomer for newcomers. The founder lived the access problem. The first design partner (Aman G) is not a synthetic persona — he offered $20/month on the first demo, no prompting, no discount. Nothing has been collected yet, and we say so. That's still a strong signal that we understand the pain point because we've lived it."),
       p("On the technical side: prototypes are live, the design system is locked, the rules engine is being built next, Clerk + Turso + Stripe + Flinks is a stack we can execute. The deck and prototypes you're looking at were built in three weeks."),
 
       // Q8
@@ -275,7 +275,7 @@ const doc = new Document({
 
       // Q10
       new Paragraph({ heading: HeadingLevel.HEADING_3, children: [new TextRun({ text: "Q10. Walk me through your unit economics one more time.", bold: true, font: "Arial" })] }),
-      bullet("ARPU: $240/year (Pro at $20/mo) — Shweta is paying this today."),
+      bullet("ARPU: $240/year (Pro at $20/mo) — the price Aman G volunteered before we named one."),
       bullet("CAC: ~$40 via newcomer community channels (Facebook groups, settlement agencies, referral)."),
       bullet("LTV:CAC: 6:1 conservative (2-year retention assumption)."),
       bullet("Payback: 2.4 months."),
@@ -315,7 +315,7 @@ const doc = new Document({
       p("Settlement agencies (ACCES Employment, COSTI, ISSofBC) help with jobs, language training, housing. They are not licensed to give financial guidance and they don't have the technical infrastructure to surface FHSA deadlines or TFSA room calculations. They are our distribution partners, not our competitors. We give them a tool to hand to every newcomer they serve."),
 
       new Paragraph({ heading: HeadingLevel.HEADING_3, children: [new TextRun({ text: "\"$20/month is too expensive for newcomers.\"", bold: true, font: "Arial" })] }),
-      p("Shweta paid $20 on the first demo, no prompting. A single CFP session is $150. Avoiding ONE year of unused FHSA room saves $8,000. The ROI calculation does itself. We also have a Free tier (FHSA deadline tool, basic calculator) for trial/lead-gen — paid tier is for users who want the aggregation, alerts, and AI advisor."),
+      p("Aman G offered $20/month on the first demo, no prompting. A single CFP session is $150. Avoiding ONE year of unused FHSA room saves $8,000. The ROI calculation does itself. We also have a Free tier (FHSA deadline tool, basic calculator) for trial/lead-gen — paid tier is for users who want the aggregation, alerts, and AI advisor."),
 
       new Paragraph({ heading: HeadingLevel.HEADING_3, children: [new TextRun({ text: "\"AI hallucinations on tax advice will get you sued.\"", bold: true, font: "Arial" })] }),
       p("Education, not advice. Human-in-the-loop. Every recommendation has a licensed CFP signature before any money moves. We don't execute trades autonomously. The framing matters: 'Here's what a similar user did' is education. 'You should do this' is advice. We say the first, never the second."),
@@ -344,8 +344,8 @@ const doc = new Document({
       bullet("Show: Calculator panel (with RRSP year-1=$0 edge case), AI Advisor chat, Specialist Directory with language filter, Goals panel."),
       bullet("Mention: \"All My Money panel is Coming Soon — Flinks API approval is in progress.\""),
 
-      new Paragraph({ heading: HeadingLevel.HEADING_3, children: [new TextRun({ text: "Step 4: Close with Shweta's $20 (15 seconds)", bold: true, font: "Arial" })] }),
-      bullet("\"This isn't theoretical. The first paying customer paid $20 by Interac on the first demo. No prompting, no discount.\""),
+      new Paragraph({ heading: HeadingLevel.HEADING_3, children: [new TextRun({ text: "Step 4: Close with Aman G's $20 offer (15 seconds)", bold: true, font: "Arial" })] }),
+      bullet("\"This isn't theoretical. Our first design partner offered $20 a month on the first demo — no prompting, no discount. We haven't collected it yet, and we don't call it revenue.\""),
       bullet("\"Builder Sprint Challenge #3 is the Access Problem. We're building exactly that — for the cohort responsible for 97.3% of Canada's growth.\""),
 
       // ─── 6. Cheat Sheet ───
@@ -398,7 +398,7 @@ const doc = new Document({
       bullet("CAC: ~$40 via community channels."),
       bullet("LTV:CAC: 6:1."),
       bullet("Payback: 2.4 months."),
-      bullet("First paying customer: Shweta Singh, $20 by Interac, on the first demo."),
+      bullet("First design partner: Aman G — $20/month offered unprompted on the first demo. Verbal, not yet collected."),
 
       // ─── 7. Sources ───
       new Paragraph({ children: [new PageBreak()] }),

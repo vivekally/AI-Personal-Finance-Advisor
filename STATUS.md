@@ -15,7 +15,7 @@
 - `index.html` hub page
 - PRD, DESIGN.md, README.md documentation
 - Demo video + hackathon PPTX (gitignored)
-- 1 paying beta user at $20/month
+- Pre-revenue. 1 design partner (Aman G) offered $20/month verbally on the first demo — not collected
 
 ## Next Steps (When Resuming)
 1. **Init Next.js** — `npx create-next-app` in this directory

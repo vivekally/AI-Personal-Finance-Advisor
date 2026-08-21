@@ -12,7 +12,7 @@ The arrive.finance marketing page.
 | Persona cards | Three cards: Permanent Resident, International Student (highlighted), Work Permit |
 | Student spotlight | "$14,000 in unused TFSA room — no PR required" |
 | Pricing section | Free / Pro $20/mo / Premium $49/mo |
-| Testimonial | Shweta Singh quote with payment proof |
+| Testimonial | Aman G quote — verbal $20/month commitment, not yet collected |
 | Disclaimer | "Personalized financial education, not financial advice" |
 
 ## designs/onboarding.html
@@ -63,7 +63,7 @@ Full 9-panel authenticated platform. Sidebar navigation with icon buttons.
 | Slide count | 10 slides |
 | Built for | Challenge #3: The Access Problem |
 
-Slides: Cover, The Access Problem, Meet Shweta, The Solution, YC Validates the Market, Responsible AI, User Experience, Why Now, Path Forward, The Ask.
+Slides: Cover, The Access Problem, Meet Aman G, The Solution, YC Validates the Market, Responsible AI, User Experience, Why Now, Path Forward, The Ask.
 
 ## designs/investor-deck.html
 

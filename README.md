@@ -3,7 +3,7 @@
 **The financial operating system every newcomer to Canada needs.**
 
 > *"A one-stop solution where I can see my entire financial health from different accounts and investments and goals, and the system can help me plan my finances better."*
-> — Shweta Singh, Beta User #1 (paid $20 on the first demo)
+> — Aman G, design partner #1 (offered $20/month unprompted on the first demo)
 
 ---
 
@@ -12,7 +12,7 @@
 Arrive Finance is a personal finance OS for immigrants arriving in Canada. It guides newcomers through RRSP, TFSA, and FHSA account setup decisions, tracks financial health across all accounts, and surfaces AI-driven recommendations tailored to year-of-arrival edge cases that generic finance apps miss entirely.
 
 **Domain:** arrive.finance  
-**Stage:** Pre-seed · Design complete · Prototypes live · 1 paying beta user  
+**Stage:** Pre-seed · Design complete · Prototypes live · pre-revenue, 1 design partner  
 **Target:** YC S2027
 
 ---
@@ -60,7 +60,7 @@ Arrive Finance is a personal finance OS for immigrants arriving in Canada. It gu
 | Hackathon deck PPTX | ✅ Built — `arrive-finance-hackathon.pptx` |
 | Product Requirements Document (PRD) | ✅ Complete (14 sections) |
 | Deep market research | ✅ Complete |
-| Beta user #1 — Shweta Singh | ✅ $20/month Interac |
+| Design partner #1 — Aman G | ⚠️ $20/month offered verbally — not yet collected |
 | Flinks API application | ✅ Submitted (1–2 week approval) |
 | Rules engine (TypeScript) | 🔜 Week 3–4 |
 | Auth + DB (Clerk + Turso) | 🔜 Week 5–6 |
@@ -110,7 +110,7 @@ The arrive.finance marketing page. Key features:
 - Three persona cards: Permanent Resident, International Student (highlighted — TFSA/FHSA eligible without PR), Work Permit
 - Student spotlight: "$14,000 in unused TFSA room — no PR required"
 - Pricing: Free / Pro $20/mo / Premium $49/mo
-- Shweta testimonial
+- Aman G testimonial
 - "Personalized financial education, not financial advice" disclaimer
 
 ### `designs/onboarding.html`
@@ -145,7 +145,7 @@ Full 9-panel authenticated platform:
 10-slide HTML presentation for Builder Sprint Toronto 2026 · Challenge #3 (The Access Problem). Keyboard navigation (← →), PDF download button, swipe support. Slides:
 1. Cover
 2. The Access Problem
-3. Meet Shweta *(one real person, what the access problem cost her)*
+3. Meet Aman G *(one real person, what the access problem cost him)*
 4. The Solution
 5. YC Validates the Market *(Gustaf Alströmer's exact RFS quote)*
 6. Responsible AI & Trust by Design
