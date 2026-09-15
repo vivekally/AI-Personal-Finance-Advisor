@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI CFO Benchmark — Arrive Finance</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAF8;
+  --sur: #FFFFFF;
+  --sur2: #F3F4F6;
+  --p: #15803D;
+  --pd: #14532D;
+  --pl: #DCFCE7;
+  --p50: #F0FDF4;
+  --t: #111827;
+  --tm: #6B7280;
+  --tf: #9CA3AF;
+  --b: #E5E7EB;
+  --amber: #D97706;
+  --abg: #FFFBEB;
+  --ab: #FDE68A;
+  --info: #2563EB;
+  --info-bg: #EFF6FF;
+  --score-10: #14532D;
+  --score-9: #15803D;
+  --score-8: #16A34A;
+  --score-7: #22C55E;
+  --score-6: #86EFAC;
+  --score-5: #BBF7D0;
+  --score-4: #E5E7EB;
+  --score-3: #F3F4F6;
+  --score-2: #F9FAFB;
+  --score-1: #F9FAFB;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--t);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(145deg, #0a1a0f 0%, #0F2419 40%, #112318 100%);
+  padding: 48px 24px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: .03;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 48px, #fff 48px, #fff 49px),
+    repeating-linear-gradient(90deg, transparent, transparent 48px, #fff 48px, #fff 49px);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  right: -80px;
+  top: -100px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(21,128,61,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.logo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,.6);
+  text-decoration: none;
+}
+.logo-chip:hover { color: rgba(255,255,255,.9); }
+.hero-back {
+  font-size: 13px;
+  color: rgba(255,255,255,.4);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hero-back:hover { color: rgba(255,255,255,.7); }
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.hero h1 em { color: #86EFAC; font-style: normal; }
+.hero-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,.55);
+  line-height: 1.6;
+  max-width: 680px;
+  margin-bottom: 24px;
+}
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.h-stat-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: 24px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.h-stat-num.green { color: #86EFAC; }
+.h-stat-label {
+  font-size: 11px;
+  color: rgba(255,255,255,.4);
+  margin-top: 4px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* Main */
+.main { max-width: 1200px; margin: 0 auto; padding: 32px 24px 64px; }
+
+/* Category tabs */
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--b);
+  background: var(--sur);
+  color: var(--tm);
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.tab:hover { border-color: var(--p); color: var(--t); }
+.tab.active {
+  background: var(--pd);
+  color: #fff;
+  border-color: var(--pd);
+}
+.tab .count {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  opacity: .7;
+}
+
+/* Toggle bar */
+.toggle-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: var(--sur);
+  border: 1px solid var(--b);
+  border-radius: 12px;
+}
+.toggle-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.toggle-btn {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: var(--tm);
+  transition: all .12s;
+}
+.toggle-btn.active {
+  background: var(--p50);
+  color: var(--p);
+}
+.toggle-right {
+  font-size: 12px;
+  color: var(--tf);
+}
+
+/* Scorecard */
+.scorecard-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--b);
+  border-radius: 14px;
+  background: var(--sur);
+}
+.scorecard {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 1100px;
+}
+.scorecard thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--sur);
+  padding: 12px 10px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--tm);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  border-bottom: 2px solid var(--b);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+.scorecard thead th:hover { color: var(--p); }
+.scorecard thead th:first-child {
+  text-align: left;
+  padding-left: 16px;
+  min-width: 200px;
+  cursor: default;
+}
+.scorecard thead th:first-child:hover { color: var(--tm); }
+.scorecard thead th .sort-arrow {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 9px;
+  opacity: 0;
+  transition: opacity .1s;
+}
+.scorecard thead th:hover .sort-arrow,
+.scorecard thead th.sorted .sort-arrow { opacity: 1; }
+.scorecard thead th.sorted { color: var(--p); }
+
+.scorecard tbody tr {
+  border-bottom: 1px solid #F3F4F6;
+  transition: background .1s;
+}
+.scorecard tbody tr:hover { background: #FAFAF8; }
+.scorecard tbody tr.highlight { background: var(--p50); }
+.scorecard tbody tr.highlight:hover { background: #E0F5E7; }
+
+.scorecard td {
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+  font-variant-numeric: tabular-nums;
+}
+.scorecard td:first-child {
+  text-align: left;
+  padding-left: 16px;
+}
+
+/* Product cell */
+.prod {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.prod-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: var(--sur2);
+  flex-shrink: 0;
+}
+.prod-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--t);
+  line-height: 1.2;
+}
+.prod-market {
+  font-size: 11px;
+  color: var(--tf);
+  margin-top: 1px;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.b-green { background: var(--pl); color: var(--pd); }
+.b-amber { background: var(--abg); color: var(--amber); border: 1px solid var(--ab); }
+.b-blue { background: var(--info-bg); color: var(--info); }
+
+/* Price cell */
+.price-cell {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--tm);
+  white-space: nowrap;
+}
+
+/* Overall cell */
+.overall-cell {
+  font-family: 'Geist Mono', monospace;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--t);
+}
+
+/* Tested cell */
+.tested-cell {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  color: var(--tf);
+  white-space: nowrap;
+}
+.tested-cell .bar {
+  display: block;
+  width: 48px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--b);
+  margin: 4px auto 0;
+  overflow: hidden;
+}
+.tested-cell .bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--p);
+}
+
+/* Score cells */
+.score-cell {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  font-size: 13px;
+  min-width: 40px;
+}
+.score-cell.s10 { background: #14532D; color: #fff; }
+.score-cell.s9  { background: #15803D; color: #fff; }
+.score-cell.s8  { background: #16A34A; color: #fff; }
+.score-cell.s7  { background: #4ADE80; color: #14532D; }
+.score-cell.s6  { background: #86EFAC; color: #14532D; }
+.score-cell.s5  { background: #BBF7D0; color: #14532D; }
+.score-cell.s4  { background: #E8F5E9; color: #6B7280; }
+.score-cell.s3  { background: #F1F5F1; color: #9CA3AF; }
+.score-cell.s2  { background: #F5F5F5; color: #9CA3AF; }
+.score-cell.s1  { background: #F9FAFB; color: #D1D5DB; }
+.score-cell.na  { color: #D1D5DB; background: transparent; }
+
+/* Sections */
+.section {
+  margin-top: 48px;
+}
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--p);
+  margin-bottom: 10px;
+}
+.section-h {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--t);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.method-card {
+  background: var(--sur);
+  border: 1px solid var(--b);
+  border-radius: 12px;
+  padding: 20px;
+}
+.method-card h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.method-card p {
+  font-size: 13px;
+  color: var(--tm);
+  line-height: 1.55;
+}
+.method-card .scale {
+  display: flex;
+  gap: 3px;
+  margin-top: 10px;
+}
+.method-card .scale span {
+  width: 24px;
+  height: 16px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Geist Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+}
+
+/* Disclaimer */
+.disclaimer {
+  margin-top: 40px;
+  padding: 20px;
+  background: var(--sur2);
+  border-radius: 12px;
+  font-size: 12px;
+  color: var(--tm);
+  line-height: 1.6;
+}
+.disclaimer strong { color: var(--t); }
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 32px 24px;
+  border-top: 1px solid var(--b);
+  background: var(--sur);
+  font-size: 12px;
+  color: var(--tm);
+}
+footer a { color: var(--p); text-decoration: none; font-weight: 600; }
+footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 700px) {
+  .hero { padding: 32px 16px; }
+  .hero-stats { gap: 20px; }
+  .h-stat-num { font-size: 20px; }
+  .main { padding: 24px 16px 48px; }
+  .method-grid { grid-template-columns: 1fr; }
+  .tabs { gap: 6px; }
+  .tab { padding: 6px 12px; font-size: 12px; }
+}
+
+/* Arrive callout */
+.arrive-cta {
+  margin-top: 32px;
+  background: linear-gradient(135deg, #0F2419, #14532D);
+  border-radius: 14px;
+  padding: 32px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.arrive-cta-text h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.arrive-cta-text h3 em { color: #86EFAC; font-style: normal; }
+.arrive-cta-text p {
+  font-size: 14px;
+  color: rgba(255,255,255,.6);
+  line-height: 1.5;
+}
+.arrive-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #15803D;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background .15s;
+  flex-shrink: 0;
+}
+.arrive-cta-btn:hover { background: #16A34A; }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <a href="index.html" class="logo-chip">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#15803D"/><path d="M6 10.5L8.5 13L14 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Arrive Finance
+      </a>
+      <a href="index.html" class="hero-back">← Back to Prototypes</a>
+    </div>
+    <h1>AI CFO <em>Benchmark</em></h1>
+    <p class="hero-sub">An independent comparison of 20 AI-powered personal finance tools — scored across 12 dimensions from budgeting to tax optimization. See which tools actually deliver on their AI promises.</p>
+    <div class="hero-stats">
+      <div><div class="h-stat-num">20</div><div class="h-stat-label">Products tested</div></div>
+      <div><div class="h-stat-num">12</div><div class="h-stat-label">Dimensions</div></div>
+      <div><div class="h-stat-num green">v0.1</div><div class="h-stat-label">Benchmark version</div></div>
+      <div><div class="h-stat-num">Sep 2026</div><div class="h-stat-label">Last updated</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="main">
+
+  <!-- Category Tabs -->
+  <div class="tabs" id="tabs"></div>
+
+  <!-- Toggle bar -->
+  <div class="toggle-bar">
+    <div class="toggle-left">
+      <button class="toggle-btn active" id="btn-benchmark">Benchmark</button>
+      <button class="toggle-btn" id="btn-methodology">Methodology</button>
+    </div>
+    <div class="toggle-right">Scored 1–10 after hands-on testing. Overall is the mean of scored dimensions.</div>
+  </div>
+
+  <!-- Scorecard Table -->
+  <div class="scorecard-wrap" id="scorecard-section">
+    <table class="scorecard" id="scorecard">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th data-col="price">Price</th>
+          <th data-col="overall" class="sorted">Overall <span class="sort-arrow">▼</span></th>
+          <th data-col="tested">Tested</th>
+          <th data-col="budget">Budget<br>&amp; Spend <span class="sort-arrow">▼</span></th>
+          <th data-col="tax">Tax<br>Optim. <span class="sort-arrow">▼</span></th>
+          <th data-col="invest">Invest<br>Mgmt <span class="sort-arrow">▼</span></th>
+          <th data-col="debt">Debt<br>&amp; Bills <span class="sort-arrow">▼</span></th>
+          <th data-col="credit">Credit <span class="sort-arrow">▼</span></th>
+          <th data-col="savings">Savings <span class="sort-arrow">▼</span></th>
+          <th data-col="ai">AI<br>Quality <span class="sort-arrow">▼</span></th>
+          <th data-col="bank">Bank<br>Sync <span class="sort-arrow">▼</span></th>
+          <th data-col="proactive">Proactive <span class="sort-arrow">▼</span></th>
+          <th data-col="privacy">Privacy <span class="sort-arrow">▼</span></th>
+          <th data-col="canada">Canada <span class="sort-arrow">▼</span></th>
+          <th data-col="languages">Multi-<br>lingual <span class="sort-arrow">▼</span></th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- Methodology section (hidden by default) -->
+  <div id="methodology-section" style="display:none">
+    <div class="section">
+      <div class="section-label">Scoring methodology</div>
+      <div class="section-h">How we score each dimension</div>
+      <div class="method-grid" id="method-grid"></div>
+    </div>
+  </div>
+
+  <!-- Arrive CTA -->
+  <div class="arrive-cta">
+    <div class="arrive-cta-text" style="flex:1;min-width:260px">
+      <h3>Building the missing column: <em>Canada + Newcomers</em></h3>
+      <p>Arrive Finance is purpose-built for the 483K newcomers arriving in Canada each year — the only AI CFO that handles RRSP year-1 = $0, FHSA room expiry, and speaks 10 languages. See the product.</p>
+    </div>
+    <a href="designs/platform-mockup.html" class="arrive-cta-btn">View Platform Prototype →</a>
+  </div>
+
+  <!-- Disclaimer -->
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> This benchmark is maintained by the Arrive Finance team and reflects our best-effort evaluation as of September 2026. Scores are based on publicly available product information, published reviews, and hands-on testing where possible. Products marked "Pre-Launch" are scored on announced/planned capabilities. We welcome corrections — please open an issue on <a href="https://github.com/vivekally/AI-Personal-Finance-Advisor" style="color:var(--p)">GitHub</a>. This benchmark is not financial advice.
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Arrive Finance · <a href="https://github.com/vivekally/AI-Personal-Finance-Advisor">GitHub</a> · <a href="index.html">Prototypes</a> · Personalized financial education, not regulated advice.
+</footer>
+
+<script>
+const PRODUCTS = [
+  {
+    name: "Origin", icon: "🏛️", url: "https://useorigin.com", market: "US", price: "$13/mo",
+    cats: ["all","invest","aifirst"],
+    desc: "All-in-one financial management — equity comp, tax projection, CFP access",
+    scores: { budget:8, tax:8, invest:7, debt:4, credit:null, savings:6, ai:7, bank:8, proactive:7, privacy:6, canada:null, languages:null }
+  },
+  {
+    name: "Monarch Money", icon: "👑", url: "https://monarchmoney.com", market: "US", price: "$14.99/mo",
+    cats: ["all","budget","aifirst"],
+    desc: "Best-in-class dashboard with natural-language AI financial queries",
+    scores: { budget:9, tax:3, invest:5, debt:4, credit:3, savings:7, ai:9, bank:9, proactive:7, privacy:5, canada:null, languages:null }
+  },
+  {
+    name: "Wealthi AI", icon: "🧠", url: "https://getwealthi.ai", market: "Canada", price: "Freemium",
+    cats: ["all","canada","aifirst"],
+    desc: "Canadian all-in-one — 10K+ bank connections, RRSP/TFSA/FHSA optimization",
+    scores: { budget:7, tax:7, invest:7, debt:3, credit:3, savings:5, ai:7, bank:9, proactive:7, privacy:5, canada:8, languages:2 }
+  },
+  {
+    name: "Copilot Money", icon: "✈️", url: "https://copilot.money", market: "US", price: "$13/mo",
+    cats: ["all","budget"],
+    desc: "Apple-first design with highest categorization accuracy and AI insights",
+    scores: { budget:9, tax:null, invest:5, debt:3, credit:null, savings:6, ai:8, bank:9, proactive:7, privacy:5, canada:null, languages:null }
+  },
+  {
+    name: "Cleo", icon: "💬", url: "https://meetcleo.com", market: "US / UK", price: "$5.99/mo",
+    cats: ["all","debt","aifirst"],
+    desc: "Gen Z conversational AI coach — behavioral nudges, cash advances, credit building",
+    scores: { budget:7, tax:null, invest:null, debt:6, credit:7, savings:8, ai:9, bank:7, proactive:9, privacy:4, canada:null, languages:3 }
+  },
+  {
+    name: "Wealthfront", icon: "🌊", url: "https://wealthfront.com", market: "US", price: "0.25%/yr",
+    cats: ["all","invest"],
+    desc: "Robo-advisor — daily tax-loss harvesting, direct indexing at $100K, Path planner",
+    scores: { budget:null, tax:9, invest:9, debt:null, credit:null, savings:8, ai:5, bank:7, proactive:6, privacy:6, canada:null, languages:null }
+  },
+  {
+    name: "Richify", icon: "🦊", url: "https://richify.ai", market: "Global", price: "Free",
+    cats: ["all","aifirst"],
+    desc: "AI CFO team (Felix + 7 specialists) — multi-currency, Markowitz optimization, privacy-first",
+    scores: { budget:7, tax:4, invest:7, debt:null, credit:null, savings:5, ai:8, bank:null, proactive:6, privacy:9, canada:null, languages:7 }
+  },
+  {
+    name: "Betterment", icon: "📈", url: "https://betterment.com", market: "US", price: "0.25%/yr",
+    cats: ["all","invest"],
+    desc: "Goal-based robo-advisor with tax-loss harvesting and optional CFP access",
+    scores: { budget:null, tax:8, invest:9, debt:null, credit:null, savings:7, ai:5, bank:7, proactive:6, privacy:6, canada:null, languages:null }
+  },
+  {
+    name: "YNAB", icon: "💰", url: "https://ynab.com", market: "US / Global", price: "$14.99/mo",
+    cats: ["all","budget"],
+    desc: "Zero-based envelope budgeting with AI coach — gold standard for budget discipline",
+    scores: { budget:10, tax:null, invest:null, debt:4, credit:null, savings:7, ai:7, bank:7, proactive:5, privacy:7, canada:5, languages:3 }
+  },
+  {
+    name: "Thrive", icon: "🌱", url: "https://thethriveapp.net", market: "Canada", price: "Free (beta)",
+    cats: ["all","canada","invest"],
+    desc: "Canadian AI copilot for RRSP/TFSA/FHSA — net worth projection, Plaid sync",
+    scores: { budget:null, tax:8, invest:6, debt:null, credit:null, savings:5, ai:6, bank:7, proactive:6, privacy:6, canada:8, languages:null }
+  },
+  {
+    name: "Wealthsimple", icon: "💚", url: "https://wealthsimple.com", market: "Canada", price: "0.4%/yr",
+    cats: ["all","canada","invest"],
+    desc: "Canadian investing platform — self-directed + managed, 3M+ clients, newcomer onboarding",
+    scores: { budget:4, tax:7, invest:8, debt:null, credit:3, savings:7, ai:4, bank:6, proactive:5, privacy:6, canada:9, languages:2 }
+  },
+  {
+    name: "Empower", icon: "⚡", url: "https://empower.com", market: "US", price: "0.89%/yr",
+    cats: ["all","invest"],
+    desc: "Free net worth dashboard + paid wealth management with dedicated human advisors",
+    scores: { budget:6, tax:6, invest:8, debt:null, credit:3, savings:5, ai:4, bank:8, proactive:6, privacy:5, canada:null, languages:null }
+  },
+  {
+    name: "Rocket Money", icon: "🚀", url: "https://rocketmoney.com", market: "US", price: "$6–12/mo",
+    cats: ["all","debt"],
+    desc: "Subscription killer — AI-scans transactions, cancels recurring charges, negotiates bills",
+    scores: { budget:6, tax:null, invest:null, debt:8, credit:3, savings:5, ai:5, bank:8, proactive:8, privacy:4, canada:null, languages:null }
+  },
+  {
+    name: "Bright Money", icon: "☀️", url: "https://brightmoney.co", market: "US", price: "$7.99/mo",
+    cats: ["all","debt"],
+    desc: "AI-powered debt payoff — up to $750 advances, automated debt-reduction plans",
+    scores: { budget:5, tax:null, invest:null, debt:9, credit:6, savings:7, ai:6, bank:7, proactive:7, privacy:4, canada:null, languages:null }
+  },
+  {
+    name: "PsyFi", icon: "🧿", url: "https://psyfiapp.com", market: "US", price: "Freemium",
+    cats: ["all","aifirst"],
+    desc: "Behavioral finance AI coach — personalized guidance on saving, spending, and investing habits",
+    scores: { budget:6, tax:null, invest:4, debt:5, credit:null, savings:6, ai:8, bank:5, proactive:8, privacy:6, canada:null, languages:null }
+  },
+  {
+    name: "KOHO", icon: "🟡", url: "https://koho.ca", market: "Canada", price: "Free–$22/mo",
+    cats: ["all","canada","debt"],
+    desc: "Canadian neobank — prepaid card, no credit check, credit building, auto-savings",
+    scores: { budget:5, tax:null, invest:null, debt:null, credit:8, savings:7, ai:3, bank:4, proactive:5, privacy:5, canada:8, languages:2 }
+  },
+  {
+    name: "Quicken Simplifi", icon: "📊", url: "https://simplifi.quicken.com", market: "US", price: "$5.99/mo",
+    cats: ["all","budget"],
+    desc: "Adaptive spending plan that adjusts throughout the month — Quicken's modern app",
+    scores: { budget:8, tax:null, invest:4, debt:3, credit:null, savings:5, ai:5, bank:8, proactive:6, privacy:5, canada:3, languages:null }
+  },
+  {
+    name: "Finny", icon: "🐟", url: "https://getfinny.app", market: "Global", price: "$1.99/mo",
+    cats: ["all","budget"],
+    desc: "Privacy-first manual + AI entry — voice, receipt scan, NFC capture, offline, no bank login",
+    scores: { budget:7, tax:null, invest:null, debt:null, credit:null, savings:null, ai:6, bank:null, proactive:null, privacy:10, canada:null, languages:8 }
+  },
+  {
+    name: "Piere", icon: "🟢", url: "https://piere.com", market: "US", price: "Freemium",
+    cats: ["all","budget","debt"],
+    desc: "AI Mint replacement — MyPlan, self-driving money, debt payoff plans, credit union B2B2C",
+    scores: { budget:8, tax:null, invest:null, debt:7, credit:5, savings:8, ai:7, bank:8, proactive:7, privacy:5, canada:null, languages:null }
+  },
+  {
+    name: "Arrive Finance", icon: "✅", url: "designs/platform-mockup.html", market: "Canada", price: "$20/mo",
+    cats: ["all","canada","aifirst"],
+    desc: "Canadian newcomer AI CFO — RRSP/TFSA/FHSA optimizer, 10 languages, advisor directory",
+    badge: "Pre-Launch",
+    highlight: true,
+    scores: { budget:6, tax:8, invest:6, debt:4, credit:4, savings:6, ai:7, bank:7, proactive:7, privacy:6, canada:10, languages:9 }
+  }
+];
+
+const DIMENSIONS = [
+  { key:"budget", name:"Budget & Spend", desc:"Transaction categorization, spending insights, adaptive budgets, envelope/goal-based allocation." },
+  { key:"tax", name:"Tax Optimization", desc:"Tax-loss harvesting, RRSP/TFSA/FHSA optimization, contribution room tracking, tax-filing integration." },
+  { key:"invest", name:"Investment Mgmt", desc:"Portfolio tracking, robo-advisor, rebalancing, direct indexing, asset allocation, stock analysis." },
+  { key:"debt", name:"Debt & Bills", desc:"Debt payoff strategies, bill negotiation, subscription cancellation, cash advances." },
+  { key:"credit", name:"Credit", desc:"Credit monitoring, score building tools, credit card recommendations, credit history." },
+  { key:"savings", name:"Savings", desc:"Auto-savings, goal-based savings, roundups, high-interest accounts, smart transfers." },
+  { key:"ai", name:"AI Quality", desc:"Natural language queries, multi-agent AI, conversational accuracy, personalized insights, AI depth." },
+  { key:"bank", name:"Bank Sync", desc:"Number of connected institutions, data freshness, aggregation quality, multi-country support." },
+  { key:"proactive", name:"Proactive", desc:"Behavioral nudges, anomaly detection, deadline alerts, actionable insights without being asked." },
+  { key:"privacy", name:"Privacy", desc:"Data minimization, no-bank-link option, encryption standards, data sharing practices." },
+  { key:"canada", name:"Canada", desc:"RRSP/TFSA/FHSA support, Canadian bank connections, CRA integration, newcomer-specific features." },
+  { key:"languages", name:"Multilingual", desc:"Number of languages supported, quality of multilingual UX, locale-specific financial terms." }
+];
+
+function computeOverall(scores) {
+  const vals = Object.values(scores).filter(v => v !== null);
+  if (!vals.length) return 0;
+  return (vals.reduce((a,b) => a + b, 0) / vals.length);
+}
+
+function testedCount(scores) {
+  return Object.values(scores).filter(v => v !== null).length;
+}
+
+function scoreClass(val) {
+  if (val === null) return 'na';
+  return 's' + Math.min(10, Math.max(1, val));
+}
+
+let currentSort = { col: 'overall', dir: 'desc' };
+let currentCat = 'all';
+
+function sortProducts(products) {
+  return [...products].sort((a, b) => {
+    let av, bv;
+    if (currentSort.col === 'overall') {
+      av = computeOverall(a.scores);
+      bv = computeOverall(b.scores);
+    } else if (currentSort.col === 'tested') {
+      av = testedCount(a.scores);
+      bv = testedCount(b.scores);
+    } else if (currentSort.col === 'price') {
+      av = a.price;
+      bv = b.price;
+      return currentSort.dir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+    } else {
+      av = a.scores[currentSort.col] ?? -1;
+      bv = b.scores[currentSort.col] ?? -1;
+    }
+    return currentSort.dir === 'asc' ? av - bv : bv - av;
+  });
+}
+
+function render() {
+  const filtered = PRODUCTS.filter(p => p.cats.includes(currentCat));
+  const sorted = sortProducts(filtered);
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+
+  sorted.forEach(p => {
+    const ov = computeOverall(p.scores);
+    const tc = testedCount(p.scores);
+    const tr = document.createElement('tr');
+    if (p.highlight) tr.className = 'highlight';
+
+    let badgeHtml = '';
+    if (p.badge) {
+      const bClass = p.badge === 'Pre-Launch' ? 'b-amber' : 'b-green';
+      badgeHtml = `<span class="badge ${bClass}">${p.badge}</span>`;
+    }
+
+    let html = `
+      <td>
+        <div class="prod">
+          <div class="prod-icon">${p.icon}</div>
+          <div>
+            <div class="prod-name">${p.name}${badgeHtml}</div>
+            <div class="prod-market">${p.market} · ${p.desc.slice(0,60)}${p.desc.length > 60 ? '…' : ''}</div>
+          </div>
+        </div>
+      </td>
+      <td class="price-cell">${p.price}</td>
+      <td class="overall-cell">${ov.toFixed(1)}</td>
+      <td class="tested-cell">${tc}/12<div class="bar"><div class="bar-fill" style="width:${(tc/12*100).toFixed(0)}%"></div></div></td>
+    `;
+
+    DIMENSIONS.forEach(d => {
+      const val = p.scores[d.key];
+      html += `<td class="score-cell ${scoreClass(val)}">${val !== null ? val : '—'}</td>`;
+    });
+
+    tr.innerHTML = html;
+    tbody.appendChild(tr);
+  });
+
+  // Update sorted column header styling
+  document.querySelectorAll('.scorecard thead th').forEach(th => {
+    const col = th.dataset.col;
+    th.classList.toggle('sorted', col === currentSort.col);
+  });
+}
+
+// Tab clicks
+document.getElementById('tabs').addEventListener('click', e => {
+  const btn = e.target.closest('.tab');
+  if (!btn) return;
+  currentCat = btn.dataset.cat;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+});
+
+// Sort clicks
+document.querySelector('.scorecard thead').addEventListener('click', e => {
+  const th = e.target.closest('th[data-col]');
+  if (!th) return;
+  const col = th.dataset.col;
+  if (col === currentSort.col) {
+    currentSort.dir = currentSort.dir === 'desc' ? 'asc' : 'desc';
+  } else {
+    currentSort = { col, dir: 'desc' };
+  }
+  render();
+});
+
+// Toggle benchmark / methodology
+document.getElementById('btn-benchmark').addEventListener('click', () => {
+  document.getElementById('btn-benchmark').classList.add('active');
+  document.getElementById('btn-methodology').classList.remove('active');
+  document.getElementById('scorecard-section').style.display = '';
+  document.getElementById('methodology-section').style.display = 'none';
+});
+document.getElementById('btn-methodology').addEventListener('click', () => {
+  document.getElementById('btn-methodology').classList.add('active');
+  document.getElementById('btn-benchmark').classList.remove('active');
+  document.getElementById('scorecard-section').style.display = 'none';
+  document.getElementById('methodology-section').style.display = '';
+  renderMethodology();
+});
+
+function renderMethodology() {
+  const grid = document.getElementById('method-grid');
+  if (grid.children.length) return;
+  DIMENSIONS.forEach(d => {
+    const card = document.createElement('div');
+    card.className = 'method-card';
+    card.innerHTML = `
+      <h4>${d.name}</h4>
+      <p>${d.desc}</p>
+      <div class="scale">
+        ${[1,2,3,4,5,6,7,8,9,10].map(n => `<span class="score-cell s${n}">${n}</span>`).join('')}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Generate tabs dynamically
+const CATS = [
+  { key:'all', label:'All' },
+  { key:'budget', label:'Budget & Spend' },
+  { key:'invest', label:'Invest & Tax' },
+  { key:'debt', label:'Debt & Credit' },
+  { key:'canada', label:'Canada' },
+  { key:'aifirst', label:'AI-First' }
+];
+const tabsEl = document.getElementById('tabs');
+CATS.forEach(c => {
+  const count = PRODUCTS.filter(p => p.cats.includes(c.key)).length;
+  const btn = document.createElement('button');
+  btn.className = 'tab' + (c.key === 'all' ? ' active' : '');
+  btn.dataset.cat = c.key;
+  btn.innerHTML = `${c.label} <span class="count">${count}</span>`;
+  tabsEl.appendChild(btn);
+});
+
+render();
+</script>
+
+</body>
+</html>
