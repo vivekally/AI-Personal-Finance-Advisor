@@ -546,9 +546,9 @@ footer a:hover { text-decoration: underline; }
       <a href="index.html" class="hero-back">← Back to Prototypes</a>
     </div>
     <h1>AI CFO <em>Benchmark</em></h1>
-    <p class="hero-sub">An independent comparison of 20 AI-powered personal finance tools — scored across 12 dimensions from budgeting to tax optimization. See which tools actually deliver on their AI promises.</p>
+    <p class="hero-sub">An independent comparison of 21 AI-powered personal finance tools — scored across 12 dimensions from budgeting to tax optimization. See which tools actually deliver on their AI promises.</p>
     <div class="hero-stats">
-      <div><div class="h-stat-num">20</div><div class="h-stat-label">Products tested</div></div>
+      <div><div class="h-stat-num">21</div><div class="h-stat-label">Products tested</div></div>
       <div><div class="h-stat-num">12</div><div class="h-stat-label">Dimensions</div></div>
       <div><div class="h-stat-num green">v0.1</div><div class="h-stat-label">Benchmark version</div></div>
       <div><div class="h-stat-num">Sep 2026</div><div class="h-stat-label">Last updated</div></div>
@@ -741,6 +741,13 @@ const PRODUCTS = [
     cats: ["all","budget","debt"],
     desc: "AI Mint replacement — MyPlan, self-driving money, debt payoff plans, credit union B2B2C",
     scores: { budget:8, tax:null, invest:null, debt:7, credit:5, savings:8, ai:7, bank:8, proactive:7, privacy:5, canada:null, languages:null }
+  },
+  {
+    name: "ChatGPT Finances", icon: "🤖", url: "https://openai.com/chatgpt", market: "US", price: "$200/mo",
+    cats: ["all","aifirst"],
+    desc: "OpenAI's native bank-connected finance via GPT-5.5 — Plaid to 12K+ institutions, portfolio + spending + planning (built on Hiro acquisition)",
+    badge: "New",
+    scores: { budget:7, tax:3, invest:7, debt:4, credit:null, savings:5, ai:9, bank:8, proactive:6, privacy:4, canada:null, languages:7 }
   },
   {
     name: "Arrive Finance", icon: "✅", url: "designs/platform-mockup.html", market: "Canada", price: "$20/mo",
