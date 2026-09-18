@@ -955,6 +955,7 @@ const CATS = [
   { key:'usa', label:'USA' },
   { key:'canada', label:'Canada' },
   { key:'india', label:'India' },
+  { key:'global', label:'Global' },
   { key:'budget', label:'Budget & Spend' },
   { key:'invest', label:'Invest & Tax' },
   { key:'debt', label:'Debt & Credit' },
@@ -967,6 +968,7 @@ PRODUCTS.forEach(p => {
   if (m.includes('us') && !p.cats.includes('usa')) p.cats.push('usa');
   if (m.includes('canada') && !p.cats.includes('canada')) p.cats.push('canada');
   if (m.includes('india') && !p.cats.includes('india')) p.cats.push('india');
+  if ((m.includes('global') || m.includes('uk')) && !p.cats.includes('global')) p.cats.push('global');
 });
 
 // Normalize scores — fill missing dimension keys with null
