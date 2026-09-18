@@ -661,19 +661,19 @@ const PRODUCTS = [
   },
   {
     name: "Wealthfront", icon: "🌊", url: "https://wealthfront.com", market: "US", price: "0.25%/yr",
-    cats: ["all","invest"],
+    cats: ["all","invest","robo"],
     desc: "Robo-advisor — daily tax-loss harvesting, direct indexing at $100K, Path planner",
     scores: { budget:null, tax:9, invest:9, debt:null, credit:null, savings:8, ai:5, bank:7, proactive:6, privacy:6, canada:null, languages:null }
   },
   {
     name: "Richify", icon: "🦊", url: "https://richify.ai", market: "Global", price: "Free",
-    cats: ["all","aifirst"],
+    cats: ["all","aifirst","robo"],
     desc: "AI CFO team (Felix + 7 specialists) — multi-currency, Markowitz optimization, privacy-first",
     scores: { budget:7, tax:4, invest:7, debt:null, credit:null, savings:5, ai:8, bank:null, proactive:6, privacy:9, canada:null, languages:7 }
   },
   {
     name: "Betterment", icon: "📈", url: "https://betterment.com", market: "US", price: "0.25%/yr",
-    cats: ["all","invest"],
+    cats: ["all","invest","robo"],
     desc: "Goal-based robo-advisor with tax-loss harvesting and optional CFP access",
     scores: { budget:null, tax:8, invest:9, debt:null, credit:null, savings:7, ai:5, bank:7, proactive:6, privacy:6, canada:null, languages:null }
   },
@@ -685,7 +685,7 @@ const PRODUCTS = [
   },
   {
     name: "Thrive", icon: "🌱", url: "https://thethriveapp.net", market: "Canada", price: "Free (beta)",
-    cats: ["all","canada","invest"],
+    cats: ["all","canada","invest","robo"],
     desc: "Canadian AI copilot for RRSP/TFSA/FHSA — net worth projection, Plaid sync",
     scores: { budget:null, tax:8, invest:6, debt:null, credit:null, savings:5, ai:6, bank:7, proactive:6, privacy:6, canada:8, languages:null }
   },
@@ -697,7 +697,7 @@ const PRODUCTS = [
   },
   {
     name: "Empower", icon: "⚡", url: "https://empower.com", market: "US", price: "0.89%/yr",
-    cats: ["all","invest"],
+    cats: ["all","invest","robo"],
     desc: "Free net worth dashboard + paid wealth management with dedicated human advisors",
     scores: { budget:6, tax:6, invest:8, debt:null, credit:3, savings:5, ai:4, bank:8, proactive:6, privacy:5, canada:null, languages:null }
   },
@@ -751,13 +751,13 @@ const PRODUCTS = [
   },
   {
     name: "INDMoney", icon: "💎", url: "https://indmoney.com", market: "India", price: "Free–₹5K/yr",
-    cats: ["all","india","invest"],
+    cats: ["all","india","invest","robo"],
     desc: "All-in-one wealth app — stocks, MFs, US fractional investing, NPS, insurance, AI net worth tracker, 10M+ users",
     scores: { budget:5, tax:5, invest:8, debt:null, credit:null, savings:6, ai:5, bank:8, proactive:5, privacy:5, canada:null, india:9, languages:null }
   },
   {
     name: "Kuvera", icon: "🔶", url: "https://kuvera.in", market: "India", price: "Free",
-    cats: ["all","india","invest"],
+    cats: ["all","india","invest","robo"],
     desc: "Zero-commission MF + FD + US ETFs by CRED — robo-advisory, tax-loss harvesting, 75K+ goals, ₹28K Cr AUM",
     scores: { budget:null, tax:7, invest:8, debt:null, credit:null, savings:6, ai:6, bank:6, proactive:5, privacy:7, canada:null, india:8, languages:null }
   },
@@ -956,6 +956,7 @@ const CATS = [
   { key:'canada', label:'Canada' },
   { key:'india', label:'India' },
   { key:'global', label:'Global' },
+  { key:'robo', label:'Robo-Advisor' },
   { key:'budget', label:'Budget & Spend' },
   { key:'invest', label:'Invest & Tax' },
   { key:'debt', label:'Debt & Credit' },
